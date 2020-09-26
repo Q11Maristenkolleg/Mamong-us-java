@@ -6,9 +6,10 @@ import com.siinus.simpleGrafixShader.ShaderProgram;
 import com.siinus.simpleGrafixShader.ShaderRenderer;
 
 public class Main extends ShaderProgram {
+    Handler handler;
     ShaderImage spritePlayer = new ShaderImage("/test.png");
     ShaderImage spriteWall = new ShaderImage("/test.png");
-    Light light = new Light(150, 0xffffffff);
+    //Light light = new Light(150, 0xffffffff);
     Player player;
     Wall wall;
 
@@ -17,6 +18,7 @@ public class Main extends ShaderProgram {
     }
 
     public Main() {
+        handler = new Handler();
         setIconImage(spritePlayer);
         wall = new Wall(this, spriteWall, 126, 126,TypeID.WALL,new Handler());
         player = new Player(this, spritePlayer, 126,126,TypeID.PLAYER,new Handler());
@@ -31,13 +33,13 @@ public class Main extends ShaderProgram {
 
     @Override
     public void update() {
-        new Handler().update();
+        handler.update();
     }
 
     @Override
     public void render() {
         getRenderer().setBgColor(0xffffffff);
-        new Handler().render();
+        handler.render();
         //getShaderRenderer().drawLight(light, getInput().getMouseX(), getInput().getMouseY());
     }
 

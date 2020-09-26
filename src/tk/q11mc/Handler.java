@@ -10,7 +10,6 @@ public class Handler {
 
         for (GameObject tempObject : objects) {
             tempObject.update();
-
         }
 
     }
@@ -18,7 +17,6 @@ public class Handler {
 
         for (GameObject tempObject : objects) {
             tempObject.render();
-
         }
     }
     public void addObject(GameObject objects) {
