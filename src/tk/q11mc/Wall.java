@@ -2,12 +2,13 @@ package tk.q11mc;
 
 import com.siinus.simpleGrafixShader.ShaderImage;
 
-public class Wall extends GameObject implements ICollideable{
+import java.awt.*;
 
-    public Wall(Main program, ShaderImage sprite, int width, int height) {
-        super(program, sprite, width, height);
-        this.sprite.setLightBlock(1);
-        objects.add(this);
+public class Wall extends GameObject{
+
+
+    public Wall(Main program, ShaderImage sprite, int width, int height, TypeID typeID, Handler handler) {
+        super(program, sprite, width, height, typeID, handler);
     }
 
     @Override
@@ -21,6 +22,11 @@ public class Wall extends GameObject implements ICollideable{
     }
 
     @Override
+    public Rectangle getBounds() {
+        return new Rectangle(x,y,width,height);
+    }
+
+    /*@Override
     public Side collides(GameObject other) {
         int speed = other instanceof Player ? (int) ((Player) other).getSpeed() : 1;
 
@@ -42,4 +48,6 @@ public class Wall extends GameObject implements ICollideable{
     private boolean checkCollision(int x, int y, GameObject other) {
         return x + width >= other.x && x <= other.x + other.width && y + height >= other.y && y <= other.y + other.height;
     }
+
+     */
 }

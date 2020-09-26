@@ -18,8 +18,8 @@ public class Main extends ShaderProgram {
 
     public Main() {
         setIconImage(spritePlayer);
-        wall = new Wall(this, spriteWall, 126, 126);
-        player = new Player(this, spritePlayer, 126,126);
+        wall = new Wall(this, spriteWall, 126, 126,TypeID.WALL,new Handler());
+        player = new Player(this, spritePlayer, 126,126,TypeID.PLAYER,new Handler());
         wall.x = 500;
         wall.y = 250;
     }
@@ -31,17 +31,13 @@ public class Main extends ShaderProgram {
 
     @Override
     public void update() {
-        for (GameObject object : GameObject.objects) {
-            object.update();
-        }
+        new Handler().update();
     }
 
     @Override
     public void render() {
         getRenderer().setBgColor(0xffffffff);
-        for (GameObject object : GameObject.objects) {
-            object.render();
-        }
+        new Handler().render();
         //getShaderRenderer().drawLight(light, getInput().getMouseX(), getInput().getMouseY());
     }
 
