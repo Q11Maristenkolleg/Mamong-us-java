@@ -18,6 +18,7 @@ public class Main extends ShaderProgram {
 
     public Main() {
         setIconImage(spritePlayer);
+        spriteWall.setLightBlock(1);
         wall = new Wall(this, spriteWall, 126, 126,TypeID.WALL,new Handler());
         player = new Player(this, spritePlayer, 126,126,TypeID.PLAYER,new Handler());
         wall.x = 500;
