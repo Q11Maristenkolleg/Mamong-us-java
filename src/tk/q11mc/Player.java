@@ -9,7 +9,7 @@ import java.awt.event.KeyEvent;
 
 public class Player extends GameObject {
     //private final Light light;
-    public int dx = 2, dy = 2;
+    public int dx = 4, dy = 4;
     //dx und dy müssen genauso groß sein wie speed
     boolean oben = false,unten = false,links = false,rechts = false;
     static float speed,minusSpeed;
@@ -23,7 +23,7 @@ public class Player extends GameObject {
         controls();
     }
     public void controls() {
-        speed = 2f;
+        speed = 4f;
         minusSpeed = -1*speed;
         if(program.getInput().isKeyDown(KeyEvent.VK_W)) {
             oben = false;
@@ -34,7 +34,7 @@ public class Player extends GameObject {
                 setSpeedY(0);
             }
         }
-        else if(program.getInput().isKeyDown(KeyEvent.VK_A)) {
+        if(program.getInput().isKeyDown(KeyEvent.VK_A)) {
             links = false;
             if(rechts) {
                 setSpeedX(speed);
@@ -43,7 +43,7 @@ public class Player extends GameObject {
                 setSpeedX(0);
             }
         }
-        else if(program.getInput().isKeyDown(KeyEvent.VK_S)) {
+        if(program.getInput().isKeyDown(KeyEvent.VK_S)) {
             unten = false;
             if(oben) {
                 setSpeedY(minusSpeed);
@@ -52,7 +52,7 @@ public class Player extends GameObject {
                 setSpeedY(0);
             }
         }
-        else if(program.getInput().isKeyDown(KeyEvent.VK_D)) {
+        if(program.getInput().isKeyDown(KeyEvent.VK_D)) {
             rechts = false;
             if(links) {
                 setSpeedX(minusSpeed);
@@ -61,28 +61,28 @@ public class Player extends GameObject {
                 setSpeedX(0);
             }
         }
-        else if(program.getInput().isKeyPressed(KeyEvent.VK_W)) {
+        if(program.getInput().isKeyPressed(KeyEvent.VK_W)) {
             oben = true;
             setSpeedY(minusSpeed);
             if(!collisionup()) {
                 y+=speedY;
             }
         }
-        else if(program.getInput().isKeyPressed(KeyEvent.VK_A)) {
+        if(program.getInput().isKeyPressed(KeyEvent.VK_A)) {
             links = true;
             setSpeedX(minusSpeed);
             if(!collisionleft()) {
                 x+=speedX;
             }
         }
-        else if(program.getInput().isKeyPressed(KeyEvent.VK_S)) {
+        if(program.getInput().isKeyPressed(KeyEvent.VK_S)) {
             unten = true;
             setSpeedY(speed);
             if(!collisiondown()) {
                 y+=speedY;
             }
         }
-        else if(program.getInput().isKeyPressed(KeyEvent.VK_D)) {
+        if(program.getInput().isKeyPressed(KeyEvent.VK_D)) {
             rechts = true;
             setSpeedX(speed);
             if(!collisionright()) {

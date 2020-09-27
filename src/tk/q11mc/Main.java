@@ -1,11 +1,12 @@
 package tk.q11mc;
 
+import com.siinus.simpleGrafix.Program;
 import com.siinus.simpleGrafixShader.Light;
 import com.siinus.simpleGrafixShader.ShaderImage;
 import com.siinus.simpleGrafixShader.ShaderProgram;
 import com.siinus.simpleGrafixShader.ShaderRenderer;
 
-public class Main extends ShaderProgram {
+public class Main extends Program {
     Handler handler;
     ShaderImage spritePlayer = new ShaderImage("/test.png");
     ShaderImage spriteWall = new ShaderImage("/test.png");
@@ -14,7 +15,7 @@ public class Main extends ShaderProgram {
     Wall wall;
 
     public static void main(String[] args) {
-        new Main().initShader();
+        new Main().init();
     }
 
     public Main() {
@@ -29,7 +30,8 @@ public class Main extends ShaderProgram {
 
     @Override
     public void start() {
-
+        getWindow().setScaleOnResize(true);
+        setCapFps(false);
     }
 
     @Override
@@ -47,9 +49,5 @@ public class Main extends ShaderProgram {
     @Override
     public void stop() {
 
-    }
-
-    public ShaderRenderer getShader() {
-        return getShaderRenderer();
     }
 }
