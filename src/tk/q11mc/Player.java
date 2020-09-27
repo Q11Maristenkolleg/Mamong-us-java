@@ -25,7 +25,7 @@ public class Player extends GameObject {
     public void controls() {
         speed = 4f;
         minusSpeed = -1*speed;
-        if(program.getInput().isKeyDown(KeyEvent.VK_W)) {
+        /*if(program.getInput().isKeyDown(KeyEvent.VK_W)) {
             oben = false;
             if(unten) {
                 setSpeedY(speed);
@@ -88,8 +88,19 @@ public class Player extends GameObject {
             if(!collisionright()) {
                 x+=speedX;
             }
+        }*/
+        if (program.getInput().isKeyPressed(KeyEvent.VK_D) && !collisionright()) {
+            x+=speed;
         }
-
+        if (program.getInput().isKeyPressed(KeyEvent.VK_S) && !collisiondown()) {
+            y+=speed;
+        }
+        if (program.getInput().isKeyPressed(KeyEvent.VK_A) && !collisionleft()) {
+            x-=speed;
+        }
+        if (program.getInput().isKeyPressed(KeyEvent.VK_W) && !collisionup()) {
+            y-=speed;
+        }
     }
     public boolean collisionup() {
         for(GameObject other : Handler.objects ) {
