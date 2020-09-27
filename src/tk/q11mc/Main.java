@@ -14,6 +14,8 @@ public class Main extends Program {
     Player player;
     Wall wall;
 
+    Camera camera;
+
     public static void main(String[] args) {
         new Main().init();
     }
@@ -26,6 +28,8 @@ public class Main extends Program {
         player = new Player(this, spritePlayer, 126,126,TypeID.PLAYER,new Handler());
         wall.x = 500;
         wall.y = 250;
+
+        camera = new Camera(player);
     }
 
     @Override
@@ -37,6 +41,8 @@ public class Main extends Program {
     @Override
     public void update() {
         handler.update();
+
+        camera.update();
     }
 
     @Override
@@ -49,5 +55,9 @@ public class Main extends Program {
     @Override
     public void stop() {
 
+    }
+
+    public Camera getCamera() {
+        return camera;
     }
 }

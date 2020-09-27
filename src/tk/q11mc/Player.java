@@ -141,7 +141,7 @@ public class Player extends GameObject {
 
     @Override
     public void render() {
-        program.getRenderer().drawImage(sprite, x, y);
+        program.getRenderer().drawImage(sprite, x+offX(), y+offY());
         //program.getShader().drawLight(light, x+64, y+64);
     }
 

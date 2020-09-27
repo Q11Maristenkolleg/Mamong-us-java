@@ -18,7 +18,7 @@ public class Wall extends GameObject{
 
     @Override
     public void render() {
-        program.getRenderer().drawImage(sprite, x, y);
+        program.getRenderer().drawImage(sprite, x+offX(), y+offY());
     }
 
     @Override
