@@ -1,8 +1,10 @@
-package tk.q11mc;
+package tk.q11mc.Objects;
 
 
 //import com.siinus.simpleGrafixShader.Light;
 import com.siinus.simpleGrafixShader.ShaderImage;
+import tk.q11mc.Main;
+import tk.q11mc.ID.TypeID;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -11,9 +13,8 @@ public class Player extends GameObject {
     //private final Light light;
     public int dx = 4, dy = 4;
     //dx und dy müssen genauso groß sein wie speed
-    boolean oben = false,unten = false,links = false,rechts = false;
     static float speed,minusSpeed;
-    public Player(Main program, ShaderImage sprite, int width, int height, TypeID TypeID,Handler handler) {
+    public Player(Main program, ShaderImage sprite, int width, int height, TypeID TypeID, Handler handler) {
         super(program, sprite, width, height,TypeID,handler);
         //light = new Light(256,0xffffffff);
     }
@@ -25,70 +26,6 @@ public class Player extends GameObject {
     public void controls() {
         speed = 4f;
         minusSpeed = -1*speed;
-        /*if(program.getInput().isKeyDown(KeyEvent.VK_W)) {
-            oben = false;
-            if(unten) {
-                setSpeedY(speed);
-            }
-            else {
-                setSpeedY(0);
-            }
-        }
-        if(program.getInput().isKeyDown(KeyEvent.VK_A)) {
-            links = false;
-            if(rechts) {
-                setSpeedX(speed);
-            }
-            else {
-                setSpeedX(0);
-            }
-        }
-        if(program.getInput().isKeyDown(KeyEvent.VK_S)) {
-            unten = false;
-            if(oben) {
-                setSpeedY(minusSpeed);
-            }
-            else {
-                setSpeedY(0);
-            }
-        }
-        if(program.getInput().isKeyDown(KeyEvent.VK_D)) {
-            rechts = false;
-            if(links) {
-                setSpeedX(minusSpeed);
-            }
-            else {
-                setSpeedX(0);
-            }
-        }
-        if(program.getInput().isKeyPressed(KeyEvent.VK_W)) {
-            oben = true;
-            setSpeedY(minusSpeed);
-            if(!collisionup()) {
-                y+=speedY;
-            }
-        }
-        if(program.getInput().isKeyPressed(KeyEvent.VK_A)) {
-            links = true;
-            setSpeedX(minusSpeed);
-            if(!collisionleft()) {
-                x+=speedX;
-            }
-        }
-        if(program.getInput().isKeyPressed(KeyEvent.VK_S)) {
-            unten = true;
-            setSpeedY(speed);
-            if(!collisiondown()) {
-                y+=speedY;
-            }
-        }
-        if(program.getInput().isKeyPressed(KeyEvent.VK_D)) {
-            rechts = true;
-            setSpeedX(speed);
-            if(!collisionright()) {
-                x+=speedX;
-            }
-        }*/
         if (program.getInput().isKeyPressed(KeyEvent.VK_D) && !collisionright()) {
             x+=speed;
         }

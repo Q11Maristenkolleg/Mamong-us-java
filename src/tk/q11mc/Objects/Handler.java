@@ -1,4 +1,4 @@
-package tk.q11mc;
+package tk.q11mc.Objects;
 
 import java.util.LinkedList;
 

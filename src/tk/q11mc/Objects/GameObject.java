@@ -1,10 +1,10 @@
-package tk.q11mc;
+package tk.q11mc.Objects;
 
 import com.siinus.simpleGrafixShader.ShaderImage;
+import tk.q11mc.Main;
+import tk.q11mc.ID.TypeID;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class GameObject {
     protected TypeID typeID;
@@ -30,6 +30,31 @@ public abstract class GameObject {
     public abstract void render();
 
     public abstract Rectangle getBounds();
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getX() {
+        return x;
+    }
+    public int getY() {
+        return y;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+
     public void setSpeedX(float speedX) {
         this.speedX = speedX;
     }

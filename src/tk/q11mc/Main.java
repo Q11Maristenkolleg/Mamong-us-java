@@ -1,10 +1,12 @@
 package tk.q11mc;
 
 import com.siinus.simpleGrafix.Program;
-import com.siinus.simpleGrafixShader.Light;
 import com.siinus.simpleGrafixShader.ShaderImage;
-import com.siinus.simpleGrafixShader.ShaderProgram;
-import com.siinus.simpleGrafixShader.ShaderRenderer;
+import tk.q11mc.ID.TypeID;
+import tk.q11mc.Map.Camera;
+import tk.q11mc.Objects.Handler;
+import tk.q11mc.Objects.Player;
+import tk.q11mc.Objects.Wall;
 
 public class Main extends Program {
     Handler handler;
@@ -24,10 +26,10 @@ public class Main extends Program {
         handler = new Handler();
         setIconImage(spritePlayer);
         spriteWall.setLightBlock(1);
-        wall = new Wall(this, spriteWall, 126, 126,TypeID.WALL,new Handler());
+        wall = new Wall(this, spriteWall, 126, 126, TypeID.WALL,new Handler());
         player = new Player(this, spritePlayer, 126,126,TypeID.PLAYER,new Handler());
-        wall.x = 500;
-        wall.y = 250;
+        wall.setX(500);
+        wall.setY(250);
 
         camera = new Camera(player);
     }

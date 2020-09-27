@@ -1,4 +1,6 @@
-package tk.q11mc;
+package tk.q11mc.Map;
+
+import tk.q11mc.Objects.Player;
 
 public class Camera {
     private Player player;
@@ -9,8 +11,8 @@ public class Camera {
     }
 
     public void update() {
-        x = player.x + player.width / 2;
-        y = player.y + player.height / 2;
+        x = player.getX() + player.getWidth() / 2;
+        y = player.getY() + player.getHeight() / 2;
     }
 
     public int getX() {
