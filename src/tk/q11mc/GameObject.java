@@ -47,10 +47,10 @@ public abstract class GameObject {
     }
 
     public int offX() {
-        return program.getWindow().getWidth()-program.getCamera().getX();
+        return (int) ((program.getWindow().getWidth()/(program.getWindow().getScale()*2))-program.getCamera().getX());
     }
 
     public int offY() {
-        return program.getWindow().getHeight()-program.getCamera().getY();
+        return (int) ((program.getWindow().getHeight()/(program.getWindow().getScale()*2))-program.getCamera().getY());
     }
 }

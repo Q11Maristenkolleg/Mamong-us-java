@@ -8,7 +8,7 @@ import com.siinus.simpleGrafixShader.ShaderRenderer;
 
 public class Main extends Program {
     Handler handler;
-    ShaderImage spritePlayer = new ShaderImage("/test.png");
+    ShaderImage spritePlayer = new ShaderImage("/player.png");
     ShaderImage spriteWall = new ShaderImage("/test.png");
     //Light light = new Light(150, 0xffffffff);
     Player player;
