@@ -1,20 +1,21 @@
 package tk.q11mc;
 
 
-import com.siinus.simpleGrafixShader.Light;
+//import com.siinus.simpleGrafixShader.Light;
 import com.siinus.simpleGrafixShader.ShaderImage;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class Player extends GameObject {
-    private final Light light;
+    //private final Light light;
     public int dx = 2, dy = 2;
-    //boolean oben = false,unten = false,links = false,rechts = false;
+    //dx und dy müssen genauso groß sein wie speed
+    boolean oben = false,unten = false,links = false,rechts = false;
     static float speed,minusSpeed;
     public Player(Main program, ShaderImage sprite, int width, int height, TypeID TypeID,Handler handler) {
         super(program, sprite, width, height,TypeID,handler);
-        light = new Light(256,0xffffffff);
+        //light = new Light(256,0xffffffff);
     }
 
     @Override
@@ -22,28 +23,67 @@ public class Player extends GameObject {
         controls();
     }
     public void controls() {
-        speed = 4.5f;
+        speed = 2f;
         minusSpeed = -1*speed;
-
-        if(program.getInput().isKeyPressed(KeyEvent.VK_W)) {
+        if(program.getInput().isKeyDown(KeyEvent.VK_W)) {
+            oben = false;
+            if(unten) {
+                setSpeedY(speed);
+            }
+            else {
+                setSpeedY(0);
+            }
+        }
+        else if(program.getInput().isKeyDown(KeyEvent.VK_A)) {
+            links = false;
+            if(rechts) {
+                setSpeedX(speed);
+            }
+            else {
+                setSpeedX(0);
+            }
+        }
+        else if(program.getInput().isKeyDown(KeyEvent.VK_S)) {
+            unten = false;
+            if(oben) {
+                setSpeedY(minusSpeed);
+            }
+            else {
+                setSpeedY(0);
+            }
+        }
+        else if(program.getInput().isKeyDown(KeyEvent.VK_D)) {
+            rechts = false;
+            if(links) {
+                setSpeedX(minusSpeed);
+            }
+            else {
+                setSpeedX(0);
+            }
+        }
+        else if(program.getInput().isKeyPressed(KeyEvent.VK_W)) {
+            oben = true;
             setSpeedY(minusSpeed);
             if(!collisionup()) {
                 y+=speedY;
             }
         }
         else if(program.getInput().isKeyPressed(KeyEvent.VK_A)) {
+            links = true;
             setSpeedX(minusSpeed);
             if(!collisionleft()) {
                 x+=speedX;
             }
         }
         else if(program.getInput().isKeyPressed(KeyEvent.VK_S)) {
+            unten = true;
             setSpeedY(speed);
             if(!collisiondown()) {
                 y+=speedY;
             }
         }
         else if(program.getInput().isKeyPressed(KeyEvent.VK_D)) {
+            rechts = true;
             setSpeedX(speed);
             if(!collisionright()) {
                 x+=speedX;
@@ -91,7 +131,7 @@ public class Player extends GameObject {
     @Override
     public void render() {
         program.getRenderer().drawImage(sprite, x, y);
-        program.getShader().drawLight(light, x+64, y+64);
+        //program.getShader().drawLight(light, x+64, y+64);
     }
 
     @Override
