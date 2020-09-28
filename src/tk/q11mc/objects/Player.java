@@ -1,10 +1,10 @@
-package tk.q11mc.Objects;
+package tk.q11mc.objects;
 
 
 //import com.siinus.simpleGrafixShader.Light;
 import com.siinus.simpleGrafixShader.ShaderImage;
 import tk.q11mc.Main;
-import tk.q11mc.ID.TypeID;
+import tk.q11mc.core.Handler;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -14,8 +14,8 @@ public class Player extends GameObject {
     public int dx = 4, dy = 4;
     //dx und dy müssen genauso groß sein wie speed
     static float speed,minusSpeed;
-    public Player(Main program, ShaderImage sprite, int width, int height, TypeID TypeID, Handler handler) {
-        super(program, sprite, width, height,TypeID,handler);
+    public Player(Main program, ShaderImage sprite, int width, int height, Handler handler) {
+        super(program, sprite, width, height,handler);
         //light = new Light(256,0xffffffff);
     }
 
@@ -41,7 +41,7 @@ public class Player extends GameObject {
     }
     public boolean collisionup() {
         for(GameObject other : Handler.objects ) {
-            if(other.getTypeId() != TypeID.PLAYER && other.getBounds().intersects(new Rectangle(x,y-dx,width
+            if(other instanceof Collideable && ((Collideable) other).intersects(new Rectangle(x,y-dx,width
                     ,height))) {
                 return true;
             }
@@ -50,7 +50,7 @@ public class Player extends GameObject {
     }
     public boolean collisiondown() {
         for(GameObject other : Handler.objects ) {
-            if(other.getTypeId() != TypeID.PLAYER && other.getBounds().intersects(new Rectangle(x,y+dy,width
+            if(other instanceof Collideable && ((Collideable) other).intersects(new Rectangle(x,y+dy,width
                     ,height))) {
                 return true;
             }
@@ -59,7 +59,7 @@ public class Player extends GameObject {
     }
     public boolean collisionleft() {
         for(GameObject other : Handler.objects ) {
-            if(other.getTypeId() != TypeID.PLAYER && other.getBounds().intersects(new Rectangle(x-dx,y,width
+            if(other instanceof Collideable && ((Collideable) other).intersects(new Rectangle(x-dx,y,width
             ,height))) {
                 return true;
             }
@@ -68,7 +68,7 @@ public class Player extends GameObject {
     }
     public boolean collisionright() {
         for(GameObject other : Handler.objects ) {
-            if(other.getTypeId() != TypeID.PLAYER && other.getBounds().intersects(new Rectangle(x+dx,y,width
+            if(other instanceof Collideable && ((Collideable) other).intersects(new Rectangle(x+dx,y,width
                     ,height))) {
                 return true;
             }

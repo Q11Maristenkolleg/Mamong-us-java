@@ -1,13 +1,12 @@
-package tk.q11mc.Objects;
+package tk.q11mc.objects;
 
 import com.siinus.simpleGrafixShader.ShaderImage;
 import tk.q11mc.Main;
-import tk.q11mc.ID.TypeID;
+import tk.q11mc.core.Handler;
 
 import java.awt.*;
 
 public abstract class GameObject {
-    protected TypeID typeID;
     protected Handler handler;
     protected Main program;
     protected ShaderImage sprite;
@@ -15,13 +14,12 @@ public abstract class GameObject {
     protected int width, height;
     protected int x=0, y=0;
 
-    public GameObject(Main program, ShaderImage sprite, int width, int height, TypeID typeID, Handler handler) {
+    public GameObject(Main program, ShaderImage sprite, int width, int height, Handler handler) {
         this.program = program;
         this.sprite = sprite;
         this.width = width;
         this.height = height;
         this.handler = handler;
-        this.typeID = typeID;
         handler.addObject(this);
     }
 
@@ -66,9 +64,6 @@ public abstract class GameObject {
     }
     public float getSpeedX() {
         return speedX;
-    }
-    public TypeID getTypeId() {
-        return this.typeID;
     }
 
     public int offX() {

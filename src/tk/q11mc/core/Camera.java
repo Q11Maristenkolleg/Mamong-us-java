@@ -1,6 +1,6 @@
-package tk.q11mc.Map;
+package tk.q11mc.core;
 
-import tk.q11mc.Objects.Player;
+import tk.q11mc.objects.Player;
 
 public class Camera {
     private Player player;

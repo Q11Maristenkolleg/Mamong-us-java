@@ -1,4 +1,6 @@
-package tk.q11mc.Objects;
+package tk.q11mc.core;
+
+import tk.q11mc.objects.GameObject;
 
 import java.util.LinkedList;
 

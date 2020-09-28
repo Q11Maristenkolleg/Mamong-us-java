@@ -1,4 +1,4 @@
-package tk.q11mc.Map;
+package tk.q11mc.core;
 
 public class Scene {
 }

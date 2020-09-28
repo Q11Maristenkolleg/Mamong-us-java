@@ -1,16 +1,16 @@
-package tk.q11mc.Objects;
+package tk.q11mc.objects;
 
 import com.siinus.simpleGrafixShader.ShaderImage;
 import tk.q11mc.Main;
-import tk.q11mc.ID.TypeID;
+import tk.q11mc.core.Handler;
 
 import java.awt.*;
 
-public class Wall extends GameObject {
+public class Wall extends GameObject implements Collideable {
 
 
-    public Wall(Main program, ShaderImage sprite, int width, int height, TypeID typeID, Handler handler) {
-        super(program, sprite, width, height, typeID, handler);
+    public Wall(Main program, ShaderImage sprite, int width, int height, Handler handler) {
+        super(program, sprite, width, height, handler);
     }
 
     @Override
