@@ -1,31 +1,39 @@
 package tk.q11mc.objects;
 
 import com.siinus.simpleGrafixShader.ShaderImage;
+import tk.q11mc.Handleable;
 import tk.q11mc.Main;
 import tk.q11mc.core.Handler;
 
 import java.awt.*;
 
-public abstract class GameObject {
-    protected Handler handler;
+public abstract class GameObject implements Handleable {
     protected Main program;
     protected ShaderImage sprite;
     protected float speedX,speedY;
     protected int width, height;
+    protected int ox, oy;
     protected int x=0, y=0;
 
-    public GameObject(Main program, ShaderImage sprite, int width, int height, Handler handler) {
+    /**
+     * Creates a new Game object.
+     *
+     * @param program The associated program
+     * @param sprite The texture
+     * @param width The width of the bounding box
+     * @param height The height of the bounding box
+     * @param ox The offset of the bounding box to the right
+     * @param oy The offset of the bounding box to down
+     */
+    public GameObject(Main program, ShaderImage sprite, int width, int height, int ox, int oy) {
         this.program = program;
         this.sprite = sprite;
         this.width = width;
         this.height = height;
-        this.handler = handler;
-        handler.addObject(this);
+        this.ox = ox;
+        this.oy = oy;
+        Handler.addObject(this);
     }
-
-    public abstract void update();
-
-    public abstract void render();
 
     public abstract Rectangle getBounds();
 
