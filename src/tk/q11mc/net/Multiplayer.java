@@ -13,14 +13,16 @@ public class Multiplayer {
     static HashMap<String, String> names = new HashMap<>();
     static HashMap<String, OtherPlayer> players = new HashMap<>();
 
-    public static void connect(String hostname, int port) {
+    public static boolean connect(String hostname, int port) {
         client = new JavaClient();
         try {
             client.connect(hostname, port);
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
         JavaClient.setProtocol(new Protocol());
+        return true;
     }
 
     public static void send(String message) {

@@ -11,6 +11,8 @@ import tk.q11mc.net.Multiplayer;
 import tk.q11mc.objects.Player;
 import tk.q11mc.objects.Wall;
 
+import java.awt.event.KeyEvent;
+
 public class Main extends Program {
     private static Main instance;
 
@@ -57,6 +59,11 @@ public class Main extends Program {
 
     @Override
     public void update() {
+        if (getInput().isKeyPressed(KeyEvent.VK_ESCAPE) && gameState != GameState.MAIN_MENU) {
+            System.out.println("Back to menu");
+            startMainMenu();
+        }
+
         handler.update();
 
         camera.update();
@@ -80,14 +87,24 @@ public class Main extends Program {
 
     }
 
+    public void startMainMenu() {
+        if (gameState == GameState.MULTIPLAYER) {
+            Multiplayer.disconnect();
+        }
+        gameState = GameState.MAIN_MENU;
+    }
+
     public void startSingleplayer() {
         gameState = GameState.SINGLEPLAYER;
     }
 
     public void startMultiplayer() {
         gameState = GameState.MULTIPLAYER;
-        Multiplayer.connect("localhost", 25565);
-        Multiplayer.send("connect Simon");
+        if (Multiplayer.connect("localhost", 25565)) {
+            Multiplayer.send("connect Simon");
+        } else {
+            gameState = GameState.MAIN_MENU;
+        }
     }
 
     public Camera getCamera() {
