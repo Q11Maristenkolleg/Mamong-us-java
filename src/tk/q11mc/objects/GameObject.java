@@ -35,8 +35,6 @@ public abstract class GameObject implements Handleable {
         Handler.addObject(this);
     }
 
-    public abstract Rectangle getBounds();
-
     public void setY(int y) {
         this.y = y;
     }

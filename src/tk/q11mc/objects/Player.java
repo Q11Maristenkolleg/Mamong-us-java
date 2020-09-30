@@ -1,8 +1,10 @@
 package tk.q11mc.objects;
 
 import com.siinus.simpleGrafixShader.ShaderImage;
+import tk.q11mc.GameState;
 import tk.q11mc.Main;
 import tk.q11mc.core.Handler;
+import tk.q11mc.net.Multiplayer;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -35,15 +37,27 @@ public class Player extends GameObject {
         minusSpeed = -1*speed;
         if (program.getInput().isKeyPressed(KeyEvent.VK_D) && !collisionright()) {
             x+=speed;
+            if (Main.gameState == GameState.MULTIPLAYER) {
+                Multiplayer.send("pos "+x+" "+y);
+            }
         }
         if (program.getInput().isKeyPressed(KeyEvent.VK_S) && !collisiondown()) {
             y+=speed;
+            if (Main.gameState == GameState.MULTIPLAYER) {
+                Multiplayer.send("pos "+x+" "+y);
+            }
         }
         if (program.getInput().isKeyPressed(KeyEvent.VK_A) && !collisionleft()) {
             x-=speed;
+            if (Main.gameState == GameState.MULTIPLAYER) {
+                Multiplayer.send("pos "+x+" "+y);
+            }
         }
         if (program.getInput().isKeyPressed(KeyEvent.VK_W) && !collisionup()) {
             y-=speed;
+            if (Main.gameState == GameState.MULTIPLAYER) {
+                Multiplayer.send("pos "+x+" "+y);
+            }
         }
     }
     public boolean collisionup() {
@@ -88,7 +102,6 @@ public class Player extends GameObject {
         program.getRenderer().drawImage(sprite, x+offX(), y+offY());
     }
 
-    @Override
     public Rectangle getBounds() {
         return new Rectangle(x,y,width,height);
     }

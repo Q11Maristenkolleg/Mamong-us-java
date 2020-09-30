@@ -7,20 +7,23 @@ import com.siinus.simpleGrafixShader.ShaderImage;
 import tk.q11mc.core.Camera;
 import tk.q11mc.core.Handler;
 import tk.q11mc.gui.Button;
+import tk.q11mc.net.Multiplayer;
 import tk.q11mc.objects.Player;
 import tk.q11mc.objects.Wall;
 
 public class Main extends Program {
+    private static Main instance;
+
     Handler handler;
-    ShaderImage spritePlayer = new ShaderImage("/player.png");
-    ShaderImage spriteWall = new ShaderImage("/test.png");
-    ImageTile spriteButton = new ImageTile("/SPB.png", 256, 64);
+    public static ShaderImage spritePlayer = new ShaderImage("/player.png");
+    public static ShaderImage spriteWall = new ShaderImage("/test.png");
+    public static ImageTile spriteButton = new ImageTile("/SPB.png", 256, 64);
     Player player;
     Wall wall;
     Button sp;
     Button mp;
 
-    Font arial32 = new Font("/font.png", 32, 37);
+    public static Font arial32 = new Font("/font.png", 32, 37);
 
     Camera camera;
 
@@ -42,6 +45,8 @@ public class Main extends Program {
         wall.setY(250);
 
         camera = new Camera(player);
+
+        instance = this;
     }
 
     @Override
@@ -64,6 +69,9 @@ public class Main extends Program {
         if (gameState==GameState.MAIN_MENU) {
             getRenderer().drawText("//Multiplayer", 580, 415, 0xff000000, arial32);
         }
+        if (gameState == GameState.MULTIPLAYER) {
+            getRenderer().drawText("Ping: " + ((int) (Multiplayer.getPing() / 1000)) + " ms", 10, 10, 0xff000000, arial32);
+        }
         //getShaderRenderer().drawLight(light, getInput().getMouseX(), getInput().getMouseY());
     }
 
@@ -78,9 +86,15 @@ public class Main extends Program {
 
     public void startMultiplayer() {
         gameState = GameState.MULTIPLAYER;
+        Multiplayer.connect("localhost", 25565);
+        Multiplayer.send("connect Simon");
     }
 
     public Camera getCamera() {
         return camera;
+    }
+
+    public static Main getInstance() {
+        return instance;
     }
 }
