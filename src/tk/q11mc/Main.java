@@ -12,7 +12,6 @@ import tk.q11mc.gui.TextInput;
 import tk.q11mc.gui.TextQueue;
 import tk.q11mc.io.FileIO;
 import tk.q11mc.net.Multiplayer;
-import tk.q11mc.objects.OtherPlayer;
 import tk.q11mc.objects.Player;
 import tk.q11mc.objects.Wall;
 
@@ -82,6 +81,8 @@ public class Main extends Program {
     public void start() {
         getWindow().setScaleOnResize(true);
         setCapFps(true);
+
+        loadData();
     }
 
     @Override
@@ -168,7 +169,13 @@ public class Main extends Program {
     }
 
     private void loadData() {
-
+        JSONObject data = FileIO.loadJSON("./config.json");
+        if (data == null) {
+            return;
+        }
+        ni.setText((String) data.get("name"));
+        ti.setText((String) data.get("ip"));
+        pi.setText((String) data.get("port"));
     }
 
     @SuppressWarnings("unchecked")
@@ -177,6 +184,6 @@ public class Main extends Program {
         root.put("name",ni.getText());
         root.put("ip",ti.getText().toLowerCase());
         root.put("port",pi.getText());
-        FileIO.save("./config.json",root);
+        FileIO.saveJSON("./config.json",root);
     }
 }
