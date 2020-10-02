@@ -29,7 +29,7 @@ public class Button extends GUIObject {
     @Override
     public void update() {
         if (isMouseOver = isMouseOver()) {
-            if (program.getInput().isButtonPressed(1)) {
+            if (program.getInput().isButtonDown(1)) {
                 click.run();
             }
         }

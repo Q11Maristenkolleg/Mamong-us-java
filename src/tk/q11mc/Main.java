@@ -8,6 +8,7 @@ import tk.q11mc.core.Camera;
 import tk.q11mc.core.Handler;
 import tk.q11mc.gui.Button;
 import tk.q11mc.net.Multiplayer;
+import tk.q11mc.objects.OtherPlayer;
 import tk.q11mc.objects.Player;
 import tk.q11mc.objects.Wall;
 
@@ -25,11 +26,16 @@ public class Main extends Program {
     Button sp;
     Button mp;
 
+
+    //OtherPlayer otherPlayer;
+
+
     public static Font arial32 = new Font("/font.png", 32, 37);
 
     Camera camera;
 
     public static GameState gameState = GameState.MAIN_MENU;
+    boolean loadMP = false;
 
     public static void main(String[] args) {
         new Main().init();
@@ -49,19 +55,29 @@ public class Main extends Program {
         camera = new Camera(player);
 
         instance = this;
+
+        //otherPlayer = new OtherPlayer(this, spritePlayer, "Hi");
     }
 
     @Override
     public void start() {
         getWindow().setScaleOnResize(true);
-        setCapFps(false);
+        setCapFps(true);
     }
 
     @Override
     public void update() {
-        if (getInput().isKeyPressed(KeyEvent.VK_ESCAPE) && gameState != GameState.MAIN_MENU) {
-            System.out.println("Back to menu");
-            startMainMenu();
+        if (getInput().isKeyDown(KeyEvent.VK_ESCAPE) && gameState != GameState.MAIN_MENU) {
+            if (gameState == GameState.PAUSE) {
+                gameState = GameState.SINGLEPLAYER;
+            } else {
+                System.out.println("pause");
+                startPause();
+            }
+        }
+        if (loadMP) {
+            loadMP = false;
+            connectMultiplayer();
         }
 
         handler.update();
@@ -77,7 +93,14 @@ public class Main extends Program {
             getRenderer().drawText("//Multiplayer", 580, 415, 0xff000000, arial32);
         }
         if (gameState == GameState.MULTIPLAYER) {
-            getRenderer().drawText("Ping: " + ((int) (Multiplayer.getPing() / 1000)) + " ms", 10, 10, 0xff000000, arial32);
+            double ping = (Multiplayer.getPing() * 1000000000);
+            getRenderer().drawText("Ping: " + ping + " ms", 10, 10, 0xff000000, arial32);
+        }
+        if (gameState == GameState.LOADING) {
+            getRenderer().drawText("Loading...",10,10,0xff000000, Main.arial32);
+        }
+        if (gameState == GameState.ERROR) {
+            getRenderer().drawText("Connection refused!",10,10,0xffff0000, arial32);
         }
         //getShaderRenderer().drawLight(light, getInput().getMouseX(), getInput().getMouseY());
     }
@@ -94,16 +117,25 @@ public class Main extends Program {
         gameState = GameState.MAIN_MENU;
     }
 
+    public void startPause() {
+        gameState = GameState.PAUSE;
+    }
+
     public void startSingleplayer() {
         gameState = GameState.SINGLEPLAYER;
     }
 
     public void startMultiplayer() {
-        gameState = GameState.MULTIPLAYER;
+        gameState = GameState.LOADING;
+        loadMP = true;
+    }
+
+    private void connectMultiplayer() {
         if (Multiplayer.connect("localhost", 25565)) {
-            Multiplayer.send("connect Simon");
+            Multiplayer.send("connect Player"+((int) (Math.random()*100)));
+            gameState = GameState.MULTIPLAYER;
         } else {
-            gameState = GameState.MAIN_MENU;
+            gameState = GameState.ERROR;
         }
     }
 

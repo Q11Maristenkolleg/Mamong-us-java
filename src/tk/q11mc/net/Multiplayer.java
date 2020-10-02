@@ -1,6 +1,7 @@
 package tk.q11mc.net;
 
 import com.siinus.client.JavaClient;
+import tk.q11mc.GameState;
 import tk.q11mc.Main;
 import tk.q11mc.objects.OtherPlayer;
 
@@ -9,7 +10,7 @@ import java.util.HashMap;
 
 public class Multiplayer {
     static JavaClient client;
-    static String ip = null;
+    static String ip = "127.0.0.1";
     static HashMap<String, String> names = new HashMap<>();
     static HashMap<String, OtherPlayer> players = new HashMap<>();
 
@@ -34,18 +35,41 @@ public class Multiplayer {
     }
 
     public static void disconnect() {
-        client.disconnect();
+        Main.gameState = GameState.MAIN_MENU;
+        destroyPlayer(ip);
+        if (client != null) {
+            client.disconnect();
+        }
         client = null;
     }
 
     public static void spawnPlayer(String ip) {
-        if (compareIP(ip) && !names.containsKey(ip) && !players.containsKey(ip)) {
-            OtherPlayer p = new OtherPlayer(Main.getInstance(), Main.spritePlayer, names.get(ip));
-            players.put(ip, p);
+        System.out.println(" ----- SP ----- ");
+        if (!compareIP(ip)) {
+            System.out.println("CIP");
+            return;
         }
+        if (!names.containsKey(ip)) {
+            System.out.println("Names");
+            return;
+        }
+        if (players.containsKey(ip)) {
+            System.out.println("Players");
+            return;
+        }
+        //if (compareIP(ip) && !names.containsKey(ip) && !players.containsKey(ip)) {
+        System.out.println("Spawn");
+        OtherPlayer p = new OtherPlayer(Main.getInstance(), Main.spritePlayer, names.get(ip));
+        players.put(ip, p);
+        //}
+    }
+
+    public static void destroyPlayer(String ip) {
+        players.remove(ip);
     }
 
     public static boolean compareIP(String ip) {
+        //System.out.println("Your ip is: "+Multiplayer.ip);
         return Multiplayer.ip != null && !Multiplayer.ip.equals(ip);
     }
 }
