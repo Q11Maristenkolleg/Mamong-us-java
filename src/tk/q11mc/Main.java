@@ -39,6 +39,7 @@ public class Main extends Program {
 
 
     public static Font arial32 = new Font("/font.png", 32, 37);
+    public static Font monospace32 = new Font("/monospace.png", 32, 37);
 
     Camera camera;
 
@@ -57,11 +58,11 @@ public class Main extends Program {
         player = new Player(this, spritePlayer, 126,126, 0, 0);
         sp = new Button(this, spriteButton, 300, 300, 256, 64, this::startSingleplayer);
         mp = new Button(this, spriteButton, 300, 400, 256, 64, this::startMultiplayer);
-        ni = new TextInput(this, spriteText, 300, 150, 256, 64, 0xff0000ff, arial32);
+        ni = new TextInput(this, spriteText, 300, 150, 256, 64, 0xff0000ff, monospace32);
         ni.setDefaultText("Name");
-        ti = new TextInput(this, spriteText, 300, 500, 256, 64, 0xff000000, arial32);
+        ti = new TextInput(this, spriteText, 300, 500, 256, 64, 0xff000000, monospace32);
         ti.setDefaultText("IP");
-        pi = new TextInput(this, spriteText, 300, 600, 256, 64, 0xff000000, arial32);
+        pi = new TextInput(this, spriteText, 300, 600, 256, 64, 0xff000000, monospace32);
         pi.setDefaultText("Port");
         tq = new TextQueue();
         tq.endAction = this::startMultiplayer;
