@@ -2,6 +2,7 @@ package tk.q11mc;
 
 import com.siinus.simpleGrafix.Program;
 import com.siinus.simpleGrafix.gfx.Font;
+import com.siinus.simpleGrafix.gfx.Image;
 import com.siinus.simpleGrafix.gfx.ImageTile;
 import com.siinus.simpleGrafixShader.ShaderImage;
 import org.json.simple.JSONObject;
@@ -25,6 +26,7 @@ public class Main extends Program {
     public static ShaderImage spriteWall = new ShaderImage("/test.png");
     public static ImageTile spriteButton = new ImageTile("/SPB.png", 256, 64);
     public static ImageTile spriteText = new ImageTile("/text.png", 256, 64);
+    public static Image iconImage = new Image("/icon.jpg");
     Player player;
     Wall wall;
     Button sp;
@@ -52,7 +54,7 @@ public class Main extends Program {
 
     public Main() {
         handler = new Handler();
-        setIconImage(spritePlayer);
+        setIconImage(iconImage);
         spriteWall.setLightBlock(1);
         wall = new Wall(this, spriteWall, 126, 26, 0, 100);
         player = new Player(this, spritePlayer, 126,126, 0, 0);

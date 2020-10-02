@@ -1,5 +1,6 @@
 package tk.q11mc.objects;
 
+import com.siinus.simpleGrafix.gfx.Image;
 import com.siinus.simpleGrafixShader.ShaderImage;
 import tk.q11mc.GameState;
 import tk.q11mc.Main;
@@ -10,6 +11,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class Player extends GameObject {
+    private static Image shadow = new Image("/shadow.png");
+
     public int dx = 4, dy = 4;
     //dx und dy müssen genauso groß sein wie speed
     static float speed,minusSpeed;
@@ -100,6 +103,7 @@ public class Player extends GameObject {
     @Override
     public void render() {
         program.getRenderer().drawImage(sprite, x+offX(), y+offY());
+        program.getRenderer().drawImage(shadow, x+offX(), y+offY()+100);
     }
 
     public Rectangle getBounds() {
