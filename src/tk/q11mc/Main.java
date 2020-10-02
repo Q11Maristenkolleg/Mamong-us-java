@@ -2,16 +2,17 @@ package tk.q11mc;
 
 import com.siinus.simpleGrafix.Program;
 import com.siinus.simpleGrafix.gfx.Font;
+import com.siinus.simpleGrafix.gfx.Image;
 import com.siinus.simpleGrafix.gfx.ImageTile;
-import com.siinus.simpleGrafixShader.ShaderImage;
 //import org.json.simple.JSONObject;
+import org.json.simple.JSONObject;
 import tk.q11mc.core.Camera;
 import tk.q11mc.core.Handler;
 import tk.q11mc.gui.Button;
 import tk.q11mc.gui.TextInput;
 import tk.q11mc.gui.TextQueue;
+import tk.q11mc.io.FileIO;
 import tk.q11mc.net.Multiplayer;
-import tk.q11mc.objects.OtherPlayer;
 import tk.q11mc.objects.Player;
 import tk.q11mc.objects.Wall;
 
@@ -25,7 +26,7 @@ public class Main extends Program {
     public static ImageTile objectSheet = new ImageTile("/objectSheet.png",126,126);
     public static ImageTile spriteButton = new ImageTile("/SPB.png", 256, 64);
     public static ImageTile spriteText = new ImageTile("/text.png", 256, 64);
-    private ShaderImage Icon = new ShaderImage("/Icon.png");
+    private Image icon = new Image("/icon.png");
     Player player;
     Wall wall;
     Button sp;
@@ -52,14 +53,17 @@ public class Main extends Program {
 
     public Main() {
         handler = new Handler();
-        setIconImage(Icon);
+        setIconImage(icon);
         wall = new Wall(this, 1, 126, 26, 0, 0);
         player = new Player(this, playerSheet, 50,100, 0, 0);
         sp = new Button(this, spriteButton, 300, 300, 256, 64, this::startSingleplayer);
         mp = new Button(this, spriteButton, 300, 400, 256, 64, this::startMultiplayer);
         ni = new TextInput(this, spriteText, 300, 150, 256, 64, 0xff0000ff, arial32);
+        ni.setDefaultText("Name");
         ti = new TextInput(this, spriteText, 300, 500, 256, 64, 0xff000000, arial32);
+        ti.setDefaultText("IP");
         pi = new TextInput(this, spriteText, 300, 600, 256, 64, 0xff000000, arial32);
+        pi.setDefaultText("Port");
         tq = new TextQueue();
         tq.endAction = this::startMultiplayer;
         ti.register(tq);
@@ -78,10 +82,14 @@ public class Main extends Program {
     public void start() {
         getWindow().setScaleOnResize(true);
         setCapFps(true);
+
+        InputUtils.setInput(getInput());
+        loadData();
     }
 
     @Override
     public void update() {
+        InputUtils.update(getInput());
         if (getInput().isKeyDown(KeyEvent.VK_ESCAPE) && gameState != GameState.MAIN_MENU) {
             if (gameState == GameState.PAUSE) {
                 gameState = GameState.SINGLEPLAYER;
@@ -134,6 +142,7 @@ public class Main extends Program {
     }
 
     public void startSingleplayer() {
+
         gameState = GameState.SINGLEPLAYER;
     }
 
@@ -147,6 +156,7 @@ public class Main extends Program {
             if (ni.getText().length()<=0) {
                 ni.setText("Player"+((int) (Math.random()*100)));
             }
+            saveData();
             Multiplayer.send("connect "+ni.getText());
             gameState = GameState.MULTIPLAYER;
         } else {
@@ -162,7 +172,22 @@ public class Main extends Program {
         return instance;
     }
 
-    /*private JSONObject saveData() {
+    @SuppressWarnings("unchecked")
+    private void saveData() {
+        JSONObject root = new JSONObject();
+        root.put("name", ni.getText());
+        root.put("ip", ti.getText());
+        root.put("port", pi.getText());
+        FileIO.saveJSON("./config.json", root);
+    }
 
-    }*/
+    private void loadData() {
+        JSONObject root = FileIO.loadJSON("./config.json");
+        if (root == null) {
+            return;
+        }
+        ni.setText((String) root.get("name"));
+        ti.setText((String) root.get("ip"));
+        pi.setText((String) root.get("port"));
+    }
 }

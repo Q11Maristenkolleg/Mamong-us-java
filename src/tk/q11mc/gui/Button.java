@@ -2,6 +2,7 @@ package tk.q11mc.gui;
 
 import com.siinus.simpleGrafix.gfx.Image;
 import com.siinus.simpleGrafix.gfx.ImageTile;
+import tk.q11mc.InputUtils;
 import tk.q11mc.Main;
 
 public class Button extends GUIObject {
@@ -29,7 +30,7 @@ public class Button extends GUIObject {
     @Override
     public void update() {
         if (isMouseOver = isMouseOver()) {
-            if (program.getInput().isButtonDown(1)) {
+            if (InputUtils.isButtonPressed()) {
                 click.run();
             }
         }
