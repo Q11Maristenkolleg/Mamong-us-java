@@ -26,7 +26,7 @@ public class Main extends Program {
     public static ShaderImage spriteWall = new ShaderImage("/test.png");
     public static ImageTile spriteButton = new ImageTile("/SPB.png", 256, 64);
     public static ImageTile spriteText = new ImageTile("/text.png", 256, 64);
-    public static Image iconImage = new Image("/icon.jpg");
+    public static Image iconImage = new Image("/icon.png");
     Player player;
     Wall wall;
     Button sp;
