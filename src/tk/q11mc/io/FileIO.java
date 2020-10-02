@@ -14,7 +14,7 @@ public class FileIO {
         try (FileWriter writer = new FileWriter(file)) {
             writer.write(jsonObject.toJSONString());
         } catch (IOException e) {
-            System.out.println("Something went wrong");
+            e.printStackTrace();
         }
     }
 }

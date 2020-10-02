@@ -10,6 +10,7 @@ import tk.q11mc.core.Handler;
 import tk.q11mc.gui.Button;
 import tk.q11mc.gui.TextInput;
 import tk.q11mc.gui.TextQueue;
+import tk.q11mc.io.FileIO;
 import tk.q11mc.net.Multiplayer;
 import tk.q11mc.objects.OtherPlayer;
 import tk.q11mc.objects.Player;
@@ -58,8 +59,11 @@ public class Main extends Program {
         sp = new Button(this, spriteButton, 300, 300, 256, 64, this::startSingleplayer);
         mp = new Button(this, spriteButton, 300, 400, 256, 64, this::startMultiplayer);
         ni = new TextInput(this, spriteText, 300, 150, 256, 64, 0xff0000ff, arial32);
+        ni.setDefaultText("Name");
         ti = new TextInput(this, spriteText, 300, 500, 256, 64, 0xff000000, arial32);
+        ti.setDefaultText("IP");
         pi = new TextInput(this, spriteText, 300, 600, 256, 64, 0xff000000, arial32);
+        pi.setDefaultText("Port");
         tq = new TextQueue();
         tq.endAction = this::startMultiplayer;
         ti.register(tq);
@@ -147,6 +151,7 @@ public class Main extends Program {
             if (ni.getText().length()<=0) {
                 ni.setText("Player"+((int) (Math.random()*100)));
             }
+            saveData();
             Multiplayer.send("connect "+ni.getText());
             gameState = GameState.MULTIPLAYER;
         } else {
@@ -162,7 +167,16 @@ public class Main extends Program {
         return instance;
     }
 
-    /*private JSONObject saveData() {
+    private void loadData() {
 
-    }*/
+    }
+
+    @SuppressWarnings("unchecked")
+    private void saveData() {
+        JSONObject root = new JSONObject();
+        root.put("name",ni.getText());
+        root.put("ip",ti.getText().toLowerCase());
+        root.put("port",pi.getText());
+        FileIO.save("./config.json",root);
+    }
 }

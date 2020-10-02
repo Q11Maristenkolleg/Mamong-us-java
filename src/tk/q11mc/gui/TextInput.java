@@ -11,6 +11,7 @@ public class TextInput extends GUIObject {
     private final ImageTile image;
     private final int color;
     private final Font font;
+    @Nullable private String defaultText = null;
 
     private boolean isMouseOver =  false;
     private boolean activated = false;
@@ -77,7 +78,7 @@ public class TextInput extends GUIObject {
     @Override
     public void render() {
         program.getRenderer().drawImageTile(image, x, y, 0, activated?2:(isMouseOver?1:0));
-        program.getRenderer().drawText(text.toString(), x + 10, y + 10, color, font);
+        program.getRenderer().drawText(text.length()<=0?(defaultText==null?"":defaultText):text.toString(), x + 10, y + 10, text.length()<=0?0xff7f7f7f:color, font);
     }
 
     public String getText() {
@@ -86,6 +87,10 @@ public class TextInput extends GUIObject {
 
     public void setText(String text) {
         this.text = new StringBuilder(text);
+    }
+
+    public void setDefaultText(String defaultText) {
+        this.defaultText = defaultText;
     }
 
     public boolean register(@NotNull TextQueue queue) {
