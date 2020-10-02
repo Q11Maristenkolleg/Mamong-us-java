@@ -103,7 +103,7 @@ public class Player extends GameObject {
     @Override
     public void render() {
         program.getRenderer().drawImage(sprite, x+offX(), y+offY());
-        program.getRenderer().drawImage(shadow, x+offX(), y+offY()+100);
+        program.getRenderer().drawImage(shadow, x+offX()+10, y+offY()+sprite.getHeight());
     }
 
     public Rectangle getBounds() {
