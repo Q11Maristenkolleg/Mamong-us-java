@@ -10,6 +10,9 @@ public class Protocol implements ServerProtocol {
         String r = null;
         if (s.startsWith("connect")) {
             if (!Main.names.containsKey(serverChannel.getName())) {
+                for (String name : Main.names.keySet()) {
+                    Main.server.send(serverChannel, name + " connect " + Main.names.get(name));
+                }
                 Main.names.put(serverChannel.getName(), s.split(" ")[1]);
                 r = serverChannel.getName() + " name";
             }

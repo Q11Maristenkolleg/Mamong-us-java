@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         server = new JavaServer();
-        server.start(25565);
+        server.start(Integer.parseInt(args[0]));
         JavaServer.setProtocol(new Protocol());
     }
 }
