@@ -3,6 +3,7 @@ package tk.q11mc.gui;
 import com.siinus.simpleGrafix.gfx.Font;
 import com.siinus.simpleGrafix.gfx.ImageTile;
 import tk.q11mc.Main;
+import tk.q11mc.Utils;
 
 public class TextInput extends GUIObject {
     private final ImageTile image;
@@ -10,7 +11,7 @@ public class TextInput extends GUIObject {
     private final Font font;
 
     private boolean activated = false;
-    private String text = "";
+    private StringBuilder text = new StringBuilder();
 
     /**
      * Creates a new GUI object.
@@ -35,14 +36,24 @@ public class TextInput extends GUIObject {
         if (isMouseOver() && program.getInput().isButtonDown(1)) {
             activated = true;
         }
+        if (program.getInput().isButtonDown(1) && !isMouseOver()) {
+            activated = false;
+        }
         if (activated) {
-            //if
+            int kd;
+            if ((kd = Utils.getKey(program.getInput())) > 0) {
+                text.append((char) kd);
+            }
         }
     }
 
     @Override
     public void render() {
         program.getRenderer().drawImageTile(image, x, y, 0, activated?1:0);
-        program.getRenderer().drawText(text, x + 10, y + 10, color, font);
+        program.getRenderer().drawText(text.toString(), x + 10, y + 10, color, font);
+    }
+
+    public StringBuilder getText() {
+        return text;
     }
 }

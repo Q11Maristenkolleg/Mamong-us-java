@@ -7,6 +7,7 @@ import com.siinus.simpleGrafixShader.ShaderImage;
 import tk.q11mc.core.Camera;
 import tk.q11mc.core.Handler;
 import tk.q11mc.gui.Button;
+import tk.q11mc.gui.TextInput;
 import tk.q11mc.net.Multiplayer;
 import tk.q11mc.objects.OtherPlayer;
 import tk.q11mc.objects.Player;
@@ -25,6 +26,8 @@ public class Main extends Program {
     Wall wall;
     Button sp;
     Button mp;
+    TextInput ti;
+    TextInput pi;
 
 
     //OtherPlayer otherPlayer;
@@ -49,6 +52,8 @@ public class Main extends Program {
         player = new Player(this, spritePlayer, 126,126, 0, 0);
         sp = new Button(this, spriteButton, 300, 300, 256, 64, this::startSingleplayer);
         mp = new Button(this, spriteButton, 300, 400, 256, 64, this::startMultiplayer);
+        ti = new TextInput(this, spriteButton, 300, 500, 256, 64, 0xff000000, arial32);
+        pi = new TextInput(this, spriteButton, 300, 600, 256, 64, 0xff000000, arial32);
         wall.setX(500);
         wall.setY(250);
 
@@ -93,8 +98,8 @@ public class Main extends Program {
             getRenderer().drawText("//Multiplayer", 580, 415, 0xff000000, arial32);
         }
         if (gameState == GameState.MULTIPLAYER) {
-            double ping = (Multiplayer.getPing() * 1000000000);
-            getRenderer().drawText("Ping: " + ping + " ms", 10, 10, 0xff000000, arial32);
+            double ping = (Multiplayer.getPing() * 1000);
+            getRenderer().drawText("Ping: " + ((int) ping) + " ms", 10, 10, 0xff000000, arial32);
         }
         if (gameState == GameState.LOADING) {
             getRenderer().drawText("Loading...",10,10,0xff000000, Main.arial32);
@@ -131,7 +136,7 @@ public class Main extends Program {
     }
 
     private void connectMultiplayer() {
-        if (Multiplayer.connect("localhost", 25565)) {
+        if (Multiplayer.connect(ti.getText().toString().toLowerCase(), Integer.parseInt(pi.getText().toString()))) {
             Multiplayer.send("connect Player"+((int) (Math.random()*100)));
             gameState = GameState.MULTIPLAYER;
         } else {
