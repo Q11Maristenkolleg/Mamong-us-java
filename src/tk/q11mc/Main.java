@@ -84,6 +84,7 @@ public class Main extends Program {
         setCapFps(true);
 
         InputUtils.setInput(getInput());
+        loadData();
     }
 
     @Override
@@ -155,6 +156,7 @@ public class Main extends Program {
             if (ni.getText().length()<=0) {
                 ni.setText("Player"+((int) (Math.random()*100)));
             }
+            saveData();
             Multiplayer.send("connect "+ni.getText());
             gameState = GameState.MULTIPLAYER;
         } else {
