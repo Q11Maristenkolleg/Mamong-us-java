@@ -4,13 +4,14 @@ import com.siinus.simpleGrafix.gfx.Font;
 import com.siinus.simpleGrafix.gfx.ImageTile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tk.q11mc.InputUtils;
 import tk.q11mc.Main;
-import tk.q11mc.Utils;
 
 public class TextInput extends GUIObject {
     private final ImageTile image;
     private final int color;
     private final Font font;
+    @Nullable private String defaultText = null;
 
     private boolean isMouseOver =  false;
     private boolean activated = false;
@@ -42,12 +43,16 @@ public class TextInput extends GUIObject {
         if (program.getInput().isButtonDown(1)) {
             activated = isMouseOver;
         }
-        if (activated) {
-            if (program.getInput().isKeyDown('\b')) {
+        if (activated && InputUtils.isKeyTyped()) {
+            char kd = program.getInput().getLastKey();
+            if (kd=='\b') {
+                if (text.length()<=0) {
+                    return;
+                }
                 text.deleteCharAt(text.length()-1);
                 return;
             }
-            if (program.getInput().isKeyDown('\t') || program.getInput().isKeyDown(0x70)) {
+            if (kd=='\t') {
                 if (queue != null) {
                     try {
                         queue.fields.get(queue.fields.indexOf(this)+1).activated = true;
@@ -58,7 +63,7 @@ public class TextInput extends GUIObject {
                 }
                 return;
             }
-            if (program.getInput().isKeyDown('\n')) {
+            if (kd=='\n') {
                 if (queue != null) {
                     if (queue.fields.size()-1 <= queue.fields.indexOf(this)) {
                         queue.endAction.run();
@@ -67,17 +72,14 @@ public class TextInput extends GUIObject {
                 }
                 return;
             }
-            int kd;
-            if ((kd = Utils.getKey(program.getInput())) > 0) {
-                text.append((char) kd);
-            }
+            text.append((InputUtils.isKeyPressed(0x10))?String.valueOf(kd):(String.valueOf(kd).toLowerCase()));
         }
     }
 
     @Override
     public void render() {
         program.getRenderer().drawImageTile(image, x, y, 0, activated?2:(isMouseOver?1:0));
-        program.getRenderer().drawText(text.toString(), x + 10, y + 10, color, font);
+        program.getRenderer().drawText(text.length()<=0?(defaultText==null?"":defaultText):text.toString(), x + 10, y + 10, text.length()<=0?0xff7f7f7f:color, font);
     }
 
     public String getText() {
@@ -86,6 +88,10 @@ public class TextInput extends GUIObject {
 
     public void setText(String text) {
         this.text = new StringBuilder(text);
+    }
+
+    public void setDefaultText(String defaultText) {
+        this.defaultText = defaultText;
     }
 
     public boolean register(@NotNull TextQueue queue) {
