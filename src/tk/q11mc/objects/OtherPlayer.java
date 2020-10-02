@@ -1,6 +1,5 @@
 package tk.q11mc.objects;
 
-import com.siinus.simpleGrafixShader.ShaderImage;
 import tk.q11mc.Main;
 
 public class OtherPlayer extends GameObject {
