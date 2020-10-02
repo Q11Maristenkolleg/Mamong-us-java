@@ -1,6 +1,6 @@
 package tk.q11mc.objects;
 
-import com.siinus.simpleGrafixShader.ShaderImage;
+
 import tk.q11mc.Main;
 
 import java.awt.*;
@@ -12,14 +12,14 @@ public class Wall extends GameObject implements Collideable {
      * Creates a new Wall object.
      *
      * @param program The associated program
-     * @param sprite  The texture
+     * @param id  The type of Object
      * @param width   The width of the bounding box
      * @param height  The height of the bounding box
      * @param ox      The offset of the bounding box to the right
      * @param oy      The offset of the bounding box to down
      */
-    public Wall(Main program, ShaderImage sprite, int width, int height, int ox, int oy) {
-        super(program, sprite, width, height, ox, oy);
+    public Wall(Main program, int id, int width, int height, int ox, int oy) {
+        super(program, id, width, height, ox, oy);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class Wall extends GameObject implements Collideable {
 
     @Override
     public void render() {
-        program.getRenderer().drawImage(sprite, x+offX(), y+offY());
+        program.getRenderer().drawImageTile(Main.objectSheet,x+offX(),y+offY(),id,0);
     }
 
     @Override

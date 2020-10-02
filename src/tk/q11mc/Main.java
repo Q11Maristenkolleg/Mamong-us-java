@@ -4,7 +4,7 @@ import com.siinus.simpleGrafix.Program;
 import com.siinus.simpleGrafix.gfx.Font;
 import com.siinus.simpleGrafix.gfx.ImageTile;
 import com.siinus.simpleGrafixShader.ShaderImage;
-import org.json.simple.JSONObject;
+//import org.json.simple.JSONObject;
 import tk.q11mc.core.Camera;
 import tk.q11mc.core.Handler;
 import tk.q11mc.gui.Button;
@@ -21,10 +21,11 @@ public class Main extends Program {
     private static Main instance;
 
     Handler handler;
-    public static ShaderImage spritePlayer = new ShaderImage("/player.png");
-    public static ShaderImage spriteWall = new ShaderImage("/test.png");
+    public static ImageTile playerSheet = new ImageTile("/playerSheet.png",50,100);
+    public static ImageTile objectSheet = new ImageTile("/objectSheet.png",126,126);
     public static ImageTile spriteButton = new ImageTile("/SPB.png", 256, 64);
     public static ImageTile spriteText = new ImageTile("/text.png", 256, 64);
+    private ShaderImage Icon = new ShaderImage("/Icon.png");
     Player player;
     Wall wall;
     Button sp;
@@ -51,10 +52,9 @@ public class Main extends Program {
 
     public Main() {
         handler = new Handler();
-        setIconImage(spritePlayer);
-        spriteWall.setLightBlock(1);
-        wall = new Wall(this, spriteWall, 126, 26, 0, 100);
-        player = new Player(this, spritePlayer, 126,126, 0, 0);
+        setIconImage(Icon);
+        wall = new Wall(this, 1, 126, 26, 0, 0);
+        player = new Player(this, playerSheet, 50,100, 0, 0);
         sp = new Button(this, spriteButton, 300, 300, 256, 64, this::startSingleplayer);
         mp = new Button(this, spriteButton, 300, 400, 256, 64, this::startMultiplayer);
         ni = new TextInput(this, spriteText, 300, 150, 256, 64, 0xff0000ff, arial32);
