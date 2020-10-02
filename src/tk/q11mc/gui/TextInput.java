@@ -80,8 +80,12 @@ public class TextInput extends GUIObject {
         program.getRenderer().drawText(text.toString(), x + 10, y + 10, color, font);
     }
 
-    public StringBuilder getText() {
-        return text;
+    public String getText() {
+        return text.toString();
+    }
+
+    public void setText(String text) {
+        this.text = new StringBuilder(text);
     }
 
     public boolean register(@NotNull TextQueue queue) {

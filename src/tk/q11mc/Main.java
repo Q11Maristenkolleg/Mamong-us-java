@@ -4,6 +4,7 @@ import com.siinus.simpleGrafix.Program;
 import com.siinus.simpleGrafix.gfx.Font;
 import com.siinus.simpleGrafix.gfx.ImageTile;
 import com.siinus.simpleGrafixShader.ShaderImage;
+import org.json.simple.JSONObject;
 import tk.q11mc.core.Camera;
 import tk.q11mc.core.Handler;
 import tk.q11mc.gui.Button;
@@ -30,6 +31,7 @@ public class Main extends Program {
     Button mp;
     TextInput ti;
     TextInput pi;
+    TextInput ni;
     TextQueue tq;
 
 
@@ -55,6 +57,7 @@ public class Main extends Program {
         player = new Player(this, spritePlayer, 126,126, 0, 0);
         sp = new Button(this, spriteButton, 300, 300, 256, 64, this::startSingleplayer);
         mp = new Button(this, spriteButton, 300, 400, 256, 64, this::startMultiplayer);
+        ni = new TextInput(this, spriteText, 300, 150, 256, 64, 0xff0000ff, arial32);
         ti = new TextInput(this, spriteText, 300, 500, 256, 64, 0xff000000, arial32);
         pi = new TextInput(this, spriteText, 300, 600, 256, 64, 0xff000000, arial32);
         tq = new TextQueue();
@@ -101,18 +104,15 @@ public class Main extends Program {
     public void render() {
         getRenderer().setBgColor(0xffffffff);
         handler.render();
-        if (gameState==GameState.MAIN_MENU) {
-            getRenderer().drawText("//Multiplayer", 580, 415, 0xff000000, arial32);
-        }
         if (gameState == GameState.MULTIPLAYER) {
             double ping = (Multiplayer.getPing() * 1000);
             getRenderer().drawText("Ping: " + ((int) ping) + " ms", 10, 10, 0xff000000, arial32);
         }
         if (gameState == GameState.LOADING) {
-            getRenderer().drawText("Loading...",10,10,0xff000000, Main.arial32);
+            getRenderer().drawText("Loading...",10, 10,0xff000000, Main.arial32);
         }
         if (gameState == GameState.ERROR) {
-            getRenderer().drawText("Connection refused!",10,10,0xffff0000, arial32);
+            getRenderer().drawText("Connection refused!",10, 10,0xffff0000, arial32);
         }
         //getShaderRenderer().drawLight(light, getInput().getMouseX(), getInput().getMouseY());
     }
@@ -143,8 +143,11 @@ public class Main extends Program {
     }
 
     private void connectMultiplayer() {
-        if (Multiplayer.connect(ti.getText().toString().toLowerCase(), Integer.parseInt(pi.getText().toString()))) {
-            Multiplayer.send("connect Player"+((int) (Math.random()*100)));
+        if (Multiplayer.connect(ti.getText().toLowerCase(), Integer.parseInt(pi.getText()))) {
+            if (ni.getText().length()<=0) {
+                ni.setText("Player"+((int) (Math.random()*100)));
+            }
+            Multiplayer.send("connect "+ni.getText());
             gameState = GameState.MULTIPLAYER;
         } else {
             gameState = GameState.ERROR;
@@ -158,4 +161,8 @@ public class Main extends Program {
     public static Main getInstance() {
         return instance;
     }
+
+    /*private JSONObject saveData() {
+
+    }*/
 }

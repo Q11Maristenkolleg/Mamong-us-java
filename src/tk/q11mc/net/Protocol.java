@@ -18,6 +18,7 @@ public class Protocol implements ClientProtocol {
 
         switch (msg[1]) {
             case "name" -> {
+                System.out.println(" ----- NAME ----- ");
                 Multiplayer.ip = msg[0];
                 Main.gameState = GameState.MULTIPLAYER;
             }
