@@ -8,6 +8,7 @@ import tk.q11mc.core.Camera;
 import tk.q11mc.core.Handler;
 import tk.q11mc.gui.Button;
 import tk.q11mc.gui.TextInput;
+import tk.q11mc.gui.TextQueue;
 import tk.q11mc.net.Multiplayer;
 import tk.q11mc.objects.OtherPlayer;
 import tk.q11mc.objects.Player;
@@ -22,12 +23,14 @@ public class Main extends Program {
     public static ShaderImage spritePlayer = new ShaderImage("/player.png");
     public static ShaderImage spriteWall = new ShaderImage("/test.png");
     public static ImageTile spriteButton = new ImageTile("/SPB.png", 256, 64);
+    public static ImageTile spriteText = new ImageTile("/text.png", 256, 64);
     Player player;
     Wall wall;
     Button sp;
     Button mp;
     TextInput ti;
     TextInput pi;
+    TextQueue tq;
 
 
     //OtherPlayer otherPlayer;
@@ -52,8 +55,12 @@ public class Main extends Program {
         player = new Player(this, spritePlayer, 126,126, 0, 0);
         sp = new Button(this, spriteButton, 300, 300, 256, 64, this::startSingleplayer);
         mp = new Button(this, spriteButton, 300, 400, 256, 64, this::startMultiplayer);
-        ti = new TextInput(this, spriteButton, 300, 500, 256, 64, 0xff000000, arial32);
-        pi = new TextInput(this, spriteButton, 300, 600, 256, 64, 0xff000000, arial32);
+        ti = new TextInput(this, spriteText, 300, 500, 256, 64, 0xff000000, arial32);
+        pi = new TextInput(this, spriteText, 300, 600, 256, 64, 0xff000000, arial32);
+        tq = new TextQueue();
+        tq.endAction = this::startMultiplayer;
+        ti.register(tq);
+        pi.register(tq);
         wall.setX(500);
         wall.setY(250);
 
