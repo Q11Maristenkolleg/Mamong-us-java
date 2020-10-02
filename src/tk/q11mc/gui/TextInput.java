@@ -4,8 +4,8 @@ import com.siinus.simpleGrafix.gfx.Font;
 import com.siinus.simpleGrafix.gfx.ImageTile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tk.q11mc.InputUtils;
 import tk.q11mc.Main;
-import tk.q11mc.Utils;
 
 public class TextInput extends GUIObject {
     private final ImageTile image;
@@ -43,12 +43,16 @@ public class TextInput extends GUIObject {
         if (program.getInput().isButtonDown(1)) {
             activated = isMouseOver;
         }
-        if (activated) {
-            if (program.getInput().isKeyDown('\b')) {
+        if (activated && InputUtils.isKeyTyped()) {
+            char kd = program.getInput().getLastKey();
+            if (kd=='\b') {
+                if (text.length()<=0) {
+                    return;
+                }
                 text.deleteCharAt(text.length()-1);
                 return;
             }
-            if (program.getInput().isKeyDown('\t') || program.getInput().isKeyDown(0x70)) {
+            if (kd=='\t') {
                 if (queue != null) {
                     try {
                         queue.fields.get(queue.fields.indexOf(this)+1).activated = true;
@@ -59,7 +63,7 @@ public class TextInput extends GUIObject {
                 }
                 return;
             }
-            if (program.getInput().isKeyDown('\n')) {
+            if (kd=='\n') {
                 if (queue != null) {
                     if (queue.fields.size()-1 <= queue.fields.indexOf(this)) {
                         queue.endAction.run();
@@ -68,10 +72,7 @@ public class TextInput extends GUIObject {
                 }
                 return;
             }
-            int kd;
-            if ((kd = Utils.getKey(program.getInput())) > 0) {
-                text.append((char) kd);
-            }
+            text.append((InputUtils.isKeyPressed(0x10))?String.valueOf(kd):(String.valueOf(kd).toLowerCase()));
         }
     }
 
