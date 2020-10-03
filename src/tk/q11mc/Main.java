@@ -30,12 +30,12 @@ public class Main extends Program {
     private Image icon = new Image("/icon.png");
     Player player;
     Wall wall;
-    Button sp;
-    Button mp;
+    Button singlePlayerButton;
+    Button multiPlayerButton;
     Button btmm;
-    TextInput ti;
-    TextInput pi;
-    TextInput ni;
+    TextInput ipField;
+    TextInput portField;
+    TextInput nameField;
     TextQueue tq;
 
 
@@ -58,19 +58,19 @@ public class Main extends Program {
         setIconImage(icon);
         wall = new Wall(this, 1, 126, 26, 0, 0);
         player = PlayerSprite.RED.getNewPlayer(this);
-        sp = new Button(this, spriteButton, 300, 300, 256, 64, this::startSingleplayer, new GameState[] {GameState.MAIN_MENU});
-        mp = new Button(this, spriteButton, 300, 400, 256, 64, this::startMultiplayer, new GameState[] {GameState.MAIN_MENU});
+        singlePlayerButton = new Button(this, spriteButton, 640, 300, 256, 64, this::startSingleplayer, new GameState[] {GameState.MAIN_MENU});
+        multiPlayerButton = new Button(this, spriteButton, 640, 400, 256, 64, this::startMultiplayer, new GameState[] {GameState.MAIN_MENU});
         btmm = new Button(this, spriteButton, 500, 400, 256, 64, this::startMainMenu, new GameState[] {GameState.PAUSE});
-        ni = new TextInput(this, spriteText, 300, 150, 256, 64, 0xff0000ff, arial32);
-        ni.setDefaultText("Name");
-        ti = new TextInput(this, spriteText, 300, 500, 256, 64, 0xff000000, arial32);
-        ti.setDefaultText("IP");
-        pi = new TextInput(this, spriteText, 300, 600, 256, 64, 0xff000000, arial32);
-        pi.setDefaultText("Port");
+        nameField = new TextInput(this, spriteText, 640, 150, 256, 64, 0xff0000ff, arial32);
+        nameField.setDefaultText("Name");
+        ipField = new TextInput(this, spriteText, 640, 500, 256, 64, 0xff000000, arial32);
+        ipField.setDefaultText("IP");
+        portField = new TextInput(this, spriteText, 640, 600, 256, 64, 0xff000000, arial32);
+        portField.setDefaultText("Port");
         tq = new TextQueue();
         tq.endAction = this::startMultiplayer;
-        ti.register(tq);
-        pi.register(tq);
+        ipField.register(tq);
+        portField.register(tq);
         wall.setX(500);
         wall.setY(250);
 
@@ -84,6 +84,7 @@ public class Main extends Program {
     @Override
     public void start() {
         getWindow().setScaleOnResize(true);
+        getWindow().getFrame().setTitle("Mamong us");
         setCapFps(true);
 
         InputUtils.setInput(getInput());
@@ -158,12 +159,12 @@ public class Main extends Program {
     }
 
     private void connectMultiplayer() {
-        if (Multiplayer.connect(ti.getText().toLowerCase(), Integer.parseInt(pi.getText()))) {
-            if (ni.getText().length()<=0) {
-                ni.setText("Player"+((int) (Math.random()*100)));
+        if (Multiplayer.connect(ipField.getText().toLowerCase(), Integer.parseInt(portField.getText()))) {
+            if (nameField.getText().length()<=0) {
+                nameField.setText("Player"+((int) (Math.random()*100)));
             }
             saveData();
-            Multiplayer.send("connect "+ni.getText());
+            Multiplayer.send("connect "+nameField.getText());
             gameState = GameState.MULTIPLAYER;
         } else {
             gameState = GameState.ERROR;
@@ -181,9 +182,9 @@ public class Main extends Program {
     @SuppressWarnings("unchecked")
     private void saveData() {
         JSONObject root = new JSONObject();
-        root.put("name", ni.getText());
-        root.put("ip", ti.getText());
-        root.put("port", pi.getText());
+        root.put("name", nameField.getText());
+        root.put("ip", ipField.getText());
+        root.put("port", portField.getText());
         FileIO.saveJSON("./config.json", root);
     }
 
@@ -192,8 +193,8 @@ public class Main extends Program {
         if (root == null) {
             return;
         }
-        ni.setText((String) root.get("name"));
-        ti.setText((String) root.get("ip"));
-        pi.setText((String) root.get("port"));
+        nameField.setText((String) root.get("name"));
+        ipField.setText((String) root.get("ip"));
+        portField.setText((String) root.get("port"));
     }
 }
