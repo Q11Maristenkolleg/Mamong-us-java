@@ -22,9 +22,30 @@ public class Protocol implements ClientHandler {
 
             String task = msg[1];
 
-            if (task.equals("connect")) {
-                System.out.println("___");
-                OutputChat.add(ip + " connected.");
+            switch (task) {
+                case "connect" -> {
+                    if (msg.length >= 3) {
+                        OutputChat.add(msg[2] + " joined the game!");
+                        if (!Multiplayer.names.containsKey(ip)) {
+                            Multiplayer.names.put(ip, msg[2]);
+                            Multiplayer.spawnPlayer(ip);
+                        }
+                    }
+                }
+                case "disconnect" -> {
+                    if (!Multiplayer.ip.equals(ip)) {
+                        OutputChat.add(Multiplayer.names.get(ip) + " left the game!");
+                        Multiplayer.names.remove(ip);
+                        Multiplayer.players.get(ip).destroy();
+                        Multiplayer.players.remove(ip);
+                    }
+                }
+                case "pos" -> {
+                    if (!Multiplayer.ip.equals(ip) && msg.length >= 4) {
+                        Multiplayer.players.get(ip).setX(Integer.parseInt(msg[2]));
+                        Multiplayer.players.get(ip).setY(Integer.parseInt(msg[3]));
+                    }
+                }
             }
 
         }

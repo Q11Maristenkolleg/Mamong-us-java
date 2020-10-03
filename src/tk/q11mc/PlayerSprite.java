@@ -3,6 +3,7 @@ package tk.q11mc;
 import com.siinus.simpleGrafix.gfx.ImageTile;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import tk.q11mc.objects.OtherPlayer;
 import tk.q11mc.objects.Player;
 
 public enum PlayerSprite {
@@ -27,5 +28,10 @@ public enum PlayerSprite {
     @Contract("_ -> new")
     public @NotNull Player getNewPlayer(Main program) {
         return new Player(program, image, WIDTH, HEIGHT, OX, OY);
+    }
+
+    @Contract("_, _ -> new")
+    public @NotNull OtherPlayer getNewOtherPlayer(Main program, String name) {
+        return new OtherPlayer(program, name, image);
     }
 }

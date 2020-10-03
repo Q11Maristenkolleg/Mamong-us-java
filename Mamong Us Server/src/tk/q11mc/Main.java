@@ -14,5 +14,6 @@ public class Main {
         server = new JavaServer();
         server.start(Integer.parseInt(args[0]));
         JavaServer.setHandler(new Protocol());
+        new Console().start();
     }
 }
