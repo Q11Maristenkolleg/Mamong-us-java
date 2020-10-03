@@ -34,9 +34,6 @@ public class Protocol implements ClientHandler {
                             Multiplayer.names.put(ip, msg[2]);
                             Multiplayer.spawnPlayer(ip);
                         }
-                        for (String other : Multiplayer.names.keySet()) {
-                            PlayerSprite.ORANGE.getNewOtherPlayer(Main.getInstance(), Multiplayer.names.get(other));
-                        }
                     }
                 }
                 case "disconnect" -> {
