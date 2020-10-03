@@ -21,7 +21,7 @@ public class Multiplayer {
             e.printStackTrace();
             return false;
         }
-        JavaClient.setProtocol(new Protocol());
+        JavaClient.setHandler(new Protocol());
         return true;
     }
 
@@ -39,13 +39,9 @@ public class Multiplayer {
     }
 
     public static void spawnPlayer(String ip) {
-        if (compareIP(ip) && !names.containsKey(ip) && !players.containsKey(ip)) {
+        if (!Multiplayer.ip.equals(ip) && !names.containsKey(ip) && !players.containsKey(ip)) {
             OtherPlayer p = new OtherPlayer(Main.getInstance(), names.get(ip));
             players.put(ip, p);
         }
-    }
-
-    public static boolean compareIP(String ip) {
-        return Multiplayer.ip != null && !Multiplayer.ip.equals(ip);
     }
 }

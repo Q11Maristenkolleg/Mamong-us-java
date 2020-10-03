@@ -73,7 +73,6 @@ public class InputUtils {
 
     public static boolean isKeyTyped() {
         if (lk != input.getLastKey()) {
-            System.out.println("NE");
             lk = input.getLastKey();
             kc = 20;
             return true;

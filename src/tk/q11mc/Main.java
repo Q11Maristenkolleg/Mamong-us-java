@@ -6,6 +6,7 @@ import com.siinus.simpleGrafix.gfx.Image;
 import com.siinus.simpleGrafix.gfx.ImageTile;
 //import org.json.simple.JSONObject;
 import org.json.simple.JSONObject;
+import tk.q11mc.chat.OutputChat;
 import tk.q11mc.core.Camera;
 import tk.q11mc.core.Handler;
 import tk.q11mc.gui.Button;
@@ -90,6 +91,8 @@ public class Main extends Program {
     @Override
     public void update() {
         InputUtils.update(getInput());
+        OutputChat.update();
+
         if (getInput().isKeyDown(KeyEvent.VK_ESCAPE) && gameState != GameState.MAIN_MENU) {
             if (gameState == GameState.PAUSE) {
                 gameState = GameState.SINGLEPLAYER;
@@ -115,6 +118,7 @@ public class Main extends Program {
         if (gameState == GameState.MULTIPLAYER) {
             double ping = (Multiplayer.getPing() * 1000);
             getRenderer().drawText("Ping: " + ((int) ping) + " ms", 10, 10, 0xff000000, arial32);
+            getRenderer().drawText(OutputChat.text(), 100, 200, 0xff7f0000, arial32);
         }
         if (gameState == GameState.LOADING) {
             getRenderer().drawText("Loading...",10, 10,0xff000000, Main.arial32);
