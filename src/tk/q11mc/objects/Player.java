@@ -12,8 +12,11 @@ import java.awt.event.KeyEvent;
 
 
 public class Player extends GameObject {
-    static float speed,minusSpeed;
-    public int dx = 2, dy = 2;
+    public static final float SPEED = 8;
+    public static final byte FRAME_TIME = 5;
+
+    static float minusSpeed;
+    public int dx, dy;
     static boolean isMoving,left = false;
     static byte buffer = 0;
     static byte frame = 1;
@@ -32,7 +35,8 @@ public class Player extends GameObject {
     public Player(Main program, ImageTile spriteSheet, int width, int height, int ox, int oy) {
         super(program,spriteSheet,width,height,ox
         ,oy);
-
+        dx = (int) SPEED;
+        dy = (int) SPEED;
     }
 
     @Override
@@ -40,7 +44,7 @@ public class Player extends GameObject {
 
         if(isMoving) {
             if(buffer <= 0) {
-                buffer = 20;
+                buffer = FRAME_TIME;
                 frame = (byte) (frame >= 3 ? 1 : frame+1);
             }else buffer--;
         }
@@ -48,11 +52,10 @@ public class Player extends GameObject {
         controls();
     }
     public void controls() {
-        speed = 4f;
-        minusSpeed = -1*speed;
+        minusSpeed = -1* SPEED;
 
         if (program.getInput().isKeyPressed(KeyEvent.VK_D) && !collisionright()) {
-            x+=speed;
+            x+= SPEED;
             isMoving = true;
             left = false;
             if (Main.gameState == GameState.MULTIPLAYER) {
@@ -60,7 +63,7 @@ public class Player extends GameObject {
             }
         }
         if (program.getInput().isKeyPressed(KeyEvent.VK_S) && !collisiondown()) {
-            y+=speed;
+            y+= SPEED;
 
             isMoving = true;
             if (Main.gameState == GameState.MULTIPLAYER) {
@@ -68,7 +71,7 @@ public class Player extends GameObject {
             }
         }
         if (program.getInput().isKeyPressed(KeyEvent.VK_A) && !collisionleft()) {
-            x-=speed;
+            x-= SPEED;
 
             isMoving = true;
             left = true;
@@ -77,7 +80,7 @@ public class Player extends GameObject {
             }
         }
         if (program.getInput().isKeyPressed(KeyEvent.VK_W) && !collisionup()) {
-            y-=speed;
+            y-= SPEED;
 
             isMoving = true;
             if (Main.gameState == GameState.MULTIPLAYER) {
@@ -124,9 +127,12 @@ public class Player extends GameObject {
 
     @Override
     public void render() {
-        if(!isMoving) program.getRenderer().drawImageTile(spriteSheet,x+offX(),y+offY(),0,left ? 1 : 0);
+        if(!isMoving) {
+            program.getRenderer().drawImageTile(spriteSheet,x+offX(),y+offY(),left ? 1 : 0, 3);
+            frame = (byte) 1;
+        }
         else {
-            program.getRenderer().drawImageTile(spriteSheet, x + offX(), y + offY(), frame, left ? 1 : 0);
+            program.getRenderer().drawImageTile(spriteSheet, x + offX(), y + offY(), left ? 1 : 0, 3-frame);
         }
     }
 

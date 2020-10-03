@@ -55,7 +55,7 @@ public class Main extends Program {
         handler = new Handler();
         setIconImage(icon);
         wall = new Wall(this, 1, 126, 26, 0, 0);
-        player = new Player(this, playerSheet, 50,100, 0, 0);
+        player = PlayerSprite.RED.getNewPlayer(this);
         sp = new Button(this, spriteButton, 300, 300, 256, 64, this::startSingleplayer);
         mp = new Button(this, spriteButton, 300, 400, 256, 64, this::startMultiplayer);
         ni = new TextInput(this, spriteText, 300, 150, 256, 64, 0xff0000ff, arial32);
