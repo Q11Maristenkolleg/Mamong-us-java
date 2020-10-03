@@ -1,5 +1,6 @@
 package tk.q11mc.core;
 
+import tk.q11mc.GameState;
 import tk.q11mc.Main;
 import tk.q11mc.gui.GUIObject;
 import tk.q11mc.objects.GameObject;
@@ -15,7 +16,14 @@ public class Handler {
         switch (Main.gameState) {
             case MAIN_MENU -> {
                 for (GUIObject tempObject : guiObjects) {
+                    if (tempObject.getStates().length==1 && tempObject.getStates()[0] == GameState.MAIN_MENU)
                     tempObject.update();
+                }
+            }
+            case PAUSE -> {
+                for (GUIObject tempObject : guiObjects) {
+                    if (tempObject.getStates().length==1 && tempObject.getStates()[0] == GameState.PAUSE)
+                        tempObject.update();
                 }
             }
             case SINGLEPLAYER, MULTIPLAYER -> {
@@ -29,7 +37,14 @@ public class Handler {
         switch (Main.gameState) {
             case MAIN_MENU -> {
                 for (GUIObject tempObject : guiObjects) {
-                    tempObject.render();
+                    if (tempObject.getStates().length==1 && tempObject.getStates()[0] == GameState.MAIN_MENU)
+                        tempObject.render();
+                }
+            }
+            case PAUSE -> {
+                for (GUIObject tempObject : guiObjects) {
+                    if (tempObject.getStates().length==1 && tempObject.getStates()[0] == GameState.PAUSE)
+                        tempObject.render();
                 }
             }
             case SINGLEPLAYER, MULTIPLAYER -> {

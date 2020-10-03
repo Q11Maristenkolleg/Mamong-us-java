@@ -1,11 +1,15 @@
 package tk.q11mc.gui;
 
 import com.siinus.simpleGrafix.gfx.Image;
+import org.jetbrains.annotations.Nullable;
+import tk.q11mc.GameState;
 import tk.q11mc.Handleable;
 import tk.q11mc.Main;
 import tk.q11mc.core.Handler;
 
 public abstract class GUIObject implements Handleable {
+    protected GameState[] states;
+
     protected Main program;
     protected Image sprite;
     protected int x, y;
@@ -22,6 +26,11 @@ public abstract class GUIObject implements Handleable {
      * @param height The width of the bounding box
      */
     public GUIObject(Main program, Image sprite, int x, int y, int width, int height) {
+        this(program, sprite, x, y, width, height, null);
+    }
+
+    public GUIObject(Main program, Image sprite, int x, int y, int width, int height, @Nullable GameState[] states) {
+        this.states = states==null?new GameState[] {GameState.MAIN_MENU} : states;
         this.program = program;
         this.sprite = sprite;
         this.x = x;
@@ -51,5 +60,9 @@ public abstract class GUIObject implements Handleable {
         int mx = program.getInput().getMouseX();
         int my = program.getInput().getMouseY();
         return mx >= x && mx <= (x + width) && my >= y && my <= (y + height);
+    }
+
+    public GameState[] getStates() {
+        return states;
     }
 }

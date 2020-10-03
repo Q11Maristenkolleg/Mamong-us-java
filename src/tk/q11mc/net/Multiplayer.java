@@ -2,6 +2,7 @@ package tk.q11mc.net;
 
 import com.siinus.client.JavaClient;
 import tk.q11mc.Main;
+import tk.q11mc.PlayerSprite;
 import tk.q11mc.objects.OtherPlayer;
 
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class Multiplayer {
             e.printStackTrace();
             return false;
         }
-        JavaClient.setProtocol(new Protocol());
+        JavaClient.setHandler(new Protocol());
         return true;
     }
 
@@ -39,13 +40,9 @@ public class Multiplayer {
     }
 
     public static void spawnPlayer(String ip) {
-        if (compareIP(ip) && !names.containsKey(ip) && !players.containsKey(ip)) {
-            OtherPlayer p = new OtherPlayer(Main.getInstance(), names.get(ip));
+        if (!Multiplayer.ip.equals(ip) && names.containsKey(ip) && !players.containsKey(ip)) {
+            OtherPlayer p = PlayerSprite.ORANGE.getNewOtherPlayer(Main.getInstance(), names.get(ip));
             players.put(ip, p);
         }
-    }
-
-    public static boolean compareIP(String ip) {
-        return Multiplayer.ip != null && !Multiplayer.ip.equals(ip);
     }
 }

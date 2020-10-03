@@ -6,6 +6,7 @@ import com.siinus.simpleGrafix.gfx.Image;
 import com.siinus.simpleGrafix.gfx.ImageTile;
 //import org.json.simple.JSONObject;
 import org.json.simple.JSONObject;
+import tk.q11mc.chat.OutputChat;
 import tk.q11mc.core.Camera;
 import tk.q11mc.core.Handler;
 import tk.q11mc.gui.Button;
@@ -31,6 +32,7 @@ public class Main extends Program {
     Wall wall;
     Button sp;
     Button mp;
+    Button btmm;
     TextInput ti;
     TextInput pi;
     TextInput ni;
@@ -55,9 +57,10 @@ public class Main extends Program {
         handler = new Handler();
         setIconImage(icon);
         wall = new Wall(this, 1, 126, 26, 0, 0);
-        player = new Player(this, playerSheet, 50,100, 0, 0);
-        sp = new Button(this, spriteButton, 300, 300, 256, 64, this::startSingleplayer);
-        mp = new Button(this, spriteButton, 300, 400, 256, 64, this::startMultiplayer);
+        player = PlayerSprite.RED.getNewPlayer(this);
+        sp = new Button(this, spriteButton, 300, 300, 256, 64, this::startSingleplayer, new GameState[] {GameState.MAIN_MENU});
+        mp = new Button(this, spriteButton, 300, 400, 256, 64, this::startMultiplayer, new GameState[] {GameState.MAIN_MENU});
+        btmm = new Button(this, spriteButton, 500, 400, 256, 64, this::startMainMenu, new GameState[] {GameState.PAUSE});
         ni = new TextInput(this, spriteText, 300, 150, 256, 64, 0xff0000ff, arial32);
         ni.setDefaultText("Name");
         ti = new TextInput(this, spriteText, 300, 500, 256, 64, 0xff000000, arial32);
@@ -90,7 +93,9 @@ public class Main extends Program {
     @Override
     public void update() {
         InputUtils.update(getInput());
-        if (getInput().isKeyDown(KeyEvent.VK_ESCAPE) && gameState != GameState.MAIN_MENU) {
+        OutputChat.update();
+
+        if (InputUtils.isKeyDown(KeyEvent.VK_ESCAPE) && gameState != GameState.MAIN_MENU) {
             if (gameState == GameState.PAUSE) {
                 gameState = GameState.SINGLEPLAYER;
             } else {
@@ -115,6 +120,7 @@ public class Main extends Program {
         if (gameState == GameState.MULTIPLAYER) {
             double ping = (Multiplayer.getPing() * 1000);
             getRenderer().drawText("Ping: " + ((int) ping) + " ms", 10, 10, 0xff000000, arial32);
+            getRenderer().drawText(OutputChat.text(), 100, 200, 0xff007f3f, arial32);
         }
         if (gameState == GameState.LOADING) {
             getRenderer().drawText("Loading...",10, 10,0xff000000, Main.arial32);

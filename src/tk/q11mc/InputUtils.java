@@ -7,6 +7,7 @@ public class InputUtils {
     public static Input input;
     private static boolean kp = false;
     private static boolean kl = false;
+    private static int lk = 0;
     private static byte kc = 0;
     private static boolean bp = false;
     private static boolean bl = false;
@@ -71,16 +72,23 @@ public class InputUtils {
     }
 
     public static boolean isKeyTyped() {
+        if (lk != input.getLastKey()) {
+            lk = input.getLastKey();
+            kc = 20;
+            return true;
+        }
         if (isKeyDown()) {
-            kc = (byte) 20;
+            lk = input.getLastKey();
+            kc = 20;
             return true;
         }
         if (isKeyPressed()) {
+            lk = input.getLastKey();
             if (kc > 0) {
                 kc--;
                 return false;
             }
-            kc = (byte) 2;
+            kc = 2;
             return true;
         }
         return false;
