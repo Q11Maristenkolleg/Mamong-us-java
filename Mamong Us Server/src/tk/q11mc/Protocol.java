@@ -12,7 +12,7 @@ public class Protocol implements ServerHandler {
     }
 
     @Override
-    public String processInput(ServerChannel serverChannel, @NotNull String s) {
+    public synchronized String processInput(@NotNull ServerChannel serverChannel, @NotNull String s) {
         String r = null;
         Main.server.broadcast(serverChannel.getName()+" "+s);
         return r;

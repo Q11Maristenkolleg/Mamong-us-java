@@ -2,7 +2,11 @@ package tk.q11mc.net;
 
 import com.siinus.client.ClientHandler;
 import org.jetbrains.annotations.NotNull;
+import tk.q11mc.Main;
+import tk.q11mc.PlayerSprite;
 import tk.q11mc.chat.OutputChat;
+
+import java.util.Map;
 
 public class Protocol implements ClientHandler {
 
@@ -29,6 +33,9 @@ public class Protocol implements ClientHandler {
                         if (!Multiplayer.names.containsKey(ip)) {
                             Multiplayer.names.put(ip, msg[2]);
                             Multiplayer.spawnPlayer(ip);
+                        }
+                        for (String other : Multiplayer.names.keySet()) {
+                            PlayerSprite.ORANGE.getNewOtherPlayer(Main.getInstance(), Multiplayer.names.get(other));
                         }
                     }
                 }
@@ -60,6 +67,6 @@ public class Protocol implements ClientHandler {
 
     @Override
     public void onDisconnect() {
-
+        Multiplayer.send("disconnect");
     }
 }
