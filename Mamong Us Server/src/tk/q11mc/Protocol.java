@@ -4,6 +4,8 @@ import com.siinus.server.ServerChannel;
 import com.siinus.server.ServerHandler;
 import org.jetbrains.annotations.NotNull;
 
+import java.net.SocketException;
+
 public class Protocol implements ServerHandler {
 
     @Override
@@ -39,6 +41,10 @@ public class Protocol implements ServerHandler {
 
     @Override
     public void handleException(@NotNull ServerChannel serverChannel, @NotNull Throwable throwable) {
+        if (throwable instanceof SocketException && throwable.getMessage().equals("Connection reset")) {
+            disconnect(serverChannel);
+            return;
+        }
         System.out.println("--- " + serverChannel.getName() + " EXCEPTION ---");
         throwable.printStackTrace();
     }
