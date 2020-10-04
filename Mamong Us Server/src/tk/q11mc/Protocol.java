@@ -55,7 +55,8 @@ public class Protocol implements ServerHandler {
     }
 
     public static void disconnect(@NotNull ServerChannel serverChannel) {
-        System.out.println("--- Disconnect ---");
+        System.out.println(serverChannel.getName()+" has disconnected!");
+        Main.server.broadcast(serverChannel.getName()+" disconnect");
         Main.names.remove(serverChannel.getName());
     }
 }

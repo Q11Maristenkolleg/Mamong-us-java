@@ -75,6 +75,6 @@ public class Protocol implements ClientHandler {
     }
 
     public static void disconnect() {
-        Multiplayer.send("disconnect");
+        Multiplayer.disconnect();
     }
 }
