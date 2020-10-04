@@ -1,4 +1,4 @@
-package discord;
+package tk.q11mc.discord;
 
 import net.arikia.dev.drpc.DiscordEventHandlers;
 import net.arikia.dev.drpc.DiscordRPC;

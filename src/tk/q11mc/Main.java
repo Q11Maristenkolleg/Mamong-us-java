@@ -5,7 +5,7 @@ import com.siinus.simpleGrafix.gfx.Font;
 import com.siinus.simpleGrafix.gfx.Image;
 import com.siinus.simpleGrafix.gfx.ImageTile;
 //import org.json.simple.JSONObject;
-import discord.DiscordRP;
+import tk.q11mc.discord.DiscordRP;
 import org.json.simple.JSONObject;
 import tk.q11mc.chat.OutputChat;
 import tk.q11mc.core.Camera;
@@ -18,7 +18,6 @@ import tk.q11mc.net.Multiplayer;
 import tk.q11mc.objects.Player;
 import tk.q11mc.objects.Wall;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class Main extends Program {
