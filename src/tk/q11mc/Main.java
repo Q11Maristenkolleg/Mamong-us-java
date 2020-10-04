@@ -43,6 +43,8 @@ public class Main extends Program {
     TextQueue tq;
 
 
+    byte refreshPing = 0;
+    int ping = 0;
     //OtherPlayer otherPlayer;
 
 
@@ -106,6 +108,15 @@ public class Main extends Program {
         InputUtils.update(getInput());
         OutputChat.update();
 
+        if (gameState == GameState.MULTIPLAYER) {
+            if (refreshPing <= 0) {
+                refreshPing = 20;
+                ping = (int) (Multiplayer.getPing() * 1000);
+            } else {
+                refreshPing--;
+            }
+        }
+
         if (InputUtils.isKeyDown(KeyEvent.VK_ESCAPE) && gameState != GameState.MAIN_MENU) {
             if (gameState == GameState.PAUSE) {
                 gameState = GameState.SINGLEPLAYER;
@@ -130,8 +141,7 @@ public class Main extends Program {
         getRenderer().setBgColor(0xffffffff);
         handler.render();
         if (gameState == GameState.MULTIPLAYER) {
-            double ping = (Multiplayer.getPing() * 1000);
-            getRenderer().drawText("Ping: " + ((int) ping) + " ms", 10, 10, 0xff000000, arial32);
+            getRenderer().drawText("Ping: " + ping + " ms", 10, 10, 0xff000000, arial32);
             getRenderer().drawText(OutputChat.text(), 100, 200, 0xff007f3f, arial32);
         }
         if (gameState == GameState.LOADING) {

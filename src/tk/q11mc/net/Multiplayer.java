@@ -27,7 +27,9 @@ public class Multiplayer {
     }
 
     public static void send(String message) {
-        client.send(message);
+        try {
+            client.send(message);
+        } catch (NullPointerException ignored) { }
     }
 
     public static double getPing() {
