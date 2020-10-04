@@ -17,7 +17,7 @@ public class Player extends GameObject {
 
     static float minusSpeed;
     public int dx, dy;
-    static boolean isMoving,left = false;
+    static boolean isMoving, left, serverM = false;
     static byte buffer = 0;
     static byte frame = 1;
 
@@ -41,7 +41,6 @@ public class Player extends GameObject {
 
     @Override
     public void update() {
-
         if(isMoving) {
             if(buffer <= 0) {
                 buffer = FRAME_TIME;
@@ -51,12 +50,17 @@ public class Player extends GameObject {
         isMoving = false;
         controls();
     }
+
     public void controls() {
+
         minusSpeed = -1* SPEED;
 
         if (program.getInput().isKeyPressed(KeyEvent.VK_D) && !collisionright()) {
             x+= SPEED;
             isMoving = true;
+            if (Main.gameState == GameState.MULTIPLAYER && left) {
+                Multiplayer.send("face right");
+            }
             left = false;
             if (Main.gameState == GameState.MULTIPLAYER) {
                 Multiplayer.send("pos "+x+" "+y);
@@ -74,6 +78,9 @@ public class Player extends GameObject {
             x-= SPEED;
 
             isMoving = true;
+            if (Main.gameState == GameState.MULTIPLAYER && !left) {
+                Multiplayer.send("face left");
+            }
             left = true;
             if (Main.gameState == GameState.MULTIPLAYER) {
                 Multiplayer.send("pos "+x+" "+y);
@@ -85,6 +92,16 @@ public class Player extends GameObject {
             isMoving = true;
             if (Main.gameState == GameState.MULTIPLAYER) {
                 Multiplayer.send("pos "+x+" "+y);
+            }
+        }
+
+        if (Main.gameState == GameState.MULTIPLAYER) {
+            if (serverM && !isMoving) {
+                serverM = false;
+                Multiplayer.send("move stop");
+            } else if (!serverM && isMoving) {
+                serverM = true;
+                Multiplayer.send("move start");
             }
         }
     }

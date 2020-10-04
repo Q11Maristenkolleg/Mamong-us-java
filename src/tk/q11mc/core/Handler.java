@@ -12,7 +12,7 @@ public class Handler {
     public static LinkedList<GameObject> gameObjects = new LinkedList<>();
     public static LinkedList<GUIObject> guiObjects = new LinkedList<>();
 
-    public void update() {
+    public synchronized void update() {
         switch (Main.gameState) {
             case MAIN_MENU -> {
                 for (GUIObject tempObject : guiObjects) {
@@ -33,7 +33,8 @@ public class Handler {
             }
         }
     }
-    public void render() {
+
+    public synchronized void render() {
         switch (Main.gameState) {
             case MAIN_MENU -> {
                 for (GUIObject tempObject : guiObjects) {
