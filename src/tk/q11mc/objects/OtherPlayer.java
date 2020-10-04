@@ -51,15 +51,15 @@ public class OtherPlayer extends GameObject {
     }
 
     public void frameUp() {
-        if (frame < 3) {
-            frame++;
-            return;
-        }
         if (buffer > 0) {
             buffer--;
             return;
         }
         buffer = 5;
+        if (frame < 3) {
+            frame++;
+            return;
+        }
         frame = 1;
     }
 }
