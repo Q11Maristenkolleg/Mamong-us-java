@@ -17,6 +17,7 @@ import tk.q11mc.net.Multiplayer;
 import tk.q11mc.objects.Player;
 import tk.q11mc.objects.Wall;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class Main extends Program {
@@ -28,6 +29,7 @@ public class Main extends Program {
     public static ImageTile spriteButton = new ImageTile("/SPB.png", 256, 64);
     public static ImageTile spriteText = new ImageTile("/text.png", 256, 64);
     private Image icon = new Image("/icon.png");
+    public static int width, height;
     Player player;
     Wall wall;
     Button singlePlayerButton;
@@ -54,6 +56,7 @@ public class Main extends Program {
     }
 
     public Main() {
+
         handler = new Handler();
         setIconImage(icon);
         wall = new Wall(this, 1, 126, 26, 0, 0);
@@ -86,6 +89,8 @@ public class Main extends Program {
         getWindow().setScaleOnResize(true);
         getWindow().getFrame().setTitle("Mamong us");
         setCapFps(true);
+        width = getWindow().getFrame().getWidth();
+        height = getWindow().getFrame().getHeight();
 
         InputUtils.setInput(getInput());
         loadData();
@@ -134,7 +139,7 @@ public class Main extends Program {
 
     @Override
     public void stop() {
-
+        
     }
 
     public void startMainMenu() {
