@@ -35,6 +35,7 @@ public class Multiplayer {
     }
 
     public static void disconnect() {
+        send("disconnect");
         client.disconnect();
         client = null;
     }

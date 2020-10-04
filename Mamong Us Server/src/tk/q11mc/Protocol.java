@@ -30,6 +30,7 @@ public class Protocol implements ServerHandler {
                     Main.server.send(serverChannel, other + " connect " + Main.names.get(other));
                 }
             }
+            case "disconnect" -> disconnect(serverChannel);
         }
 
         Main.server.broadcast(serverChannel.getName() + " " + s);
@@ -43,7 +44,12 @@ public class Protocol implements ServerHandler {
     }
 
     @Override
-    public void onDisconnect(ServerChannel serverChannel) {
+    public void onDisconnect(@NotNull ServerChannel serverChannel) {
+        disconnect(serverChannel);
+    }
 
+    public static void disconnect(@NotNull ServerChannel serverChannel) {
+        System.out.println("--- Disconnect ---");
+        Main.names.remove(serverChannel.getName());
     }
 }

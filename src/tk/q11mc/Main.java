@@ -51,6 +51,8 @@ public class Main extends Program {
     Camera camera;
 
     public static GameState gameState = GameState.MAIN_MENU;
+    public static GameState lastState = GameState.MAIN_MENU;
+
     boolean loadMP = false;
 
     public static void main(String[] args) {
@@ -65,7 +67,7 @@ public class Main extends Program {
         player = PlayerSprite.RED.getNewPlayer(this);
         singlePlayerButton = new Button(this, spriteButton, 640, 300, 256, 64, this::startSingleplayer, new GameState[] {GameState.MAIN_MENU});
         multiPlayerButton = new Button(this, spriteButton, 640, 400, 256, 64, this::startMultiplayer, new GameState[] {GameState.MAIN_MENU});
-        btmm = new Button(this, spriteButton, 500, 400, 256, 64, this::startMainMenu, new GameState[] {GameState.PAUSE});
+        btmm = new Button(this, spriteButton, 750, 400, 256, 64, this::startMainMenu, new GameState[] {GameState.PAUSE});
         nameField = new TextInput(this, spriteText, 640, 150, 256, 64, 0xff0000ff, arial32);
         nameField.setDefaultText("Name");
         ipField = new TextInput(this, spriteText, 640, 500, 256, 64, 0xff000000, arial32);
@@ -147,10 +149,11 @@ public class Main extends Program {
     }
 
     public void startMainMenu() {
-        if (gameState == GameState.MULTIPLAYER) {
+        if (lastState == GameState.MULTIPLAYER) {
             Multiplayer.disconnect();
         }
         gameState = GameState.MAIN_MENU;
+        lastState = GameState.MAIN_MENU;
     }
 
     public void startPause() {
@@ -160,6 +163,7 @@ public class Main extends Program {
     public void startSingleplayer() {
 
         gameState = GameState.SINGLEPLAYER;
+        lastState = GameState.SINGLEPLAYER;
     }
 
     public void startMultiplayer() {
@@ -175,6 +179,7 @@ public class Main extends Program {
             saveData();
             Multiplayer.send("connect "+nameField.getText());
             gameState = GameState.MULTIPLAYER;
+            lastState = GameState.MULTIPLAYER;
         } else {
             gameState = GameState.ERROR;
         }

@@ -2,11 +2,7 @@ package tk.q11mc.net;
 
 import com.siinus.client.ClientHandler;
 import org.jetbrains.annotations.NotNull;
-import tk.q11mc.Main;
-import tk.q11mc.PlayerSprite;
 import tk.q11mc.chat.OutputChat;
-
-import java.util.Map;
 
 public class Protocol implements ClientHandler {
 
@@ -75,6 +71,10 @@ public class Protocol implements ClientHandler {
 
     @Override
     public void onDisconnect() {
+        disconnect();
+    }
+
+    public static void disconnect() {
         Multiplayer.send("disconnect");
     }
 }
