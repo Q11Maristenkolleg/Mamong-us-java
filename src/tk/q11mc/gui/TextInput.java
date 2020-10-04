@@ -7,6 +7,11 @@ import org.jetbrains.annotations.Nullable;
 import tk.q11mc.InputUtils;
 import tk.q11mc.Main;
 
+import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.IOException;
+
 public class TextInput extends GUIObject {
     private final ImageTile image;
     private final int color;
@@ -47,6 +52,7 @@ public class TextInput extends GUIObject {
         }
         if (activated) {
             char kd = program.getInput().getLastKey();
+            //System.out.println((byte) kd);
             if (((byte) kd) == (byte) -1) {
                 shift = true;
                 return;
@@ -76,6 +82,14 @@ public class TextInput extends GUIObject {
                             queue.endAction.run();
                             activated = false;
                         }
+                    }
+                    return;
+                }
+                if (kd == 22) {
+                    try {
+                        text.append(((String) (Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor))));
+                    } catch (UnsupportedFlavorException | IOException e) {
+                        e.printStackTrace();
                     }
                     return;
                 }
