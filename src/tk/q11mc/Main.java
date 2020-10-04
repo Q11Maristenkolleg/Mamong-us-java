@@ -5,6 +5,7 @@ import com.siinus.simpleGrafix.gfx.Font;
 import com.siinus.simpleGrafix.gfx.Image;
 import com.siinus.simpleGrafix.gfx.ImageTile;
 //import org.json.simple.JSONObject;
+import discord.DiscordRP;
 import org.json.simple.JSONObject;
 import tk.q11mc.chat.OutputChat;
 import tk.q11mc.core.Camera;
@@ -29,6 +30,7 @@ public class Main extends Program {
     public static ImageTile spriteButton = new ImageTile("/SPB.png", 256, 64);
     public static ImageTile spriteText = new ImageTile("/text.png", 256, 64);
     private Image icon = new Image("/icon.png");
+    private static DiscordRP discordRP = new DiscordRP();
     public static int width, height;
     Player player;
     Wall wall;
@@ -86,6 +88,7 @@ public class Main extends Program {
 
     @Override
     public void start() {
+        discordRP.start();
         getWindow().setScaleOnResize(true);
         getWindow().getFrame().setTitle("Mamong us");
         setCapFps(true);
@@ -117,6 +120,7 @@ public class Main extends Program {
         handler.update();
 
         camera.update();
+        discordRP.update(ipField.getText());
     }
 
     @Override
@@ -139,7 +143,7 @@ public class Main extends Program {
 
     @Override
     public void stop() {
-        
+        discordRP.shutdown();
     }
 
     public void startMainMenu() {
@@ -202,4 +206,5 @@ public class Main extends Program {
         ipField.setText((String) root.get("ip"));
         portField.setText((String) root.get("port"));
     }
+
 }
