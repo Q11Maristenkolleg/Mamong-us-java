@@ -1,5 +1,8 @@
 package tk.q11mc;
 
+import com.siinus.server.JavaServer;
+
+import java.io.IOException;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -17,6 +20,15 @@ public class Console extends Thread {
                     for (Map.Entry<String, String> entry : Main.names.entrySet()) {
                         System.out.println("|| " + entry.getKey() + " : " + entry.getValue());
                     }
+                    continue;
+                }
+                if (input.equals("/stop")) {
+                    try {
+                        Main.server.stop();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    continue;
                 }
 
                 continue;
