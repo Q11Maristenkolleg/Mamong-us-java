@@ -29,7 +29,7 @@ public class Main extends Program {
     public static ImageTile objectSheet = new ImageTile("/objectSheet.png",126,126);
     public static ImageTile spriteButton = new ImageTile("/SPB.png", 256, 64);
     public static ImageTile spriteText = new ImageTile("/text.png", 256, 64);
-    private Image icon = new Image("/icon.png");
+    private Image icon = new Image("/icon2.png");
     private static DiscordRP discordRP = new DiscordRP();
     public static int width, height;
     Player player;
