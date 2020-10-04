@@ -9,7 +9,7 @@ public class OtherPlayer extends GameObject {
     private boolean moving = false;
     private boolean left = false;
     private byte frame = 1;
-    private byte buffer = 5;
+    private byte buffer = 0;
 
     /**
      * Creates a new OtherPlayer object.
@@ -24,7 +24,12 @@ public class OtherPlayer extends GameObject {
 
     @Override
     public void update() {
-
+        if (moving) {
+            frameUp();
+        } else {
+            frame = 1;
+            buffer = 0;
+        }
     }
 
     @Override

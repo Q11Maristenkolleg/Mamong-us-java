@@ -45,7 +45,7 @@ public class Protocol implements ServerHandler {
             disconnect(serverChannel);
             return;
         }
-        System.out.println("--- " + serverChannel.getName() + " EXCEPTION ---");
+        System.out.println("--- " + serverChannel.getName() + ": EXCEPTION ---");
         throwable.printStackTrace();
     }
 
