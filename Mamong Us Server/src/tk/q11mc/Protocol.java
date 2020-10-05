@@ -4,6 +4,8 @@ import com.siinus.server.ServerChannel;
 import com.siinus.server.ServerHandler;
 import org.jetbrains.annotations.NotNull;
 
+import java.net.SocketException;
+
 public class Protocol implements ServerHandler {
 
     @Override
@@ -30,6 +32,7 @@ public class Protocol implements ServerHandler {
                     Main.server.send(serverChannel, other + " connect " + Main.names.get(other));
                 }
             }
+            case "disconnect" -> disconnect(serverChannel);
         }
 
         Main.server.broadcast(serverChannel.getName() + " " + s);
@@ -38,12 +41,22 @@ public class Protocol implements ServerHandler {
 
     @Override
     public void handleException(@NotNull ServerChannel serverChannel, @NotNull Throwable throwable) {
-        System.out.println("--- " + serverChannel.getName() + " EXCEPTION ---");
+        if (throwable instanceof SocketException && throwable.getMessage().equals("Connection reset")) {
+            disconnect(serverChannel);
+            return;
+        }
+        System.out.println("--- " + serverChannel.getName() + ": EXCEPTION ---");
         throwable.printStackTrace();
     }
 
     @Override
-    public void onDisconnect(ServerChannel serverChannel) {
+    public void onDisconnect(@NotNull ServerChannel serverChannel) {
+        disconnect(serverChannel);
+    }
 
+    public static void disconnect(@NotNull ServerChannel serverChannel) {
+        System.out.println(serverChannel.getName()+" has disconnected!");
+        Main.server.broadcast(serverChannel.getName()+" disconnect");
+        Main.names.remove(serverChannel.getName());
     }
 }
