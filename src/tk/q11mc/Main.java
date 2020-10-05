@@ -18,20 +18,20 @@ import tk.q11mc.net.Multiplayer;
 import tk.q11mc.objects.Player;
 import tk.q11mc.objects.Wall;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class Main extends Program {
     private static Main instance;
 
     Handler handler;
-    public static ImageTile playerSheet = new ImageTile("/playerSheet.png",50,100);
     public static ImageTile objectSheet = new ImageTile("/objectSheet.png",126,126);
-    public static ImageTile spriteButton = new ImageTile("/SPB.png", 256, 64);
+    public static ImageTile mainMenu = new ImageTile("/mainMenu.png",300,100);
+    public static ImageTile mpButton = new ImageTile("/mpButton.png",300,100);
+    public static ImageTile spButton = new ImageTile("/spButton.png",300,100);
     public static ImageTile spriteText = new ImageTile("/text.png", 256, 64);
     private Image icon = new Image("/icon.png");
     private static DiscordRP discordRP = new DiscordRP();
-    public static int width, height;
+    public static int width= 640, height = 350;
     Player player;
     Wall wall;
     Button singlePlayerButton;
@@ -63,14 +63,14 @@ public class Main extends Program {
         setIconImage(icon);
         wall = new Wall(this, 1, 126, 26, 0, 0);
         player = PlayerSprite.RED.getNewPlayer(this);
-        singlePlayerButton = new Button(this, spriteButton, 640, 300, 256, 64, this::startSingleplayer, new GameState[] {GameState.MAIN_MENU});
-        multiPlayerButton = new Button(this, spriteButton, 640, 400, 256, 64, this::startMultiplayer, new GameState[] {GameState.MAIN_MENU});
-        btmm = new Button(this, spriteButton, 500, 400, 256, 64, this::startMainMenu, new GameState[] {GameState.PAUSE});
-        nameField = new TextInput(this, spriteText, 640, 150, 256, 64, 0xff0000ff, arial32);
+        singlePlayerButton = new Button(this, spButton, width/2, 300, 300, 100, this::startSingleplayer, new GameState[] {GameState.MAIN_MENU});
+        multiPlayerButton = new Button(this, mpButton, width/2, 450, 300, 100, this::startMultiplayer, new GameState[] {GameState.MAIN_MENU});
+        btmm = new Button(this, mainMenu, width/2, height/2, 256, 64, this::startMainMenu, new GameState[] {GameState.PAUSE});
+        nameField = new TextInput(this, spriteText, width/2, 150, 256, 64, 0xff0000ff, arial32);
         nameField.setDefaultText("Name");
-        ipField = new TextInput(this, spriteText, 640, 500, 256, 64, 0xff000000, arial32);
+        ipField = new TextInput(this, spriteText, width/2, 550, 256, 64, 0xff000000, arial32);
         ipField.setDefaultText("IP");
-        portField = new TextInput(this, spriteText, 640, 600, 256, 64, 0xff000000, arial32);
+        portField = new TextInput(this, spriteText, width/2, 650, 256, 64, 0xff000000, arial32);
         portField.setDefaultText("Port");
         tq = new TextQueue();
         tq.endAction = this::startMultiplayer;
@@ -92,8 +92,7 @@ public class Main extends Program {
         getWindow().setScaleOnResize(true);
         getWindow().getFrame().setTitle("Mamong us");
         setCapFps(true);
-        width = getWindow().getFrame().getWidth();
-        height = getWindow().getFrame().getHeight();
+
 
         InputUtils.setInput(getInput());
         loadData();

@@ -7,9 +7,10 @@ import tk.q11mc.InputUtils;
 import tk.q11mc.Main;
 
 public class Button extends GUIObject {
-    private boolean isMouseOver = false;
+    private boolean isMouseOver= false;
     private final ImageTile image;
     private final Runnable click;
+
 
     /**
      * Creates a new Button object.
@@ -39,6 +40,6 @@ public class Button extends GUIObject {
 
     @Override
     public void render() {
-        program.getRenderer().drawImageTile(image, x, y, 0, isMouseOver?1:0);
+        program.getRenderer().drawImageTile(image, x, y, 0, isMouseOver? 0:1);
     }
 }
