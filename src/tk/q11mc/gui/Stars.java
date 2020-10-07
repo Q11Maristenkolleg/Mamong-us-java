@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class Stars {
     public static final byte NUM_STARS = 50;
-    private static int[] x = new int[NUM_STARS], y = new int[NUM_STARS], s = new int[NUM_STARS];
+    private static final int[] x = new int[NUM_STARS], y = new int[NUM_STARS], s = new int[NUM_STARS];
     private static final Random random = new Random();
     private static final Renderer renderer = Main.getInstance().getRenderer();
 

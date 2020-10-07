@@ -18,7 +18,6 @@ import tk.q11mc.net.Multiplayer;
 import tk.q11mc.objects.Player;
 import tk.q11mc.objects.Wall;
 
-import javax.swing.*;
 import java.awt.event.KeyEvent;
 
 public class Main extends Program {
@@ -30,8 +29,8 @@ public class Main extends Program {
     public static ImageTile mpButton = new ImageTile("/mpButton.png",300,100);
     public static ImageTile spButton = new ImageTile("/spButton.png",300,100);
     public static ImageTile spriteText = new ImageTile("/text.png", 256, 64);
-    private Image icon = new Image("/icon.png");
-    private static DiscordRP discordRP = new DiscordRP();
+    private static final Image icon = new Image("/icon.png");
+    private static final DiscordRP discordRP = new DiscordRP();
     public static int width, height;
     public static float scale;
     Player player;
