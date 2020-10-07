@@ -16,8 +16,7 @@ public class TextInput extends GUIObject {
     private final ImageTile image;
     private final int color;
     private final Font font;
-    @Nullable
-    private String defaultText = null;
+    @Nullable private String defaultText = null;
 
     private boolean isMouseOver = false;
     private boolean activated = false;
@@ -65,7 +64,8 @@ public class TextInput extends GUIObject {
                     text.deleteCharAt(text.length() - 1);
                     return;
                 }
-                if (kd == '\t') {
+                if (kd == '\t' || kd == 0x28) {
+                    System.out.println("TAB");
                     if (queue != null) {
                         try {
                             queue.fields.get(queue.fields.indexOf(this) + 1).activated = true;
@@ -80,8 +80,14 @@ public class TextInput extends GUIObject {
                     if (queue != null) {
                         if (queue.fields.size() - 1 <= queue.fields.indexOf(this)) {
                             queue.endAction.run();
-                            activated = false;
+                        } else {
+                            try {
+                                queue.fields.get(queue.fields.indexOf(this) + 1).activated = true;
+                            } catch (IndexOutOfBoundsException e) {
+                                return;
+                            }
                         }
+                        activated = false;
                     }
                     return;
                 }
@@ -92,6 +98,16 @@ public class TextInput extends GUIObject {
                         e.printStackTrace();
                     }
                     return;
+                }
+                if (kd == 0x26) {
+                    if (queue != null) {
+                        try {
+                            queue.fields.get(queue.fields.indexOf(this) - 1).activated = true;
+                        } catch (IndexOutOfBoundsException e) {
+                            return;
+                        }
+                        activated = false;
+                    }
                 }
                 text.append(shift ? String.valueOf(kd) : (String.valueOf(kd).toLowerCase()));
             }
@@ -112,7 +128,7 @@ public class TextInput extends GUIObject {
         this.text = new StringBuilder(text);
     }
 
-    public void setDefaultText(String defaultText) {
+    public void setDefaultText(@Nullable String defaultText) {
         this.defaultText = defaultText;
     }
 

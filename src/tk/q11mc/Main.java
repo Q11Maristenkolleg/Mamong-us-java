@@ -17,6 +17,7 @@ import tk.q11mc.net.Multiplayer;
 import tk.q11mc.objects.Player;
 import tk.q11mc.objects.Wall;
 
+import javax.swing.*;
 import java.awt.event.KeyEvent;
 
 public class Main extends Program {
@@ -30,7 +31,8 @@ public class Main extends Program {
     public static ImageTile spriteText = new ImageTile("/text.png", 256, 64);
     private Image icon = new Image("/icon.png");
     private static DiscordRP discordRP = new DiscordRP();
-    public static int width= 640, height = 350;
+    public static int width, height;
+    public static float scale;
     Player player;
     Wall wall;
     Button singlePlayerButton;
@@ -50,6 +52,7 @@ public class Main extends Program {
     Camera camera;
 
     public static GameState gameState = GameState.MAIN_MENU;
+    public static GameState lastState = GameState.MAIN_MENU;
     boolean loadMP = false;
 
     public static void main(String[] args) {
@@ -62,19 +65,6 @@ public class Main extends Program {
         setIconImage(icon);
         wall = new Wall(this, 1, 126, 26, 0, 0);
         player = PlayerSprite.RED.getNewPlayer(this);
-        singlePlayerButton = new Button(this, spButton, width/2, 300, 300, 100, this::startSingleplayer, new GameState[] {GameState.MAIN_MENU});
-        multiPlayerButton = new Button(this, mpButton, width/2, 450, 300, 100, this::startMultiplayer, new GameState[] {GameState.MAIN_MENU});
-        btmm = new Button(this, mainMenu, width/2, height/2, 256, 64, this::startMainMenu, new GameState[] {GameState.PAUSE});
-        nameField = new TextInput(this, spriteText, width/2, 150, 256, 64, 0xff0000ff, arial32);
-        nameField.setDefaultText("Name");
-        ipField = new TextInput(this, spriteText, width/2, 550, 256, 64, 0xff000000, arial32);
-        ipField.setDefaultText("IP");
-        portField = new TextInput(this, spriteText, width/2, 650, 256, 64, 0xff000000, arial32);
-        portField.setDefaultText("Port");
-        tq = new TextQueue();
-        tq.endAction = this::startMultiplayer;
-        ipField.register(tq);
-        portField.register(tq);
         wall.setX(500);
         wall.setY(250);
 
@@ -90,10 +80,14 @@ public class Main extends Program {
         discordRP.start();
         getWindow().setScaleOnResize(true);
         getWindow().getFrame().setTitle("Mamong us");
+        getWindow().getFrame().setFocusTraversalKeysEnabled(false);
         setCapFps(true);
 
 
         InputUtils.setInput(getInput());
+
+        setupMainMenu();
+
         loadData();
     }
 
@@ -123,7 +117,7 @@ public class Main extends Program {
 
     @Override
     public void render() {
-        getRenderer().setBgColor(0xffffffff);
+        getRenderer().setBgColor(gameState==GameState.MAIN_MENU?0xff000000:0xffffffff);
         handler.render();
         if (gameState == GameState.MULTIPLAYER) {
             double ping = (Multiplayer.getPing() * 1000);
@@ -136,7 +130,6 @@ public class Main extends Program {
         if (gameState == GameState.ERROR) {
             getRenderer().drawText("Connection refused!",10, 10,0xffff0000, arial32);
         }
-        //getShaderRenderer().drawLight(light, getInput().getMouseX(), getInput().getMouseY());
     }
 
     @Override
@@ -149,6 +142,7 @@ public class Main extends Program {
             Multiplayer.disconnect();
         }
         gameState = GameState.MAIN_MENU;
+        lastState = GameState.MAIN_MENU;
     }
 
     public void startPause() {
@@ -158,6 +152,7 @@ public class Main extends Program {
     public void startSingleplayer() {
 
         gameState = GameState.SINGLEPLAYER;
+        lastState = GameState.SINGLEPLAYER;
     }
 
     public void startMultiplayer() {
@@ -173,9 +168,30 @@ public class Main extends Program {
             saveData();
             Multiplayer.send("connect "+nameField.getText());
             gameState = GameState.MULTIPLAYER;
+            lastState = GameState.MULTIPLAYER;
         } else {
             gameState = GameState.ERROR;
         }
+    }
+
+    private void setupMainMenu() {
+        width = (int) (getWindow().getWidth() / getWindow().getScale());
+        height = (int) (getWindow().getHeight() / getWindow().getScale());
+        scale = getWindow().getScale();
+
+        singlePlayerButton = new Button(this, spButton, width/2-150, 275, 300, 100, this::startSingleplayer, new GameState[] {GameState.MAIN_MENU});
+        multiPlayerButton = new Button(this, mpButton, width/2-150, 375, 300, 100, this::startMultiplayer, new GameState[] {GameState.MAIN_MENU});
+        btmm = new Button(this, mainMenu, width/2-150, height/2-50, 256, 64, this::startMainMenu, new GameState[] {GameState.PAUSE});
+        nameField = new TextInput(this, spriteText, width/2-128, 150, 256, 64, 0xff00ffff, arial32);
+        nameField.setDefaultText("Name");
+        ipField = new TextInput(this, spriteText, width/2-128, 550, 256, 64, 0xffffffff, arial32);
+        ipField.setDefaultText("IP");
+        portField = new TextInput(this, spriteText, width/2-128, 650, 256, 64, 0xffffffff, arial32);
+        portField.setDefaultText("Port");
+        tq = new TextQueue();
+        tq.endAction = this::startMultiplayer;
+        ipField.register(tq);
+        portField.register(tq);
     }
 
     public Camera getCamera() {

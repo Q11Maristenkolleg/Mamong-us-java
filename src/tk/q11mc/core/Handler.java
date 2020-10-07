@@ -4,6 +4,7 @@ import tk.q11mc.GameState;
 import tk.q11mc.Main;
 import tk.q11mc.gui.GUIObject;
 import tk.q11mc.objects.GameObject;
+import tk.q11mc.objects.Player;
 
 import java.util.LinkedList;
 
@@ -21,6 +22,7 @@ public class Handler {
                 }
             }
             case PAUSE -> {
+                Main.getInstance().getRenderer().setBgColor(0x7f7f7f);
                 for (GUIObject tempObject : guiObjects) {
                     if (tempObject.getStates().length==1 && tempObject.getStates()[0] == GameState.PAUSE)
                         tempObject.update();
@@ -47,8 +49,23 @@ public class Handler {
                     if (tempObject.getStates().length==1 && tempObject.getStates()[0] == GameState.PAUSE)
                         tempObject.render();
                 }
+                if (Main.lastState == GameState.SINGLEPLAYER || Main.lastState == GameState.MULTIPLAYER) {
+                    for (GameObject temp : gameObjects) {
+                        if (temp instanceof Player) {
+                            ((Player) temp).renderShadow();
+                        }
+                    }
+                    for (GameObject tempObject : gameObjects) {
+                        tempObject.render();
+                    }
+                }
             }
             case SINGLEPLAYER, MULTIPLAYER -> {
+                for (GameObject temp : gameObjects) {
+                    if (temp instanceof Player) {
+                        ((Player) temp).renderShadow();
+                    }
+                }
                 for (GameObject tempObject : gameObjects) {
                     tempObject.render();
                 }

@@ -27,9 +27,9 @@ public class Multiplayer {
     }
 
     public static void send(String message) {
-        try {
+        if (client != null) {
             client.send(message);
-        } catch (NullPointerException ignored) { }
+        }
     }
 
     public static double getPing() {
@@ -38,8 +38,10 @@ public class Multiplayer {
 
     public static void disconnect() {
         send("disconnect");
-        client.disconnect();
-        client = null;
+        if (client != null) {
+            client.disconnect();
+            client = null;
+        }
     }
 
     public static void spawnPlayer(String ip) {

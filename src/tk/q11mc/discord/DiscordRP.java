@@ -32,24 +32,24 @@ public class DiscordRP {
     public void update(String ip) {
         DiscordRichPresence richPresence = new DiscordRichPresence();
         richPresence.largeImageKey = "icon";
-        richPresence.largeImageText = "We don't have a map yet";
+        richPresence.largeImageText = "Mamong us";
         richPresence.partyMax = 0;
-        switch (Main.gameState) {
+        switch (Main.lastState) {
             case LOADING -> {
-                richPresence.state = "Waiting";
-                richPresence.details = "Connecting with "+ip;
+                richPresence.details = "Waiting";
+                richPresence.state = "Connecting with "+ip;
             }
-            case MULTIPLAYER, PAUSE -> {
-                richPresence.state = "Playing a game";
-                richPresence.details = "Playing on "+ip;
+            case MULTIPLAYER -> {
+                richPresence.details = "Playing multiplayer";
+                richPresence.state = "On "+ip;
             }
             case SINGLEPLAYER -> {
-                richPresence.state = "Playing alone";
-                richPresence.details = "Playing alone like a pussy";
+                richPresence.details = "Playing singleplayer";
+                richPresence.state = "Playing alone like a pussy";
             }
             default -> {
-                richPresence.state = "Not Playing";
-                richPresence.details = "In the main menu";
+                richPresence.details = "Not Playing";
+                richPresence.state = "In the main menu";
             }
         }
         richPresence.startTimestamp = created;

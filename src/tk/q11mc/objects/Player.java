@@ -1,5 +1,6 @@
 package tk.q11mc.objects;
 
+import com.siinus.simpleGrafix.gfx.Image;
 import com.siinus.simpleGrafix.gfx.ImageTile;
 
 import tk.q11mc.GameState;
@@ -14,6 +15,8 @@ import java.awt.event.KeyEvent;
 public class Player extends GameObject {
     public static final float SPEED = 16;
     public static final byte FRAME_TIME = 5;
+
+    private static final Image shadow = new Image("/shadow.png");
 
     static float minusSpeed;
     public int dx, dy;
@@ -44,7 +47,7 @@ public class Player extends GameObject {
         if(isMoving) {
             if(buffer <= 0) {
                 buffer = FRAME_TIME;
-                frame = (byte) (frame >= 3 ? 1 : frame+1);
+                frame = (byte) (frame >= 4 ? 1 : frame+1);
             }else buffer--;
         }
         isMoving = false;
@@ -145,13 +148,15 @@ public class Player extends GameObject {
     @Override
     public void render() {
         if(!isMoving) {
-            program.getRenderer().drawImageTile(spriteSheet,x+offX(),y+offY(),left ? 1 : 0, 3);
+            program.getRenderer().drawImageTile(spriteSheet,x+offX(),y+offY(),left ? 1 : 0, 4);
             frame = (byte) 1;
         }
         else {
-            program.getRenderer().drawImageTile(spriteSheet, x + offX(), y + offY(), left ? 1 : 0, 3-frame);
+            program.getRenderer().drawImageTile(spriteSheet, x + offX(), y + offY(), left ? 1 : 0, 4-frame);
         }
     }
 
-
+    public void renderShadow() {
+        program.getRenderer().drawImage(shadow, x + offX() + (left?127:67), y + offY() + 250);
+    }
 }

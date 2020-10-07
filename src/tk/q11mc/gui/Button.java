@@ -1,6 +1,5 @@
 package tk.q11mc.gui;
 
-import com.siinus.simpleGrafix.gfx.Image;
 import com.siinus.simpleGrafix.gfx.ImageTile;
 import tk.q11mc.GameState;
 import tk.q11mc.InputUtils;
@@ -32,7 +31,7 @@ public class Button extends GUIObject {
     @Override
     public void update() {
         if (isMouseOver = isMouseOver()) {
-            if (InputUtils.isButtonPressed()) {
+            if (InputUtils.isButtonUp(1)) {
                 click.run();
             }
         }
@@ -40,6 +39,6 @@ public class Button extends GUIObject {
 
     @Override
     public void render() {
-        program.getRenderer().drawImageTile(image, x, y, 0, isMouseOver? 0:1);
+        program.getRenderer().drawImageTile(image, x, y, 0, isMouseOver?(InputUtils.isButtonPressed(1)?2:0):1);
     }
 }
