@@ -10,6 +10,7 @@ import tk.q11mc.core.Camera;
 import tk.q11mc.core.Handler;
 import tk.q11mc.discord.DiscordRP;
 import tk.q11mc.gui.Button;
+import tk.q11mc.gui.Stars;
 import tk.q11mc.gui.TextInput;
 import tk.q11mc.gui.TextQueue;
 import tk.q11mc.io.FileIO;
@@ -78,6 +79,7 @@ public class Main extends Program {
     @Override
     public void start() {
         discordRP.start();
+
         getWindow().setScaleOnResize(true);
         getWindow().getFrame().setTitle("Mamong us");
         getWindow().getFrame().setFocusTraversalKeysEnabled(false);
@@ -88,6 +90,8 @@ public class Main extends Program {
 
         setupMainMenu();
 
+        Stars.init();
+
         loadData();
     }
 
@@ -95,6 +99,7 @@ public class Main extends Program {
     public void update() {
         InputUtils.update(getInput());
         OutputChat.update();
+        Stars.update();
 
         if (InputUtils.isKeyDown(KeyEvent.VK_ESCAPE) && gameState != GameState.MAIN_MENU) {
             if (gameState == GameState.PAUSE) {
@@ -117,7 +122,12 @@ public class Main extends Program {
 
     @Override
     public void render() {
-        getRenderer().setBgColor(gameState==GameState.MAIN_MENU?0xff000000:0xffffffff);
+        if (gameState==GameState.MAIN_MENU) {
+            Stars.render();
+            getRenderer().setBgColor(0xff000000);
+        } else {
+            getRenderer().setBgColor(0xffffffff);
+        }
         handler.render();
         if (gameState == GameState.MULTIPLAYER) {
             double ping = (Multiplayer.getPing() * 1000);
