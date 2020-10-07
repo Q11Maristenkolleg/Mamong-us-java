@@ -13,7 +13,7 @@ import java.awt.event.KeyEvent;
 
 
 public class Player extends GameObject {
-    public static final float SPEED = 16;
+    public static final float SPEED = 32;
     public static final byte FRAME_TIME = 5;
 
     private static final Image shadow = new Image("/shadow.png");

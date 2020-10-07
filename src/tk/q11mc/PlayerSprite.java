@@ -8,7 +8,9 @@ import tk.q11mc.objects.Player;
 
 public enum PlayerSprite {
     ORANGE(new ImageTile("/animation_orange.png",300, 300)),
-    RED(new ImageTile("/animation_red.png",300, 300));
+    RED(new ImageTile("/animation_red.png",300, 300)),
+    BLUE(new ImageTile("/animation_blue.png",300, 300)),
+    BLACK(new ImageTile("/animation_black.png",300, 300));
 
     public static final int WIDTH = 130;
     public static final int HEIGHT = 180;

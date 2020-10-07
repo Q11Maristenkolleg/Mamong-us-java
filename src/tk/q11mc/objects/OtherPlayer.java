@@ -34,7 +34,7 @@ public class OtherPlayer extends GameObject {
 
     @Override
     public void render() {
-        program.getRenderer().drawImageTile(spriteSheet, x+offX(), y+offY(),left?1:0,moving?(3-frame):3);
+        program.getRenderer().drawImageTile(spriteSheet, x+offX(), y+offY(),left?1:0,moving?(4-frame):4);
         program.getRenderer().drawText(name, x+offX()+100, y+offY(), 0xff000000, Main.arial32);
     }
 
@@ -56,7 +56,7 @@ public class OtherPlayer extends GameObject {
             return;
         }
         buffer = 5;
-        if (frame < 3) {
+        if (frame < 4) {
             frame++;
             return;
         }

@@ -25,6 +25,7 @@ public class Stars {
             x[i] += s[i];
             if (x[i] > Main.width) {
                 x[i] = 0;
+                y[i] = random.nextInt(Main.height);
             }
         }
     }

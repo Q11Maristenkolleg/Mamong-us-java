@@ -30,7 +30,7 @@ public class Main extends Program {
     public static ImageTile mpButton = new ImageTile("/mpButton.png",300,100);
     public static ImageTile spButton = new ImageTile("/spButton.png",300,100);
     public static ImageTile spriteText = new ImageTile("/text.png", 256, 64);
-    private Image icon = new Image("/icon.png");
+    private Image icon = new Image("/icon2.png");
     private static DiscordRP discordRP = new DiscordRP();
     public static int width, height;
     public static float scale;
@@ -43,6 +43,9 @@ public class Main extends Program {
     TextInput portField;
     TextInput nameField;
     TextQueue tq;
+
+    private byte pingBuffer = 0;
+    private double ping;
 
 
     //OtherPlayer otherPlayer;
@@ -65,7 +68,9 @@ public class Main extends Program {
         handler = new Handler();
         setIconImage(icon);
         wall = new Wall(this, 1, 126, 26, 0, 0);
-        player = PlayerSprite.RED.getNewPlayer(this);
+
+        player = PlayerSprite.ORANGE.getNewPlayer(this);
+
         wall.setX(500);
         wall.setY(250);
 
@@ -97,6 +102,15 @@ public class Main extends Program {
 
     @Override
     public void update() {
+        if (gameState == GameState.MULTIPLAYER) {
+            if (pingBuffer > 0) {
+                pingBuffer--;
+            } else {
+                pingBuffer = 5;
+                ping = (Multiplayer.getPing() * 1000);
+            }
+        }
+
         InputUtils.update(getInput());
         OutputChat.update();
         Stars.update();
@@ -130,15 +144,14 @@ public class Main extends Program {
         }
         handler.render();
         if (gameState == GameState.MULTIPLAYER) {
-            double ping = (Multiplayer.getPing() * 1000);
             getRenderer().drawText("Ping: " + ((int) ping) + " ms", 10, 10, 0xff000000, arial32);
             getRenderer().drawText(OutputChat.text(), 100, 200, 0xff007f3f, arial32);
         }
         if (gameState == GameState.LOADING) {
-            getRenderer().drawText("Loading...",10, 10,0xff000000, Main.arial32);
+            getRenderer().drawText("Loading...",width/2-50, height/2-5,0xffffffff, Main.arial32);
         }
         if (gameState == GameState.ERROR) {
-            getRenderer().drawText("Connection refused!",10, 10,0xffff0000, arial32);
+            getRenderer().drawText("Connection refused!",width/2-50, height/2-5,0xffff0000, arial32);
         }
     }
 
