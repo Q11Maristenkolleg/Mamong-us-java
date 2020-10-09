@@ -60,7 +60,7 @@ public class Player extends GameObject {
 
     public void controls() {
 
-        minusSpeed = -1* SPEED;
+        minusSpeed = -1 * SPEED;
 
         if (program.getInput().isKeyPressed(KeyEvent.VK_D) && !collisionright()) {
             x+= SPEED;
@@ -114,7 +114,7 @@ public class Player extends GameObject {
     }
     public boolean collisionup() {
         for(GameObject other : Handler.gameObjects ) {
-            if(other instanceof Collideable && ((Collideable) other).intersects(new Rectangle(x+ox,y-dy+oy,width
+            if(other instanceof Collideable && ((Collideable) other).intersects(new Rectangle(x+ox, (int) (y-SPEED+oy),width
                     ,height))) {
                 return true;
             }
@@ -123,7 +123,7 @@ public class Player extends GameObject {
     }
     public boolean collisiondown() {
         for(GameObject other : Handler.gameObjects ) {
-            if(other instanceof Collideable && ((Collideable) other).intersects(new Rectangle(x+ox,y+dy+oy,width
+            if(other instanceof Collideable && ((Collideable) other).intersects(new Rectangle(x+ox, (int) (y+SPEED+oy),width
                     ,height))) {
                 return true;
             }
@@ -132,7 +132,7 @@ public class Player extends GameObject {
     }
     public boolean collisionleft() {
         for(GameObject other : Handler.gameObjects ) {
-            if(other instanceof Collideable && ((Collideable) other).intersects(new Rectangle(x-dx+ox,y+oy,width
+            if(other instanceof Collideable && ((Collideable) other).intersects(new Rectangle((int) (x-SPEED+ox),y+oy,width
                     ,height))) {
                 return true;
             }
@@ -141,7 +141,7 @@ public class Player extends GameObject {
     }
     public boolean collisionright() {
         for(GameObject other : Handler.gameObjects ) {
-            if(other instanceof Collideable && ((Collideable) other).intersects(new Rectangle(x+dx+ox,y+oy,width
+            if(other instanceof Collideable && ((Collideable) other).intersects(new Rectangle((int) (x+SPEED+ox),y+oy,width
                     ,height))) {
                 return true;
             }
