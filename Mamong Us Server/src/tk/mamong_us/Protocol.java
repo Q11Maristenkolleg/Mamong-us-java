@@ -27,6 +27,9 @@ public class Protocol implements ServerHandler {
             case "connect" -> {
                 Main.names.remove(serverChannel.getName());
                 Main.names.put(serverChannel.getName(), msg[1]);
+                if (Main.game != null) {
+                    Main.server.send(serverChannel, serverChannel.getName() + " data " + Main.game.getGameVariables().print());
+                }
                 for (String other : Main.names.keySet()) {
                     if (serverChannel.getName().equals(other)) {
                         continue;
@@ -47,6 +50,9 @@ public class Protocol implements ServerHandler {
                                 }
                             }
                         }
+                    }
+                    if (Main.game != null) {
+                        Main.server.broadcast(serverChannel.getName() + " data " + Main.game.getGameVariables().print());
                     }
                 }
             }

@@ -17,6 +17,18 @@ public class MamongUsGame {
         return data;
     }
 
+    public HashMap<String, PlayerData> getPlayers() {
+        return players;
+    }
+
+    public ArrayList<String> getImpostors() {
+        return impostors;
+    }
+
+    public GameVariables getGameVariables() {
+        return gameVariables;
+    }
+
     @Contract(value = " -> new", pure = true)
     public static @NotNull MamongUsGame startNewGame() {
         return new MamongUsGame();

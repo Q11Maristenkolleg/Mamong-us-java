@@ -38,6 +38,24 @@ public class GameVariables {
         return vars;
     }
 
+    public String print() {
+        return "Custom Settings: " + " & " +
+                "Map: " + map.getName() + " & " +
+                "# Impostors: " + impostors + " & " +
+                "# Emergency Meetings: " + emergencies + " & " +
+                "Emergency Cooldown: " + (emergency_cd/2f) + " & " +
+                "Discussion Time: " + discussion_time + " & " +
+                "Voting Time: " + voting_time + " & " +
+                "Player Speed: " + (speed/8f) + " & " +
+                "Crewmate Vision: " + (vision_cm/4f) + " & " +
+                "Impostor Vision: " + (vision_imp/4f) + " & " +
+                "Kill Cooldown: " + (kill_cd/2f) + " & " +
+                "Kill Distance: " + kill_dst.name().substring(0,1) + kill_dst.name().substring(1).toLowerCase() + " & " +
+                "# Common Tasks: " + common_tasks + " & " +
+                "# Long Tasks: " + long_tasks + " & " +
+                "# Short Tasks: " + short_tasks;
+    }
+
     public enum KillDistance {
         SHORT, NORMAL, LONG;
     }

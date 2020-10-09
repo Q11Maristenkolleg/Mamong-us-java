@@ -6,6 +6,7 @@ import com.siinus.simpleGrafix.gfx.ImageTile;
 import tk.mamong_us.GameState;
 import tk.mamong_us.Main;
 import tk.mamong_us.core.Handler;
+import tk.mamong_us.game.MamongUsGame;
 import tk.mamong_us.net.Multiplayer;
 
 import java.awt.*;
@@ -13,7 +14,7 @@ import java.awt.event.KeyEvent;
 
 
 public class Player extends GameObject {
-    public static final float SPEED = 8;
+    public static float SPEED = 8;
     public static final byte FRAME_TIME = 5;
 
     private static final Image shadow = new Image("/shadow.png");
@@ -44,7 +45,10 @@ public class Player extends GameObject {
 
     @Override
     public void update() {
-        if(isMoving) {
+        if (Main.lastState==GameState.MULTIPLAYER && MamongUsGame.vars != null) {
+            SPEED = MamongUsGame.vars.speed * 8;
+        }
+        if (isMoving) {
             if(buffer <= 0) {
                 buffer = FRAME_TIME;
                 frame = (byte) (frame >= 4 ? 1 : frame+1);

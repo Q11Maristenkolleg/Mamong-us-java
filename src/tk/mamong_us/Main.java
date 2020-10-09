@@ -9,6 +9,7 @@ import tk.mamong_us.chat.OutputChat;
 import tk.mamong_us.core.Camera;
 import tk.mamong_us.core.Handler;
 import tk.mamong_us.discord.DiscordRP;
+import tk.mamong_us.game.MamongUsGame;
 import tk.mamong_us.gui.Button;
 import tk.mamong_us.gui.Stars;
 import tk.mamong_us.gui.TextInput;
@@ -47,7 +48,7 @@ public class Main extends Program {
     //OtherPlayer otherPlayer;
 
 
-    public static Font arial32 = new Font("/font.png", 32, 37);
+    public static Font arial32 = new Font("/font.png", 37, 37);
 
     Camera camera;
 
@@ -137,7 +138,10 @@ public class Main extends Program {
         if (gameState == GameState.MULTIPLAYER) {
             double ping = (Multiplayer.getPing() * 1000);
             getRenderer().drawText("Ping: " + ((int) ping) + " ms", 10, 10, 0xff000000, arial32);
-            getRenderer().drawText(OutputChat.text(), 100, 200, 0xff007f3f, arial32);
+            getRenderer().drawText(OutputChat.text(), 1400, 200, 0xff007f3f, arial32);
+            if (MamongUsGame.optionText != null) {
+                getRenderer().drawText(MamongUsGame.optionText, 100, 100, 0xff000000, arial32);
+            }
         }
         if (gameState == GameState.LOADING) {
             getRenderer().drawText("Loading...",10, 10,0xff000000, Main.arial32);
