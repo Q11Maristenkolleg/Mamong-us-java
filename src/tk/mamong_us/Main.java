@@ -108,6 +108,12 @@ public class Main extends Program {
                 startPause();
             }
         }
+        if (gameState == GameState.MULTIPLAYER) {
+            if (InputUtils.isKeyDown(0x42)) {
+                System.out.println("B");
+                Multiplayer.send("start");
+            }
+        }
         if (loadMP) {
             loadMP = false;
             connectMultiplayer();
