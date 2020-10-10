@@ -27,7 +27,7 @@ public class GameVariables {
         vars.emergency_cd = 30;
         vars.discussion_time = 30;
         vars.voting_time = 15;
-        vars.speed = 64;
+        vars.speed = 16;
         vars.vision_cm = 4;
         vars.vision_imp = 6;
         vars.kill_cd = 35;

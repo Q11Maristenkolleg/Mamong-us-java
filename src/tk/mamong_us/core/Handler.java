@@ -10,19 +10,25 @@ public class Handler {
 
     public static HashMap<GameState, LinkedList<ProgramObject>> objects = new HashMap<>();
 
+    static {
+        for (GameState state : GameState.values()) {
+            objects.put(state, new LinkedList<>());
+        }
+    }
+
     public static void deleteObject(ProgramObject object) {
         for (GameState state : objects.keySet()) {
             objects.get(state).remove(object);
         }
     }
 
-    public synchronized void update() {
+    public static void update() {
         for (ProgramObject object : objects.get(Main.gameState)) {
             object.update();
         }
     }
 
-    public synchronized void render() {
+    public static void render() {
         for (ProgramObject object : objects.get(Main.gameState)) {
             object.render();
         }

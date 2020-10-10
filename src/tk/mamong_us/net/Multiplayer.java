@@ -40,6 +40,7 @@ public class Multiplayer {
         send("disconnect");
         if (client != null) {
             client.disconnect();
+            client.getThread().interrupt();
             client = null;
         }
     }

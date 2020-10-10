@@ -11,11 +11,11 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Main {
-    static JavaServer server;
-    static HashMap<String, String> names = new HashMap<>();
-    static List<String> operators = Collections.singletonList("127.0.0.1");
+    public static JavaServer server;
+    public static HashMap<String, String> names = new HashMap<>();
+    public static List<String> operators = Collections.singletonList("127.0.0.1");
 
-    @Nullable static MamongUsGame game = null;
+    @Nullable public static MamongUsGame game = null;
 
     public static void main(String @NotNull [] args) throws IOException {
         server = new JavaServer();

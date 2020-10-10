@@ -1,5 +1,7 @@
 package tk.mamong_us;
 
+import com.siinus.server.ServerChannel;
+
 import java.io.IOException;
 import java.util.Map;
 import java.util.Scanner;
@@ -27,6 +29,24 @@ public class Console extends Thread {
                         e.printStackTrace();
                     }
                     continue;
+                }
+                if (input.startsWith("/op")) {
+                    if (input.split(" ").length>1)
+                    for (ServerChannel channel : Main.server.getChannels()) {
+                        if (channel.getName().equals(input.split(" ")[1])) {
+                            Main.operators.add(channel.getName());
+                            System.out.println("Made " + channel.getName() + " an operator.");
+                        }
+                    }
+                }
+                if (input.startsWith("/deop")) {
+                    if (input.split(" ").length>1)
+                        for (ServerChannel channel : Main.server.getChannels()) {
+                            if (channel.getName().equals(input.split(" ")[1])) {
+                                Main.operators.remove(channel.getName());
+                                System.out.println("Made " + channel.getName() + " an operator.");
+                            }
+                        }
                 }
 
                 continue;

@@ -95,6 +95,11 @@ public class Protocol implements ClientHandler {
                         MamongUsGame.optionText = data.toString().replace('&', '\n');
                     }
                 }
+                case "stop" -> {
+                    MamongUsGame.vars = null;
+                    MamongUsGame.optionText = null;
+                    MamongUsGame.impostor = false;
+                }
             }
 
         }

@@ -2,6 +2,7 @@ package tk.mamong_us.game;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import tk.mamong_us.Main;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,6 +28,11 @@ public class MamongUsGame {
 
     public GameVariables getGameVariables() {
         return gameVariables;
+    }
+
+    public void stopGame() {
+        Main.game = null;
+        Main.server.broadcast("stop");
     }
 
     @Contract(value = " -> new", pure = true)

@@ -113,8 +113,10 @@ public class Main extends Program {
         }
         if (gameState == GameState.MULTIPLAYER) {
             if (InputUtils.isKeyDown(0x42)) {
-                System.out.println("B");
                 Multiplayer.send("start");
+            }
+            if (InputUtils.isKeyDown(0x43)) {
+                Multiplayer.send("stop");
             }
         }
         if (loadMP) {
@@ -122,7 +124,7 @@ public class Main extends Program {
             connectMultiplayer();
         }
 
-        handler.update();
+        Handler.update();
 
         camera.update();
         discordRP.update(ipField.getText());
@@ -136,7 +138,7 @@ public class Main extends Program {
         } else {
             getRenderer().setBgColor(0xffffffff);
         }
-        handler.render();
+        Handler.render();
         if (gameState == GameState.MULTIPLAYER) {
             double ping = (Multiplayer.getPing() * 1000);
             getRenderer().drawText("Ping: " + ((int) ping) + " ms", 10, 10, 0xff000000, arial32);
@@ -159,7 +161,7 @@ public class Main extends Program {
     }
 
     public void startMainMenu() {
-        if (gameState == GameState.MULTIPLAYER) {
+        if (lastState == GameState.MULTIPLAYER) {
             Multiplayer.disconnect();
         }
         gameState = GameState.MAIN_MENU;
@@ -171,7 +173,6 @@ public class Main extends Program {
     }
 
     public void startSingleplayer() {
-
         gameState = GameState.SINGLEPLAYER;
         lastState = GameState.SINGLEPLAYER;
     }
