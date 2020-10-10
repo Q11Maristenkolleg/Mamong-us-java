@@ -44,7 +44,7 @@ public class Console extends Thread {
                         for (ServerChannel channel : Main.server.getChannels()) {
                             if (channel.getName().equals(input.split(" ")[1])) {
                                 Main.operators.remove(channel.getName());
-                                System.out.println("Made " + channel.getName() + " an operator.");
+                                System.out.println("Made " + channel.getName() + " not an operator.");
                             }
                         }
                 }

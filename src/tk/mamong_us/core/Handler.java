@@ -23,14 +23,14 @@ public class Handler {
     }
 
     public static void update() {
-        for (ProgramObject object : objects.get(Main.gameState)) {
-            object.update();
+        for (int i=0; i<objects.get(Main.gameState).size(); i++) {
+            objects.get(Main.gameState).get(i).update();
         }
     }
 
     public static void render() {
-        for (ProgramObject object : objects.get(Main.gameState)) {
-            object.render();
+        for (int i=0; i<objects.get(Main.gameState).size(); i++) {
+            objects.get(Main.gameState).get(i).render();
         }
     }
 }

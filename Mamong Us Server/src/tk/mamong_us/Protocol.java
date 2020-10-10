@@ -87,5 +87,8 @@ public class Protocol implements ServerHandler {
         System.out.println(serverChannel.getName()+" has disconnected!");
         Main.server.broadcast(serverChannel.getName()+" disconnect");
         Main.names.remove(serverChannel.getName());
+        if (Main.names.size() <= 0) {
+            Main.game = null;
+        }
     }
 }

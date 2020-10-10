@@ -6,14 +6,18 @@ import org.jetbrains.annotations.Nullable;
 import tk.mamong_us.game.MamongUsGame;
 
 import java.io.IOException;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class Main {
     public static JavaServer server;
     public static HashMap<String, String> names = new HashMap<>();
-    public static List<String> operators = Collections.singletonList("127.0.0.1");
+    public static List<String> operators = new ArrayList<>();
+
+    static {
+        operators.add("127.0.0.1");
+    }
 
     public static boolean allowJoin = false;
 
