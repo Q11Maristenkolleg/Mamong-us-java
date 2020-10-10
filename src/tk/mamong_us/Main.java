@@ -54,6 +54,7 @@ public class Main extends Program {
 
     public static GameState gameState = GameState.MAIN_MENU;
     public static GameState lastState = GameState.MAIN_MENU;
+    public static GameState.MultiplayerState mpState = null;
     boolean loadMP = false;
 
     public static void main(String[] args) {
@@ -113,6 +114,9 @@ public class Main extends Program {
         }
         if (gameState == GameState.MULTIPLAYER) {
             if (InputUtils.isKeyDown(0x42)) {
+                Multiplayer.send("create");
+            }
+            if (mpState == GameState.MultiplayerState.LOBBY && InputUtils.isKeyDown(0x45)) {
                 Multiplayer.send("start");
             }
             if (InputUtils.isKeyDown(0x43)) {
@@ -143,8 +147,13 @@ public class Main extends Program {
             double ping = (Multiplayer.getPing() * 1000);
             getRenderer().drawText("Ping: " + ((int) ping) + " ms", 10, 10, 0xff000000, arial32);
             getRenderer().drawText(OutputChat.text(), 1400, 200, 0xff007f3f, arial32);
-            if (MamongUsGame.optionText != null) {
-                getRenderer().drawText(MamongUsGame.optionText, 100, 100, 0xff000000, arial32);
+            if (mpState == GameState.MultiplayerState.GAME) {
+                getRenderer().drawText(MamongUsGame.taskText(), 100, 100, 0xff000000, arial32);
+            } else {
+                getRenderer().drawText("Press [B] to create a game and [E] to start.", 700, 800, 0xff000000, arial32);
+                if (MamongUsGame.optionText != null) {
+                    getRenderer().drawText(MamongUsGame.optionText, 100, 100, 0xff000000, arial32);
+                }
             }
         }
         if (gameState == GameState.LOADING) {

@@ -1,5 +1,6 @@
 package tk.mamong_us.game;
 
+import com.siinus.server.ServerChannel;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tk.mamong_us.Main;
@@ -28,6 +29,20 @@ public class MamongUsGame {
 
     public GameVariables getGameVariables() {
         return gameVariables;
+    }
+
+    public void startGame() {
+        assert Main.game != null;
+        Main.server.broadcast("start");
+        for (String n : Main.names.keySet()) {
+            PlayerData data = Main.game.addPlayer(n);
+            System.out.println(data);
+            for (ServerChannel channel : Main.server.getChannels()) {
+                if (channel.getName().equals(n)) {
+                    Main.server.send(channel, "Server impostor "+data.isImpostor());
+                }
+            }
+        }
     }
 
     public void stopGame() {

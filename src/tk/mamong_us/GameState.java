@@ -6,5 +6,11 @@ public enum GameState {
     MULTIPLAYER,
     LOADING,
     ERROR,
-    PAUSE
+    PAUSE,
+    SHHH;
+
+    public enum MultiplayerState {
+        LOBBY,
+        GAME
+    }
 }

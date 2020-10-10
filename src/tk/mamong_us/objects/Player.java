@@ -26,11 +26,6 @@ public class Player extends GameObject {
     static byte buffer = 0;
     static byte frame = 1;
 
-    private static int shhhBuffer = 0;
-    private static boolean shhhImp = false;
-
-    public static Image shhhImage = new Image("/shhh.png");
-
     /**
      * Creates a new Player object.
      *
@@ -50,9 +45,6 @@ public class Player extends GameObject {
 
     @Override
     public void update() {
-        if (shhhBuffer > 0) {
-            shhhBuffer--;
-        }
         if (Main.lastState==GameState.MULTIPLAYER && MamongUsGame.vars != null) {
             SPEED = MamongUsGame.vars.speed * 8;
         }
@@ -64,6 +56,17 @@ public class Player extends GameObject {
         }
         isMoving = false;
         controls();
+    }
+
+    @Override
+    public void render() {
+        if(!isMoving) {
+            program.getRenderer().drawImageTile(spriteSheet,x+offX(),y+offY(),left ? 1 : 0, 4);
+            frame = (byte) 1;
+        }
+        else {
+            program.getRenderer().drawImageTile(spriteSheet, x + offX(), y + offY(), left ? 1 : 0, 4-frame);
+        }
     }
 
     public void controls() {
@@ -157,31 +160,8 @@ public class Player extends GameObject {
         return false;
     }
 
-    @Override
-    public void render() {
-        if(!isMoving) {
-            program.getRenderer().drawImageTile(spriteSheet,x+offX(),y+offY(),left ? 1 : 0, 4);
-            frame = (byte) 1;
-        }
-        else {
-            program.getRenderer().drawImageTile(spriteSheet, x + offX(), y + offY(), left ? 1 : 0, 4-frame);
-        }
-        if (shhhBuffer > 0) {
-            program.getRenderer().setBgColor(0xff000000);
-            if (shhhBuffer > 50) {
-                program.getRenderer().drawImage(shhhImage, 250, 0);
-            } else {
-                program.getRenderer().drawText(shhhImp?"Impostor":"Crewmate", 500, 250, shhhImp?0xffff0000:0xffffffff, Main.arial32);
-            }
-        }
-    }
 
     public void renderShadow() {
         program.getRenderer().drawImage(shadow, x + offX() + (left?127:67), y + offY() + 250);
-    }
-
-    public static void shhh(boolean imp) {
-        shhhImp = imp;
-        shhhBuffer = 200;
     }
 }

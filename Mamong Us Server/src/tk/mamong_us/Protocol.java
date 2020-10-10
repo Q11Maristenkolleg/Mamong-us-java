@@ -4,7 +4,6 @@ import com.siinus.server.ServerChannel;
 import com.siinus.server.ServerHandler;
 import org.jetbrains.annotations.NotNull;
 import tk.mamong_us.game.MamongUsGame;
-import tk.mamong_us.game.PlayerData;
 
 import java.net.SocketException;
 
@@ -12,7 +11,9 @@ public class Protocol implements ServerHandler {
 
     @Override
     public void onConnect(@NotNull ServerChannel serverChannel) {
-
+        if (Main.game != null && !Main.allowJoin) {
+            Main.server.send(serverChannel, "disconnect");
+        }
     }
 
     @Override
@@ -37,22 +38,18 @@ public class Protocol implements ServerHandler {
                     Main.server.send(serverChannel, other + " connect " + Main.names.get(other));
                 }
             }
-            case "start" -> {
+            case "create" -> {
                 if (Main.operators.contains(serverChannel.getName())) {
                     if (Main.game == null) {
                         Main.game = MamongUsGame.startNewGame();
-                        for (String n : Main.names.keySet()) {
-                            PlayerData data = Main.game.addPlayer(n);
-                            System.out.println(data);
-                            for (ServerChannel channel : Main.server.getChannels()) {
-                                if (channel.getName().equals(n)) {
-                                    Main.server.send(channel, serverChannel.getName()+" impostor "+data.isImpostor());
-                                }
-                            }
-                        }
+                        Main.server.broadcast("Server data " + Main.game.getGameVariables().print());
                     }
+                }
+            }
+            case "start" -> {
+                if (Main.operators.contains(serverChannel.getName())) {
                     if (Main.game != null) {
-                        Main.server.broadcast(serverChannel.getName() + " data " + Main.game.getGameVariables().print());
+                        Main.game.startGame();
                     }
                 }
             }

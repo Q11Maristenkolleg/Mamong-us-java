@@ -48,6 +48,9 @@ public class Console extends Thread {
                             }
                         }
                 }
+                if (input.equals("/toggleallowjoin")) {
+                    Main.allowJoin = !Main.allowJoin;
+                }
 
                 continue;
             }

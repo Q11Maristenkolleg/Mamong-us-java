@@ -11,9 +11,6 @@ public class GameVariables {
     public float vision_imp;
     public float kill_cd;
     public KillDistance kill_dst;
-    public int common_tasks;
-    public int long_tasks;
-    public int short_tasks;
 
     public enum KillDistance {
         SHORT, NORMAL, LONG;

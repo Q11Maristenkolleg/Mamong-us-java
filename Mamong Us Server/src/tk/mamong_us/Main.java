@@ -15,6 +15,8 @@ public class Main {
     public static HashMap<String, String> names = new HashMap<>();
     public static List<String> operators = Collections.singletonList("127.0.0.1");
 
+    public static boolean allowJoin = false;
+
     @Nullable public static MamongUsGame game = null;
 
     public static void main(String @NotNull [] args) throws IOException {

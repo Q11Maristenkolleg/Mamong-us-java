@@ -7,9 +7,11 @@ import tk.mamong_us.Main;
 import tk.mamong_us.chat.OutputChat;
 import tk.mamong_us.game.GameVariables;
 import tk.mamong_us.game.MamongUsGame;
-import tk.mamong_us.objects.Player;
+import tk.mamong_us.game.Task;
+import tk.mamong_us.objects.Shhh;
 
 import java.net.SocketException;
+import java.util.ArrayList;
 
 public class Protocol implements ClientHandler {
 
@@ -17,6 +19,7 @@ public class Protocol implements ClientHandler {
     public void onConnect(String s) {
         System.out.println("--- IP: " + s + " ---");
         Multiplayer.ip = s;
+        Main.mpState = GameState.MultiplayerState.LOBBY;
     }
 
     @Override
@@ -66,13 +69,15 @@ public class Protocol implements ClientHandler {
                 case "impostor" -> {
                     if (msg.length >= 3) {
                         MamongUsGame.impostor = Boolean.parseBoolean(msg[2]);
-                        Player.shhh(MamongUsGame.impostor);
+                        Shhh.shhh(MamongUsGame.impostor);
                     }
                 }
                 case "data" -> {
                     if (msg.length >= 3) {
+                        Main.mpState = GameState.MultiplayerState.LOBBY;
                         StringBuilder data = new StringBuilder();
                         MamongUsGame.vars = new GameVariables();
+                        MamongUsGame.tasks = new ArrayList<>();
                         for (int i=2; i<msg.length; i++) {
                             switch (msg[i]) {
                                 case "Impostors:" -> MamongUsGame.vars.impostors = Integer.parseInt(msg[i+1]);
@@ -89,20 +94,26 @@ public class Protocol implements ClientHandler {
                                     if (msg[i+1].equals("Cooldown:")) MamongUsGame.vars.kill_cd = Float.parseFloat(msg[i+2]);
                                     else if (msg[i+1].equals("Distance:")) MamongUsGame.vars.kill_dst = GameVariables.KillDistance.valueOf(msg[i+2].toUpperCase());
                                 }
-                                case "Common" -> MamongUsGame.vars.common_tasks = Integer.parseInt(msg[i+2]);
-                                case "Long" -> MamongUsGame.vars.long_tasks = Integer.parseInt(msg[i+2]);
-                                case "Short" -> MamongUsGame.vars.short_tasks = Integer.parseInt(msg[i+2]);
+                                case "Common" -> MamongUsGame.tasks.addAll(Task.generate(Task.TaskLength.COMMON, Integer.parseInt(msg[i+2])));
+                                case "Long" -> MamongUsGame.tasks.addAll(Task.generate(Task.TaskLength.LONG, Integer.parseInt(msg[i+2])));
+                                case "Short" -> MamongUsGame.tasks.addAll(Task.generate(Task.TaskLength.SHORT, Integer.parseInt(msg[i+2])));
                             }
                             data.append(msg[i]);
                             data.append(' ');
                         }
+                        System.out.println(MamongUsGame.tasks);
                         MamongUsGame.optionText = data.toString().replace('&', '\n');
                     }
                 }
+                case "start" -> {
+                    Main.mpState = GameState.MultiplayerState.GAME;
+                }
                 case "stop" -> {
+                    Main.mpState = null;
                     MamongUsGame.vars = null;
                     MamongUsGame.optionText = null;
                     MamongUsGame.impostor = false;
+                    MamongUsGame.tasks = null;
                 }
             }
 
