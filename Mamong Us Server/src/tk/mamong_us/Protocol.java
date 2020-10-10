@@ -45,7 +45,7 @@ public class Protocol implements ServerHandler {
                             PlayerData data = Main.game.addPlayer(n);
                             System.out.println(data);
                             for (ServerChannel channel : Main.server.getChannels()) {
-                                if (channel.getName().equals(serverChannel.getName())) {
+                                if (channel.getName().equals(n)) {
                                     Main.server.send(channel, serverChannel.getName()+" impostor "+data.isImpostor());
                                 }
                             }

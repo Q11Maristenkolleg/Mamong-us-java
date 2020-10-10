@@ -2,10 +2,14 @@ package tk.mamong_us.net;
 
 import com.siinus.client.ClientHandler;
 import org.jetbrains.annotations.NotNull;
+import tk.mamong_us.GameState;
+import tk.mamong_us.Main;
 import tk.mamong_us.chat.OutputChat;
 import tk.mamong_us.game.GameVariables;
 import tk.mamong_us.game.MamongUsGame;
 import tk.mamong_us.objects.Player;
+
+import java.net.SocketException;
 
 public class Protocol implements ClientHandler {
 
@@ -109,6 +113,11 @@ public class Protocol implements ClientHandler {
 
     @Override
     public void handleException(@NotNull Throwable throwable) {
+        if (throwable instanceof SocketException) {
+            if (throwable.getMessage().equals("Connection reset")) {
+                Main.gameState = GameState.ERROR;
+            }
+        }
         throwable.printStackTrace();
     }
 

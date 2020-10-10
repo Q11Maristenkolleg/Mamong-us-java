@@ -206,7 +206,7 @@ public class Main extends Program {
         multiPlayerButton = new Button(this, mpButton, width/2-150, 375, 300, 100, this::startMultiplayer);
         multiPlayerButton.register(GameState.MAIN_MENU);
         btmm = new Button(this, mainMenu, width/2-150, height/2-50, 256, 64, this::startMainMenu);
-        btmm.register(GameState.PAUSE);
+        btmm.register(GameState.PAUSE, GameState.ERROR);
         nameField = new TextInput(this, spriteText, width/2-128, 150, 256, 64, 0xff00ffff, arial32);
         nameField.register(GameState.MAIN_MENU);
         nameField.setDefaultText("Name");

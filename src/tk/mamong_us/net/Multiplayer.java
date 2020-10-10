@@ -1,6 +1,7 @@
 package tk.mamong_us.net;
 
 import com.siinus.client.JavaClient;
+import tk.mamong_us.GameState;
 import tk.mamong_us.Main;
 import tk.mamong_us.PlayerSprite;
 import tk.mamong_us.objects.OtherPlayer;
@@ -48,6 +49,7 @@ public class Multiplayer {
     public static void spawnPlayer(String ip) {
         if (!Multiplayer.ip.equals(ip) && names.containsKey(ip) && !players.containsKey(ip)) {
             OtherPlayer p = PlayerSprite.ORANGE.getNewOtherPlayer(Main.getInstance(), names.get(ip));
+            p.register(GameState.MULTIPLAYER);
             players.put(ip, p);
         }
     }
