@@ -3,13 +3,11 @@ package tk.mamong_us.gui;
 import com.siinus.simpleGrafix.gfx.Image;
 import org.jetbrains.annotations.Nullable;
 import tk.mamong_us.GameState;
-import tk.mamong_us.Handleable;
 import tk.mamong_us.Main;
 import tk.mamong_us.core.Handler;
+import tk.mamong_us.core.ProgramObject;
 
-public abstract class GUIObject implements Handleable {
-    protected GameState[] states;
-
+public abstract class GUIObject implements ProgramObject {
     protected Main program;
     protected Image sprite;
     protected int x, y;
@@ -26,18 +24,12 @@ public abstract class GUIObject implements Handleable {
      * @param height The width of the bounding box
      */
     public GUIObject(Main program, Image sprite, int x, int y, int width, int height) {
-        this(program, sprite, x, y, width, height, null);
-    }
-
-    public GUIObject(Main program, Image sprite, int x, int y, int width, int height, @Nullable GameState[] states) {
-        this.states = states==null?new GameState[] {GameState.MAIN_MENU} : states;
         this.program = program;
         this.sprite = sprite;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        Handler.addObject(this);
     }
 
     public void setX(int x) {
@@ -60,9 +52,5 @@ public abstract class GUIObject implements Handleable {
         int mx = program.getInput().getMouseX();
         int my = program.getInput().getMouseY();
         return mx >= x && mx <= (x + width) && my >= y && my <= (y + height);
-    }
-
-    public GameState[] getStates() {
-        return states;
     }
 }

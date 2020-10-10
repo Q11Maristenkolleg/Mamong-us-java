@@ -1,11 +1,10 @@
 package tk.mamong_us.objects;
 
 import com.siinus.simpleGrafix.gfx.ImageTile;
-import tk.mamong_us.Handleable;
 import tk.mamong_us.Main;
-import tk.mamong_us.core.Handler;
+import tk.mamong_us.core.ProgramObject;
 
-public abstract class GameObject implements Handleable {
+public abstract class GameObject implements ProgramObject {
     protected Main program;
     protected int id;
     protected float speedX,speedY;
@@ -30,7 +29,6 @@ public abstract class GameObject implements Handleable {
         this.height = height;
         this.ox = ox;
         this.oy = oy;
-        Handler.addObject(this);
     }
     public GameObject(Main program, int id, int width, int height, int ox, int oy) {
         this.program = program;
@@ -39,7 +37,6 @@ public abstract class GameObject implements Handleable {
         this.height = height;
         this.ox = ox;
         this.oy = oy;
-        Handler.addObject(this);
     }
 
     public void setY(int y) {

@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import tk.mamong_us.chat.OutputChat;
 import tk.mamong_us.game.GameVariables;
 import tk.mamong_us.game.MamongUsGame;
+import tk.mamong_us.objects.Player;
 
 public class Protocol implements ClientHandler {
 
@@ -61,6 +62,7 @@ public class Protocol implements ClientHandler {
                 case "impostor" -> {
                     if (msg.length >= 3) {
                         MamongUsGame.impostor = Boolean.parseBoolean(msg[2]);
+                        Player.shhh(MamongUsGame.impostor);
                     }
                 }
                 case "data" -> {

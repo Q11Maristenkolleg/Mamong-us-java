@@ -21,8 +21,8 @@ public class Button extends GUIObject {
      * @param width   The width of the bounding box
      * @param height  The width of the bounding box
      */
-    public Button(Main program, ImageTile sprite, int x, int y, int width, int height, Runnable action, GameState[] states) {
-        super(program, sprite, x, y, width, height, states);
+    public Button(Main program, ImageTile sprite, int x, int y, int width, int height, Runnable action) {
+        super(program, sprite, x, y, width, height);
         this.image = sprite;
         this.click = action;
     }

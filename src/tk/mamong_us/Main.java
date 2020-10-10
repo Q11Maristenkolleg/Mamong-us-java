@@ -65,7 +65,9 @@ public class Main extends Program {
         handler = new Handler();
         setIconImage(icon);
         wall = new Wall(this, 1, 126, 26, 0, 0);
+        wall.register(GameState.SINGLEPLAYER, GameState.MULTIPLAYER);
         player = PlayerSprite.RED.getNewPlayer(this);
+        player.register(GameState.SINGLEPLAYER, GameState.MULTIPLAYER);
         wall.setX(500);
         wall.setY(250);
 
@@ -198,14 +200,20 @@ public class Main extends Program {
         height = (int) (getWindow().getHeight() / getWindow().getScale());
         scale = getWindow().getScale();
 
-        singlePlayerButton = new Button(this, spButton, width/2-150, 275, 300, 100, this::startSingleplayer, new GameState[] {GameState.MAIN_MENU});
-        multiPlayerButton = new Button(this, mpButton, width/2-150, 375, 300, 100, this::startMultiplayer, new GameState[] {GameState.MAIN_MENU});
-        btmm = new Button(this, mainMenu, width/2-150, height/2-50, 256, 64, this::startMainMenu, new GameState[] {GameState.PAUSE});
+        singlePlayerButton = new Button(this, spButton, width/2-150, 275, 300, 100, this::startSingleplayer);
+        singlePlayerButton.register(GameState.MAIN_MENU);
+        multiPlayerButton = new Button(this, mpButton, width/2-150, 375, 300, 100, this::startMultiplayer);
+        multiPlayerButton.register(GameState.MAIN_MENU);
+        btmm = new Button(this, mainMenu, width/2-150, height/2-50, 256, 64, this::startMainMenu);
+        btmm.register(GameState.PAUSE);
         nameField = new TextInput(this, spriteText, width/2-128, 150, 256, 64, 0xff00ffff, arial32);
+        nameField.register(GameState.MAIN_MENU);
         nameField.setDefaultText("Name");
         ipField = new TextInput(this, spriteText, width/2-128, 550, 256, 64, 0xffffffff, arial32);
+        ipField.register(GameState.MAIN_MENU);
         ipField.setDefaultText("IP");
         portField = new TextInput(this, spriteText, width/2-128, 650, 256, 64, 0xffffffff, arial32);
+        portField.register(GameState.MAIN_MENU);
         portField.setDefaultText("Port");
         tq = new TextQueue();
         tq.endAction = this::startMultiplayer;
