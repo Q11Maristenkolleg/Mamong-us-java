@@ -3,8 +3,10 @@ package tk.mamong_us.objects;
 import com.siinus.simpleGrafix.gfx.Image;
 import com.siinus.simpleGrafix.gfx.ImageTile;
 
+import org.jetbrains.annotations.NotNull;
 import tk.mamong_us.GameState;
 import tk.mamong_us.Main;
+import tk.mamong_us.PlayerSprite;
 import tk.mamong_us.core.Handler;
 import tk.mamong_us.core.ProgramObject;
 import tk.mamong_us.game.MamongUsGame;
@@ -163,5 +165,9 @@ public class Player extends GameObject {
 
     public void renderShadow() {
         program.getRenderer().drawImage(shadow, x + offX() + (left?127:67), y + offY() + 250);
+    }
+
+    public void setSprite(@NotNull PlayerSprite sprite) {
+        spriteSheet = sprite.image;
     }
 }

@@ -10,10 +10,7 @@ import tk.mamong_us.core.Camera;
 import tk.mamong_us.core.Handler;
 import tk.mamong_us.discord.DiscordRP;
 import tk.mamong_us.game.MamongUsGame;
-import tk.mamong_us.gui.Button;
-import tk.mamong_us.gui.Stars;
-import tk.mamong_us.gui.TextInput;
-import tk.mamong_us.gui.TextQueue;
+import tk.mamong_us.gui.*;
 import tk.mamong_us.io.FileIO;
 import tk.mamong_us.net.Multiplayer;
 import tk.mamong_us.objects.Player;
@@ -34,6 +31,7 @@ public class Main extends Program {
     private static final DiscordRP discordRP = new DiscordRP();
     public static int width, height;
     public static float scale;
+    public PlayerSprite sprite = PlayerSprite.RED;
     Player player;
     Wall wall;
     Button singlePlayerButton;
@@ -46,6 +44,7 @@ public class Main extends Program {
 
 
     //OtherPlayer otherPlayer;
+    public ColorChooser colorChooser = null;
 
 
     public static Font arial32 = new Font("/font.png", 37, 37);
@@ -62,12 +61,11 @@ public class Main extends Program {
     }
 
     public Main() {
-
-        handler = new Handler();
+        Font.setStandard(arial32);
         setIconImage(icon);
         wall = new Wall(this, 1, 126, 26, 0, 0);
         wall.register(GameState.SINGLEPLAYER, GameState.MULTIPLAYER);
-        player = PlayerSprite.RED.getNewPlayer(this);
+        player = sprite.getNewPlayer(this);
         player.register(GameState.SINGLEPLAYER, GameState.MULTIPLAYER);
         wall.setX(500);
         wall.setY(250);
@@ -106,7 +104,7 @@ public class Main extends Program {
 
         if (InputUtils.isKeyDown(KeyEvent.VK_ESCAPE) && gameState != GameState.MAIN_MENU) {
             if (gameState == GameState.PAUSE) {
-                gameState = GameState.SINGLEPLAYER;
+                gameState = lastState;
             } else {
                 System.out.println("pause");
                 startPause();
@@ -120,7 +118,21 @@ public class Main extends Program {
                 Multiplayer.send("start");
             }
             if (InputUtils.isKeyDown(0x43)) {
+                if (colorChooser == null) {
+                    colorChooser = new ColorChooser(this, sprite == null ? sprite = PlayerSprite.RED : sprite);
+                    colorChooser.register(GameState.MULTIPLAYER);
+                } else {
+                    Handler.deleteObject(colorChooser);
+                    colorChooser = null;
+                }
+            }
+            if (InputUtils.isKeyDown(0x48)) {
                 Multiplayer.send("stop");
+            }
+            if (MamongUsGame.optionText != null) {
+                for (Button button : MamongUsGame.configButtons) {
+                    button.update();
+                }
             }
         }
         if (loadMP) {
@@ -153,6 +165,9 @@ public class Main extends Program {
                 getRenderer().drawText("Press [B] to create a game and [E] to start.", 700, 800, 0xff000000, arial32);
                 if (MamongUsGame.optionText != null) {
                     getRenderer().drawText(MamongUsGame.optionText, 100, 100, 0xff000000, arial32);
+                    for (Button button : MamongUsGame.configButtons) {
+                        button.render();
+                    }
                 }
             }
         }
@@ -172,6 +187,10 @@ public class Main extends Program {
     public void startMainMenu() {
         if (lastState == GameState.MULTIPLAYER) {
             Multiplayer.disconnect();
+            if (colorChooser != null) {
+                Handler.deleteObject(colorChooser);
+                colorChooser = null;
+            }
         }
         gameState = GameState.MAIN_MENU;
         lastState = GameState.MAIN_MENU;
@@ -233,6 +252,10 @@ public class Main extends Program {
 
     public Camera getCamera() {
         return camera;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     public static Main getInstance() {

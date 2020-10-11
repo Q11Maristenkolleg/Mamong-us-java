@@ -61,6 +61,14 @@ public class Protocol implements ServerHandler {
                     }
                 }
             }
+            case "config" -> {
+                if (Main.operators.contains(serverChannel.getName()) && msg.length >= 3) {
+                    if (Main.game != null) {
+                        Main.game.getGameVariables().set(Integer.parseInt(msg[1]), Boolean.parseBoolean(msg[2]));
+                        Main.server.broadcast("Server data " + Main.game.getGameVariables().print());
+                    }
+                }
+            }
             case "disconnect" -> disconnect(serverChannel);
         }
 

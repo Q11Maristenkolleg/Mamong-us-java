@@ -1,5 +1,9 @@
 package tk.mamong_us.game;
 
+import tk.mamong_us.objects.OtherPlayer;
+
+import java.util.ArrayList;
+
 public class GameVariables {
     public int impostors;
     public int emergencies;
@@ -11,6 +15,8 @@ public class GameVariables {
     public float vision_imp;
     public float kill_cd;
     public KillDistance kill_dst;
+
+    public ArrayList<OtherPlayer> impostorPlayers = new ArrayList<>();
 
     public enum KillDistance {
         SHORT, NORMAL, LONG;
