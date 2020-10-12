@@ -1,7 +1,9 @@
 package tk.mamong_us.objects;
 
 import com.siinus.simpleGrafix.gfx.ImageTile;
+import org.jetbrains.annotations.NotNull;
 import tk.mamong_us.Main;
+import tk.mamong_us.PlayerSprite;
 import tk.mamong_us.core.Handler;
 
 public class OtherPlayer extends GameObject {
@@ -35,7 +37,7 @@ public class OtherPlayer extends GameObject {
     @Override
     public void render() {
         program.getRenderer().drawImageTile(spriteSheet, x+offX(), y+offY(),left?1:0,moving?(4-frame):4);
-        program.getRenderer().drawText(name, x+offX()+100, y+offY(), 0xff000000, Main.arial32);
+        program.getRenderer().drawText(name, x+offX()+100, y+offY(), 0xff000000, null);
     }
 
     public void destroy() {
@@ -61,5 +63,9 @@ public class OtherPlayer extends GameObject {
             return;
         }
         frame = 1;
+    }
+
+    public void setSprite(@NotNull PlayerSprite sprite) {
+        this.spriteSheet = sprite.image;
     }
 }

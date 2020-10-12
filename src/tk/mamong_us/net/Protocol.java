@@ -4,6 +4,7 @@ import com.siinus.client.ClientHandler;
 import org.jetbrains.annotations.NotNull;
 import tk.mamong_us.GameState;
 import tk.mamong_us.Main;
+import tk.mamong_us.PlayerSprite;
 import tk.mamong_us.chat.OutputChat;
 import tk.mamong_us.game.GameVariables;
 import tk.mamong_us.game.MamongUsGame;
@@ -64,6 +65,11 @@ public class Protocol implements ClientHandler {
                 case "face" -> {
                     if (Multiplayer.ip!=null && !Multiplayer.ip.equals(ip) && msg.length >= 3 && Multiplayer.players.containsKey(ip)) {
                         Multiplayer.players.get(ip).setLeft(msg[2].equals("left"));
+                    }
+                }
+                case "color" -> {
+                    if (Multiplayer.ip!=null && !Multiplayer.ip.equals(ip) && msg.length >= 3 && Multiplayer.players.containsKey(ip)) {
+                        Multiplayer.players.get(ip).setSprite(PlayerSprite.valueOf(msg[2]));
                     }
                 }
                 case "impostor" -> {

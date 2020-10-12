@@ -31,9 +31,9 @@ public class Shhh implements ProgramObject {
             if (shhhBuffer > 100) {
                 Main.getInstance().getRenderer().drawImage(shhhImage, 450, 0);
             } else {
-                Main.getInstance().getRenderer().drawText(shhhImp?"Impostor":"Crewmate", 900, 250, shhhImp?0xffff0000:0xff00ffff, Main.arial32);
+                Main.getInstance().getRenderer().drawText(shhhImp?"Impostor":"Crewmate", 900, 250, shhhImp?0xffff0000:0xff00ffff, null);
                 if (!shhhImp) {
-                    Main.getInstance().getRenderer().drawText("There are " + MamongUsGame.vars.impostors + " Impostors among us", 700, 300, 0xffff0000, Main.arial32);
+                    Main.getInstance().getRenderer().drawText("There are " + MamongUsGame.vars.impostors + " Impostors among us", 700, 300, 0xffff0000, null);
                 }
             }
         }

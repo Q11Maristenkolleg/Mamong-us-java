@@ -1,6 +1,7 @@
 package tk.mamong_us;
 
 import com.siinus.server.ServerChannel;
+import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.util.Map;
@@ -8,6 +9,7 @@ import java.util.Scanner;
 
 public class Console extends Thread {
 
+    @SuppressWarnings("unchecked")
     @Override
     public void run() {
         Scanner scanner = new Scanner(System.in);
@@ -34,7 +36,12 @@ public class Console extends Thread {
                     if (input.split(" ").length>1)
                     for (ServerChannel channel : Main.server.getChannels()) {
                         if (channel.getName().equals(input.split(" ")[1])) {
-                            Main.operators.add(channel.getName());
+                            if (!Main.operators.contains(channel.getName())) {
+                                Main.operators.add(channel.getName());
+                            }
+                            JSONObject root = new JSONObject();
+                            root.put("operators", Main.operators);
+                            FileIO.saveJSON("./operators.json", root);
                             System.out.println("Made " + channel.getName() + " an operator.");
                         }
                     }
@@ -44,6 +51,9 @@ public class Console extends Thread {
                         for (ServerChannel channel : Main.server.getChannels()) {
                             if (channel.getName().equals(input.split(" ")[1])) {
                                 Main.operators.remove(channel.getName());
+                                JSONObject root = new JSONObject();
+                                root.put("operators", Main.operators);
+                                FileIO.saveJSON("./operators.json", root);
                                 System.out.println("Made " + channel.getName() + " not an operator.");
                             }
                         }

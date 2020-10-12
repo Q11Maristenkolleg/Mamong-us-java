@@ -1,4 +1,4 @@
-package tk.mamong_us.io;
+package tk.mamong_us;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

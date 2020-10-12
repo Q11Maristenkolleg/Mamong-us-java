@@ -5,6 +5,7 @@ import com.siinus.simpleGrafix.gfx.ImageTile;
 
 import org.jetbrains.annotations.NotNull;
 import tk.mamong_us.GameState;
+import tk.mamong_us.InputUtils;
 import tk.mamong_us.Main;
 import tk.mamong_us.PlayerSprite;
 import tk.mamong_us.core.Handler;
@@ -75,7 +76,7 @@ public class Player extends GameObject {
 
         minusSpeed = -1 * SPEED;
 
-        if (program.getInput().isKeyPressed(KeyEvent.VK_D) && !collisionright()) {
+        if (InputUtils.isKeyPressed(KeyEvent.VK_D) && !collisionright()) {
             x+= SPEED;
             isMoving = true;
             if (Main.gameState == GameState.MULTIPLAYER && left) {
@@ -86,7 +87,7 @@ public class Player extends GameObject {
                 Multiplayer.send("pos "+x+" "+y);
             }
         }
-        if (program.getInput().isKeyPressed(KeyEvent.VK_S) && !collisiondown()) {
+        if (InputUtils.isKeyPressed(KeyEvent.VK_S) && !collisiondown()) {
             y+= SPEED;
 
             isMoving = true;
@@ -94,7 +95,7 @@ public class Player extends GameObject {
                 Multiplayer.send("pos "+x+" "+y);
             }
         }
-        if (program.getInput().isKeyPressed(KeyEvent.VK_A) && !collisionleft()) {
+        if (InputUtils.isKeyPressed(KeyEvent.VK_A) && !collisionleft()) {
             x-= SPEED;
 
             isMoving = true;
@@ -106,7 +107,7 @@ public class Player extends GameObject {
                 Multiplayer.send("pos "+x+" "+y);
             }
         }
-        if (program.getInput().isKeyPressed(KeyEvent.VK_W) && !collisionup()) {
+        if (InputUtils.isKeyPressed(KeyEvent.VK_W) && !collisionup()) {
             y-= SPEED;
 
             isMoving = true;

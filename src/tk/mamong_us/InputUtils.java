@@ -13,6 +13,9 @@ public class InputUtils {
     private static boolean bl = false;
 
     public static void update(@NotNull Input input) {
+        if (input != InputUtils.input) {
+            setInput(input);
+        }
         kl = kp;
         bl = bp;
         kp = input.isKeyPressed();

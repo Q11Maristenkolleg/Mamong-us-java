@@ -35,8 +35,9 @@ public class TextInput extends GUIObject {
      * @param width     The width of the bounding box
      * @param height    The width of the bounding box
      * @param textColor The color of the text
+     * @param font      The font of the text
      */
-    public TextInput(Main program, ImageTile sprite, int x, int y, int width, int height, int textColor, Font font) {
+    public TextInput(Main program, ImageTile sprite, int x, int y, int width, int height, int textColor, @Nullable Font font) {
         super(program, sprite, x, y, width, height);
         this.image = sprite;
         color = textColor;
@@ -50,7 +51,7 @@ public class TextInput extends GUIObject {
             activated = isMouseOver;
         }
         if (activated) {
-            char kd = program.getInput().getLastKey();
+            char kd = InputUtils.getLastKey();
             //System.out.println((byte) kd);
             if (((byte) kd) == (byte) -1) {
                 shift = true;

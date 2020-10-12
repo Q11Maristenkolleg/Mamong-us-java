@@ -6,6 +6,7 @@ import tk.mamong_us.InputUtils;
 import tk.mamong_us.Main;
 import tk.mamong_us.PlayerSprite;
 import tk.mamong_us.core.Handler;
+import tk.mamong_us.net.Multiplayer;
 
 public class ColorChooser extends GUIObject {
     public static Image sprite = new Image("/color_chooser.png");
@@ -19,7 +20,7 @@ public class ColorChooser extends GUIObject {
      * @param program The associated program
      */
     public ColorChooser(Main program, @NotNull PlayerSprite color) {
-        super(program, sprite, program.getWindow().getWidth()-190, program.getWindow().getHeight()-250, 380, 500);
+        super(program, sprite, (int) (program.getWindow().getWidth()/(program.getWindow().getScale()*2)-190), (int) (program.getWindow().getHeight()/(program.getWindow().getScale()*2)-250), 380, 500);
         cx = x + 17 + 120 * color.cx;
         cy = y + 17 + 120 * color.cy;
     }
@@ -40,6 +41,7 @@ public class ColorChooser extends GUIObject {
             program.sprite = PlayerSprite.fromCxCy(mx, my);
             if (program.sprite != null) {
                 program.getPlayer().setSprite(program.sprite);
+                Multiplayer.send("color " + program.sprite.name());
             }
             cx = x + 17 + mx * 120;
             cy = y + 17 + my * 120;

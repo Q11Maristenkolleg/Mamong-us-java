@@ -48,6 +48,7 @@ public class Main extends Program {
 
 
     public static Font arial32 = new Font("/font.png", 37, 37);
+    public static Font bahnschrift32 = new Font("/bahnschrift.png", 37, 40);
 
     Camera camera;
 
@@ -61,7 +62,7 @@ public class Main extends Program {
     }
 
     public Main() {
-        Font.setStandard(arial32);
+        Font.setStandard(bahnschrift32);
         setIconImage(icon);
         wall = new Wall(this, 1, 126, 26, 0, 0);
         wall.register(GameState.SINGLEPLAYER, GameState.MULTIPLAYER);
@@ -157,14 +158,14 @@ public class Main extends Program {
         Handler.render();
         if (gameState == GameState.MULTIPLAYER) {
             double ping = (Multiplayer.getPing() * 1000);
-            getRenderer().drawText("Ping: " + ((int) ping) + " ms", 10, 10, 0xff000000, arial32);
-            getRenderer().drawText(OutputChat.text(), 1400, 200, 0xff007f3f, arial32);
+            getRenderer().drawText("Ping: " + ((int) ping) + " ms", 10, 10, 0xff000000, null);
+            getRenderer().drawText(OutputChat.text(), 1400, 200, 0xff007f3f, null);
             if (mpState == GameState.MultiplayerState.GAME) {
-                getRenderer().drawText(MamongUsGame.taskText(), 100, 100, 0xff000000, arial32);
+                getRenderer().drawText(MamongUsGame.taskText(), 100, 100, 0xff000000, null);
             } else {
-                getRenderer().drawText("Press [B] to create a game and [E] to start.", 700, 800, 0xff000000, arial32);
+                getRenderer().drawText("Press [B] to create a game and [E] to start.", 700, 800, 0xff000000, null);
                 if (MamongUsGame.optionText != null) {
-                    getRenderer().drawText(MamongUsGame.optionText, 100, 100, 0xff000000, arial32);
+                    getRenderer().drawText(MamongUsGame.optionText, 100, 100, 0xff000000, null);
                     for (Button button : MamongUsGame.configButtons) {
                         button.render();
                     }
@@ -172,10 +173,10 @@ public class Main extends Program {
             }
         }
         if (gameState == GameState.LOADING) {
-            getRenderer().drawText("Loading...",10, 10,0xff000000, Main.arial32);
+            getRenderer().drawText("Loading...",10, 10,0xff000000, null);
         }
         if (gameState == GameState.ERROR) {
-            getRenderer().drawText("Connection refused!",10, 10,0xffff0000, arial32);
+            getRenderer().drawText("Connection refused!",10, 10,0xffff0000, null);
         }
     }
 
@@ -235,13 +236,13 @@ public class Main extends Program {
         multiPlayerButton.register(GameState.MAIN_MENU);
         btmm = new Button(this, mainMenu, width/2-150, height/2-50, 256, 64, this::startMainMenu);
         btmm.register(GameState.PAUSE, GameState.ERROR);
-        nameField = new TextInput(this, spriteText, width/2-128, 150, 256, 64, 0xff00ffff, arial32);
+        nameField = new TextInput(this, spriteText, width/2-128, 150, 256, 64, 0xff00ffff, null);
         nameField.register(GameState.MAIN_MENU);
         nameField.setDefaultText("Name");
-        ipField = new TextInput(this, spriteText, width/2-128, 550, 256, 64, 0xffffffff, arial32);
+        ipField = new TextInput(this, spriteText, width/2-128, 550, 256, 64, 0xffffffff, null);
         ipField.register(GameState.MAIN_MENU);
         ipField.setDefaultText("IP");
-        portField = new TextInput(this, spriteText, width/2-128, 650, 256, 64, 0xffffffff, arial32);
+        portField = new TextInput(this, spriteText, width/2-128, 650, 256, 64, 0xffffffff, null);
         portField.register(GameState.MAIN_MENU);
         portField.setDefaultText("Port");
         tq = new TextQueue();
