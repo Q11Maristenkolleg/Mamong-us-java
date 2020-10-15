@@ -6,7 +6,8 @@ import tk.mamong_us.Main;
 import java.util.Random;
 
 public class Stars {
-    public static final byte NUM_STARS = 50;
+    public static final int NUM_STARS = 150;
+    public static final int SPEED = 1;
     private static final int[] x = new int[NUM_STARS], y = new int[NUM_STARS], s = new int[NUM_STARS];
     private static final Random random = new Random();
     private static final Renderer renderer = Main.getInstance().getRenderer();
@@ -22,7 +23,7 @@ public class Stars {
 
     public static void update() {
         for (int i=0; i<NUM_STARS; i++) {
-            x[i] += s[i];
+            x[i] += s[i] * SPEED;
             if (x[i] > Main.width) {
                 x[i] = 0;
                 y[i] = random.nextInt(Main.height);
