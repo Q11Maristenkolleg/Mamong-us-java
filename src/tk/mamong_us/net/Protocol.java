@@ -9,6 +9,7 @@ import tk.mamong_us.chat.OutputChat;
 import tk.mamong_us.game.GameVariables;
 import tk.mamong_us.game.MamongUsGame;
 import tk.mamong_us.game.Task;
+import tk.mamong_us.objects.OtherPlayer;
 import tk.mamong_us.objects.Shhh;
 
 import java.net.SocketException;
@@ -75,7 +76,17 @@ public class Protocol implements ClientHandler {
                 case "impostor" -> {
                     if (msg.length >= 3) {
                         MamongUsGame.impostor = Boolean.parseBoolean(msg[2]);
-                        Shhh.shhh(MamongUsGame.impostor);
+                        Shhh.shhh(MamongUsGame.impostor, MamongUsGame.mates);
+                    }
+                }
+                case "mates" -> {
+                    if (msg.length >= 3) {
+                        ArrayList<OtherPlayer> mates = new ArrayList<>();
+                        for (int i = 2; i < msg.length; i++) {
+                            if (msg[i].equals(ip)) continue;
+                            mates.add(Multiplayer.players.get(msg[i]));
+                        }
+                        MamongUsGame.mates = mates;
                     }
                 }
                 case "data" -> {

@@ -15,6 +15,7 @@ import tk.mamong_us.io.FileIO;
 import tk.mamong_us.net.Multiplayer;
 import tk.mamong_us.objects.Player;
 import tk.mamong_us.objects.Wall;
+import tk.mamong_us.video.Video;
 
 import java.awt.event.KeyEvent;
 
@@ -28,11 +29,14 @@ public class Main extends Program {
     public static ImageTile spButton = new ImageTile("/spButton.png",300,100);
     public static ImageTile spriteText = new ImageTile("/text.png", 256, 64);
     private static final Image icon = new Image("/icon2.png");
+
+    public static final Video shhhVideo = new Video("/shhh", 30);
+
     private static final DiscordRP discordRP = new DiscordRP();
     public static int width, height;
     public static float scale;
     public PlayerSprite sprite = PlayerSprite.RED;
-    Player player;
+    public Player player;
     Wall wall;
     Button singlePlayerButton;
     Button multiPlayerButton;
@@ -261,6 +265,14 @@ public class Main extends Program {
 
     public static Main getInstance() {
         return instance;
+    }
+
+    public static int getMidX() {
+        return (int) (instance.getWindow().getWidth()/(instance.getWindow().getScale()*2));
+    }
+
+    public static int getMidY() {
+        return (int) (instance.getWindow().getHeight()/(instance.getWindow().getScale()*2));
     }
 
     @SuppressWarnings("unchecked")

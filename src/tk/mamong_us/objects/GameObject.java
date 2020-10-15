@@ -76,6 +76,10 @@ public abstract class GameObject implements ProgramObject {
         return speedX;
     }
 
+    public ImageTile getSpriteSheet() {
+        return spriteSheet;
+    }
+
     public int offX() {
         return (int) ((program.getWindow().getWidth()/(program.getWindow().getScale()*2))-program.getCamera().getX());
     }

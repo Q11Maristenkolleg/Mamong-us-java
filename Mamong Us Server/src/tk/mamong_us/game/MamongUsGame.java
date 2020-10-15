@@ -39,6 +39,13 @@ public class MamongUsGame {
             System.out.println(data);
             for (ServerChannel channel : Main.server.getChannels()) {
                 if (channel.getName().equals(n)) {
+                    StringBuilder mates = new StringBuilder();
+                    if (data.isImpostor()) {
+                        for (String s : impostors) mates.append(s).append(" ");
+                    } else {
+                        for (String s : players.keySet()) mates.append(s).append(" ");
+                    }
+                    Main.server.send(channel, "Server mates "+mates.toString().trim());
                     Main.server.send(channel, "Server impostor "+data.isImpostor());
                 }
             }

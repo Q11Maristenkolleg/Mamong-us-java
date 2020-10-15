@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import tk.mamong_us.Main;
 import tk.mamong_us.gui.Button;
 import tk.mamong_us.net.Multiplayer;
+import tk.mamong_us.objects.OtherPlayer;
 
 import java.util.ArrayList;
 
@@ -17,6 +18,7 @@ public class MamongUsGame {
     public static GameVariables vars = null;
 
     public static boolean impostor = false;
+    public static ArrayList<OtherPlayer> mates = new ArrayList<>();
     public static ArrayList<Task> tasks = null;
 
     public static Button[] configButtons = new Button[32];
