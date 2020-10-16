@@ -107,7 +107,7 @@ public class Main extends Program {
         getWindow().setScaleOnResize(true);
         getWindow().getFrame().setTitle("Mamong us");
         getWindow().getFrame().setFocusTraversalKeysEnabled(false);
-        setCapFps(true);
+        setCapFps(false);
 
 
         InputUtils.setInput(getInput());

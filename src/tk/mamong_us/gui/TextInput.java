@@ -47,7 +47,7 @@ public class TextInput extends GUIObject {
     @Override
     public void update() {
         isMouseOver = isMouseOver();
-        if (program.getInput().isButtonDown(1)) {
+        if (InputUtils.isButtonDown(1)) {
             activated = isMouseOver;
         }
         if (activated) {
