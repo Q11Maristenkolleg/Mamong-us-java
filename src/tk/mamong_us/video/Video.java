@@ -42,12 +42,14 @@ public class Video {
     }*/
 
     public boolean loadFrame() {
-        if (bFrame >= frames-1) {
+        if (bFrame >= frames/2-1) {
             return false;
         }
         bFrame++;
         try {
             bufferedFrames[bFrame] = new Image(folderPath + folderPath + ((bFrame < 10 ? "0" : "") + bFrame) + ".png");
+            int f2 = (bFrame+frames/2);
+            bufferedFrames[f2] = new Image(folderPath + folderPath + ((f2 < 10 ? "0" : "") + f2) + ".png");
             return true;
         } catch (Exception e) {
             return false;

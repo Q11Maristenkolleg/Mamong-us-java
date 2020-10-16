@@ -45,7 +45,8 @@ public class Shhh implements ProgramObject {
             }*/
             shhhBuffer--;
         } else if (shhhBuffer == 0){
-            Main.shhhVideo.constructor(Main.shhhVideo.getFolderPath(), Main.shhhVideo.getFps(), Main.shhhVideo.getFrames());
+            new Thread(()->
+            Main.shhhVideo.constructor(Main.shhhVideo.getFolderPath(), Main.shhhVideo.getFps(), Main.shhhVideo.getFrames())).start();
             Main.gameState = Main.lastState;
             Handler.deleteObject(this);
         }
