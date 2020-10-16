@@ -1,5 +1,6 @@
 package tk.mamong_us.objects;
 
+import com.siinus.simpleGrafix.gfx.Image;
 import tk.mamong_us.GameState;
 import tk.mamong_us.Main;
 import tk.mamong_us.core.Handler;
@@ -7,6 +8,7 @@ import tk.mamong_us.core.ProgramObject;
 import tk.mamong_us.game.MamongUsGame;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Shhh implements ProgramObject {
     private static int shhhBuffer = -1;
@@ -14,20 +16,27 @@ public class Shhh implements ProgramObject {
     private static ArrayList<OtherPlayer> shhhMates = new ArrayList<>();
 
     private static boolean load = false;
+    private Image cI = null;
 
     @Override
     public void update() {
-        System.out.println(shhhBuffer);
+        //System.out.println(shhhBuffer);
         if (shhhBuffer == Main.shhhVideo.getFrames()+100) {
             //Main.shhhVideo.getSoundTrack().play();
         }
         if (load) {
-            if (!Main.shhhVideo.nextFrame()) {
-                load = false;
-                new Thread(()->Main.shhhVideo.constructor(Main.shhhVideo.getFolderPath(), Main.shhhVideo.getFps(), Main.shhhVideo.getFrames())).start();
-            }
+            load = false;
         }
         if (shhhBuffer > 0) {
+            //System.out.println("C");
+            new Thread(() -> Main.shhhVideo.loadFrame()).start();
+            /*System.out.println(Arrays.toString(Main.shhhVideo.getBufferedFrames()));/*
+            if (((-shhhBuffer+100)%2==0))
+            try {
+                cI = Main.shhhVideo.getBufferedFrames().remove();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }*/
             shhhBuffer--;
         } else if (shhhBuffer == 0){
             Main.gameState = Main.lastState;
@@ -41,6 +50,12 @@ public class Shhh implements ProgramObject {
             Main.getInstance().getRenderer().setBgColor(0xff000000);
             if (shhhBuffer > 100) {
                 Main.shhhVideo.renderFrame(Main.getInstance().getRenderer(), 0, -50);
+                /*if (cI!=null) {
+                    Main.getInstance().getRenderer().drawImage(cI, 0, -50);
+                    System.out.println("R");
+                } else {
+                    System.out.println("VVIISSAARR");
+                }*/
             } else {
                 Main.getInstance().getRenderer().drawText(shhhImp?"Impostor":"Crewmate", 900, 250, shhhImp?0xffff0000:0xff00ffff, null);
                 Main.getInstance().getRenderer().drawImageTile(Main.getInstance().player.spriteSheet,Main.getMidX()-150, Main.getMidY()-150, 0, 4);
@@ -64,7 +79,7 @@ public class Shhh implements ProgramObject {
         shhhImp = imp;
         shhhMates = mates;
         load = true;
-        shhhBuffer = Main.shhhVideo.getFrames()+100;
+        shhhBuffer = Main.shhhVideo.getFrames()*(60/Main.shhhVideo.getFps())+100;
         new Shhh().register(GameState.SHHH);
     }
 
