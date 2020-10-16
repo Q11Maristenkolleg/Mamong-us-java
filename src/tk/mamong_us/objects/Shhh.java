@@ -26,10 +26,16 @@ public class Shhh implements ProgramObject {
         }
         if (load) {
             load = false;
+            new Thread(() -> {
+                while (true)
+                if (!Main.shhhVideo.loadFrame()) {
+                    break;
+                }
+            }).start();
         }
         if (shhhBuffer > 0) {
             //System.out.println("C");
-            new Thread(() -> Main.shhhVideo.loadFrame()).start();
+
             /*System.out.println(Arrays.toString(Main.shhhVideo.getBufferedFrames()));/*
             if (((-shhhBuffer+100)%2==0))
             try {
@@ -39,6 +45,7 @@ public class Shhh implements ProgramObject {
             }*/
             shhhBuffer--;
         } else if (shhhBuffer == 0){
+            Main.shhhVideo.constructor(Main.shhhVideo.getFolderPath(), Main.shhhVideo.getFps(), Main.shhhVideo.getFrames());
             Main.gameState = Main.lastState;
             Handler.deleteObject(this);
         }

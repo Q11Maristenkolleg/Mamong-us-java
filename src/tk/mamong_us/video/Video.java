@@ -29,7 +29,7 @@ public class Video {
         bFrame = 1;
         this.cImage = new Image(folderPath+folderPath+"00.png");
         bufferedFrames[0] = cImage;
-        while (bFrame<Math.min(10, frames)) {
+        while (bFrame<Math.min(20, frames)) {
             String nts = ((bFrame < 10 ? "0" : "") + bFrame);
             String fileName = folderPath+folderPath+nts+".png";
             bufferedFrames[bFrame] = new Image(fileName);

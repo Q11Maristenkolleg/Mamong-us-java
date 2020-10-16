@@ -117,14 +117,6 @@ public class Main extends Program {
         Stars.init();
 
         loadData();
-
-           /* while (true) {
-                System.out.println(Main.shhhVideo.getBufferedFrames());
-                if (!Main.shhhVideo.loadFrame()) {
-                    Main.shhhVideo.constructor(Main.shhhVideo.getFolderPath(), Main.shhhVideo.getFps(), Main.shhhVideo.getFrames());
-                    break;
-                }
-            }*/
     }
 
     @Override
