@@ -9,15 +9,13 @@ import tk.mamong_us.game.MamongUsGame;
 import java.util.ArrayList;
 
 public class Shhh implements ProgramObject {
-    private static final int SHHH_BUFFER = 226;
-
     private static int shhhBuffer = -1;
     private static boolean shhhImp = false;
     private static ArrayList<OtherPlayer> shhhMates = new ArrayList<>();
 
     @Override
     public void update() {
-        if (shhhBuffer == SHHH_BUFFER) {
+        if (shhhBuffer == Main.shhhVideo.getFrames()+100) {
             //Main.shhhVideo.getSoundTrack().play();
         }
         if (shhhBuffer > 0) {
@@ -33,7 +31,7 @@ public class Shhh implements ProgramObject {
         if (shhhBuffer > 0) {
             Main.getInstance().getRenderer().setBgColor(0xff000000);
             if (shhhBuffer > 100) {
-                Main.getInstance().getRenderer().drawImage(Main.shhhVideo.getImages().get((-shhhBuffer+SHHH_BUFFER)/(60/Main.shhhVideo.getFps())), 0, 0);
+                Main.getInstance().getRenderer().drawImage(Main.shhhVideo.getImages().get((-shhhBuffer+Main.shhhVideo.getFrames()+100)/(60/Main.shhhVideo.getFps())), 0, 0);
             } else {
                 Main.getInstance().getRenderer().drawText(shhhImp?"Impostor":"Crewmate", 900, 250, shhhImp?0xffff0000:0xff00ffff, null);
                 Main.getInstance().getRenderer().drawImageTile(Main.getInstance().player.spriteSheet,Main.getMidX()-150, Main.getMidY()-150, 0, 4);
@@ -56,7 +54,7 @@ public class Shhh implements ProgramObject {
         Main.gameState = GameState.SHHH;
         shhhImp = imp;
         shhhMates = mates;
-        shhhBuffer = SHHH_BUFFER;
+        shhhBuffer = Main.shhhVideo.getFrames()+100;
         new Shhh().register(GameState.SHHH);
     }
 

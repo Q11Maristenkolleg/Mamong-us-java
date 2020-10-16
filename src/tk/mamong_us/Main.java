@@ -18,6 +18,7 @@ import tk.mamong_us.objects.Wall;
 import tk.mamong_us.video.Video;
 
 import java.awt.event.KeyEvent;
+import java.util.LinkedList;
 
 public class Main extends Program {
     private static Main instance;
@@ -30,7 +31,24 @@ public class Main extends Program {
     public static ImageTile spriteText = new ImageTile("/text.png", 256, 64);
     private static final Image icon = new Image("/icon2.png");
 
-    public static final Video shhhVideo = new Video("/shhh", 30);
+    public static Video shhhVideo;
+    public static Video emergencyVideo;
+    public static Video discussVideo;
+    public static LinkedList<Video> killVideos = new LinkedList<>();
+    public static Video deadBodyVideo;
+
+    static {
+        new Thread(() -> {
+            killVideos.add(new Video("/gunkill", 25));
+            deadBodyVideo = new Video("/deadbody", 25);
+            killVideos.add(new Video("/knifekill", 25));
+            killVideos.add(new Video("/neckkill", 25));
+            killVideos.add(new Video("/tonguekill", 25));
+        }).start();
+        shhhVideo = new Video("/shhh", 25);
+        emergencyVideo = new Video("/emergency", 25);
+        discussVideo = new Video("/discuss", 25);
+    }
 
     private static final DiscordRP discordRP = new DiscordRP();
     public static int width, height;
