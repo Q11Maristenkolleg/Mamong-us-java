@@ -38,16 +38,16 @@ public class Main extends Program {
     public static Video deadBodyVideo;
 
     static {
-        new Thread(() -> {
+        /*new Thread(() -> {
             killVideos.add(new Video("/gunkill", 25));
             deadBodyVideo = new Video("/deadbody", 25);
             killVideos.add(new Video("/knifekill", 25));
             killVideos.add(new Video("/neckkill", 25));
             killVideos.add(new Video("/tonguekill", 25));
-        }).start();
-        shhhVideo = new Video("/shhh", 25);
-        emergencyVideo = new Video("/emergency", 25);
-        discussVideo = new Video("/discuss", 25);
+        }).start();*/
+        shhhVideo = new Video("/shhh", 25, 64);
+        /*emergencyVideo = new Video("/emergency", 25);
+        discussVideo = new Video("/discuss", 25);*/
     }
 
     private static final DiscordRP discordRP = new DiscordRP();
@@ -171,6 +171,7 @@ public class Main extends Program {
 
     @Override
     public void render() {
+        getRenderer().drawText("Fps: "+gameLoop.getFps(), 10, 10, 0xffff0000, null);
         if (gameState==GameState.MAIN_MENU) {
             Stars.render();
             getRenderer().setBgColor(0xff000000);
@@ -180,7 +181,7 @@ public class Main extends Program {
         Handler.render();
         if (gameState == GameState.MULTIPLAYER) {
             double ping = (Multiplayer.getPing() * 1000);
-            getRenderer().drawText("Ping: " + ((int) ping) + " ms", 10, 10, 0xff000000, null);
+            getRenderer().drawText("Ping: " + ((int) ping) + " ms", 1700, 10, 0xff000000, null);
             getRenderer().drawText(OutputChat.text(), 1400, 200, 0xff007f3f, null);
             if (mpState == GameState.MultiplayerState.GAME) {
                 getRenderer().drawText(MamongUsGame.taskText(), 100, 100, 0xff000000, null);
