@@ -18,6 +18,8 @@ public class MamongUsGame {
     public static GameVariables vars = null;
 
     public static boolean impostor = false;
+    public static int killCd = 10;
+    public static int killCdB = 60;
     public static ArrayList<OtherPlayer> mates = new ArrayList<>();
     public static ArrayList<Task> tasks = null;
 

@@ -2,7 +2,6 @@ package tk.mamong_us.objects;
 
 import com.siinus.simpleGrafix.gfx.ImageTile;
 import org.jetbrains.annotations.NotNull;
-import tk.mamong_us.Main;
 import tk.mamong_us.PlayerSprite;
 import tk.mamong_us.Program;
 import tk.mamong_us.core.Handler;
@@ -11,6 +10,8 @@ import java.util.ArrayList;
 
 public class OtherPlayer extends GameObject {
     public static final ArrayList<OtherPlayer> onlinePlayers = new ArrayList<>();
+
+    public int nameColor = 0xff000000;
 
     private final String ip;
     private final String name;
@@ -45,7 +46,7 @@ public class OtherPlayer extends GameObject {
     @Override
     public void render() {
         program.getRenderer().drawImageTile(spriteSheet, x+offX(), y+offY(),left?1:0,moving?(4-frame):4);
-        program.getRenderer().drawText(name, x+offX()+100, y+offY(), 0xff000000, null);
+        program.getRenderer().drawText(name, x+offX()+100, y+offY(), nameColor, null);
     }
 
     public void destroy() {

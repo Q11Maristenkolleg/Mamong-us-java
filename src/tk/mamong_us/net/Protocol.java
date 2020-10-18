@@ -110,6 +110,8 @@ public class Protocol implements ClientHandler {
                         StringBuilder data = new StringBuilder();
                         MamongUsGame.vars = new GameVariables();
                         MamongUsGame.tasks = new ArrayList<>();
+                        MamongUsGame.killCd = 10;
+                        MamongUsGame.killCdB = 60;
                         for (int i=2; i<msg.length; i++) {
                             switch (msg[i]) {
                                 case "Impostors:" -> MamongUsGame.vars.impostors = Integer.parseInt(msg[i+1]);

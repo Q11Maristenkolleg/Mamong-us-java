@@ -76,19 +76,35 @@ public class Program  extends com.siinus.simpleGrafix.Program {
             }
         }
         if (Main.gameState == GameState.MULTIPLAYER) {
-            if (InputUtils.isKeyDown(0x46) && Main.mpState == GameState.MultiplayerState.GAME && MamongUsGame.impostor) {
-                boolean canKill = false;
-                String toKill = null;
-                int distanceToTarget = MamongUsGame.vars.kill_dst.dist;
-                for (OtherPlayer o : OtherPlayer.onlinePlayers) {
-                    if (Math.hypot(o.getX()-player.getX(), o.getY()-player.getY()) < distanceToTarget) {
-                        canKill=true;
-                        toKill = o.getIp();
-                        distanceToTarget = (int) Math.hypot(o.getX()-player.getX(), o.getY()-player.getY());
+            if (Main.mpState == GameState.MultiplayerState.GAME) {
+                if (MamongUsGame.impostor) {
+                    if (MamongUsGame.killCd > 0) {
+                        if (MamongUsGame.killCdB == 0) {
+                            MamongUsGame.killCdB = 60;
+                            MamongUsGame.killCd--;
+                        } else {
+                            MamongUsGame.killCdB--;
+                        }
+                    } else {
+                        MamongUsGame.killCdB = 60;
                     }
                 }
-                if (canKill) {
-                    Multiplayer.send("kill "+toKill);
+                if (InputUtils.isKeyDown(0x46) && MamongUsGame.impostor && MamongUsGame.killCd == 0) {
+                    boolean canKill = false;
+                    String toKill = null;
+                    int distanceToTarget = MamongUsGame.vars.kill_dst.dist;
+                    for (OtherPlayer o : OtherPlayer.onlinePlayers) {
+                        if (Math.hypot(o.getX() - player.getX(), o.getY() - player.getY()) < distanceToTarget && !MamongUsGame.mates.contains(o)) {
+                            canKill = true;
+                            toKill = o.getIp();
+                            distanceToTarget = (int) Math.hypot(o.getX() - player.getX(), o.getY() - player.getY());
+                        }
+                    }
+                    if (canKill) {
+                        Multiplayer.send("kill " + toKill);
+                        MamongUsGame.killCd = (int) MamongUsGame.vars.kill_cd;
+                        MamongUsGame.killCdB = ((int) (MamongUsGame.vars.kill_cd*100))%100;
+                    }
                 }
             }
             if (InputUtils.isKeyDown(0x42)) {
@@ -142,6 +158,9 @@ public class Program  extends com.siinus.simpleGrafix.Program {
             getRenderer().drawText(OutputChat.text(), 1400, 200, 0xff007f3f, null);
             if (Main.mpState == GameState.MultiplayerState.GAME) {
                 getRenderer().drawText(MamongUsGame.taskText(), 100, 100, 0xff000000, null);
+                if (MamongUsGame.impostor) {
+                    getRenderer().drawText("Kill cooldown: " + MamongUsGame.killCd, 100, 900, 0xff00007f, null);
+                }
             } else {
                 getRenderer().drawText("Press [B] to create a game and [E] to start.", 700, 800, 0xff000000, null);
                 if (MamongUsGame.optionText != null) {

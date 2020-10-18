@@ -19,6 +19,8 @@ public class Player extends GameObject {
     public static float SPEED = 8;
     public static final byte FRAME_TIME = 5;
 
+    private int nameColor = 0xff000000;
+
     private static final Image shadow = new Image("/shadow.png");
 
     static float minusSpeed;
@@ -46,8 +48,9 @@ public class Player extends GameObject {
 
     @Override
     public void update() {
-        if (Main.lastState==GameState.MULTIPLAYER && MamongUsGame.vars != null) {
+        if (Main.lastState==GameState.MULTIPLAYER && Main.mpState == GameState.MultiplayerState.GAME) {
             SPEED = MamongUsGame.vars.speed * 8;
+            nameColor = MamongUsGame.impostor?0xffff0000:0xff000000;
         }
         if (isMoving) {
             if(buffer <= 0) {
@@ -61,7 +64,10 @@ public class Player extends GameObject {
 
     @Override
     public void render() {
-        program.getRenderer().drawText(Assets.nameField.getText(), x+offX()+150-(Font.getStandard().getPixelsOfText(Assets.nameField.getText())/2), y+offY(), 0xff000000, null);
+        if (Main.lastState == GameState.MULTIPLAYER) {
+            //program.getRenderer().drawImage(Assets.theSkeld, offX(), offY());
+        }
+        program.getRenderer().drawText(Assets.nameField.getText(), x+offX()+150-(Font.getStandard().getPixelsOfText(Assets.nameField.getText())/2), y+offY(), nameColor, null);
         if(!isMoving) {
             program.getRenderer().drawImageTile(spriteSheet,x+offX(),y+offY(),left ? 1 : 0, 4);
             frame = (byte) 1;

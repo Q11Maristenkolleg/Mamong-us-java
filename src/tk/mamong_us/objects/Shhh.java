@@ -46,6 +46,9 @@ public class Shhh implements ProgramObject {
                     for (OtherPlayer mate : shhhMates) {
                         if (mate == null) continue;
                         Main.getProgram().getRenderer().drawImageTile(mate.spriteSheet, Main.getMidX() - 150 + (150 * mox), Main.getMidY() - 150 - (50-Math.abs(mox)*25), mox>0?0:1, 4);
+                        if (shhhImp) {
+                            mate.nameColor = 0xffff0000;
+                        }
                         mox = mox > 0 ? -mox : -mox + 1;
                     }
                 }

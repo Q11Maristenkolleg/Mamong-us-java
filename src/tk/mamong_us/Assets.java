@@ -11,11 +11,11 @@ import tk.mamong_us.gui.ColorChooser;
 import tk.mamong_us.gui.TextInput;
 import tk.mamong_us.gui.TextQueue;
 import tk.mamong_us.io.FileIO;
-import tk.mamong_us.objects.Wall;
 
 import java.util.ArrayList;
 
 public class Assets {
+    //public static final Image theSkeld = new Image("/map_rescaled.jpg");
 
     public static final ImageTile objectSheet = new ImageTile("/objectSheet.png",126,126);
     public static final ImageTile mainMenu = new ImageTile("/mainMenu.png",300,100);
