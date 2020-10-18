@@ -1,7 +1,6 @@
 package tk.mamong_us.objects;
 
 import com.siinus.simpleGrafix.gfx.Font;
-import com.siinus.simpleGrafix.gfx.Image;
 import tk.mamong_us.Assets;
 import tk.mamong_us.GameState;
 import tk.mamong_us.Main;
