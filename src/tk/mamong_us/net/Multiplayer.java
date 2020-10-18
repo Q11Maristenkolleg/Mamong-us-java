@@ -48,7 +48,7 @@ public class Multiplayer {
 
     public static void spawnPlayer(String ip) {
         if (!Multiplayer.ip.equals(ip) && names.containsKey(ip) && !players.containsKey(ip)) {
-            OtherPlayer p = PlayerSprite.ORANGE.getNewOtherPlayer(Main.getInstance(), names.get(ip));
+            OtherPlayer p = PlayerSprite.ORANGE.getNewOtherPlayer(Main.getProgram(), ip, names.get(ip));
             p.register(GameState.MULTIPLAYER);
             players.put(ip, p);
         }

@@ -25,8 +25,8 @@ public class MamongUsGame {
 
     static {
         for (int i=0; i<configButtons.length; i+=2) {
-            configButtons[i] = new Button(Main.getInstance(), arrowLeft, 75, 146+(i/2)*42, 24, 24, createConfigAction(i/2, true));
-            configButtons[i+1] = new Button(Main.getInstance(), arrowRight, 575, 146+(i/2)*42, 24, 24, createConfigAction(i/2, false));
+            configButtons[i] = new Button(Main.getProgram(), arrowLeft, 75, 146+(i/2)*42, 24, 24, createConfigAction(i/2, true));
+            configButtons[i+1] = new Button(Main.getProgram(), arrowRight, 575, 146+(i/2)*42, 24, 24, createConfigAction(i/2, false));
         }
     }
 

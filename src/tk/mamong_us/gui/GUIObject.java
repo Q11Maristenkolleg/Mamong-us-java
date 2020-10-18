@@ -4,11 +4,12 @@ import com.siinus.simpleGrafix.gfx.Image;
 import org.jetbrains.annotations.Nullable;
 import tk.mamong_us.GameState;
 import tk.mamong_us.Main;
+import tk.mamong_us.Program;
 import tk.mamong_us.core.Handler;
 import tk.mamong_us.core.ProgramObject;
 
 public abstract class GUIObject implements ProgramObject {
-    protected Main program;
+    protected Program program;
     protected Image sprite;
     protected int x, y;
     protected int width, height;
@@ -23,7 +24,7 @@ public abstract class GUIObject implements ProgramObject {
      * @param width The width of the bounding box
      * @param height The width of the bounding box
      */
-    public GUIObject(Main program, Image sprite, int x, int y, int width, int height) {
+    public GUIObject(Program program, Image sprite, int x, int y, int width, int height) {
         this.program = program;
         this.sprite = sprite;
         this.x = x;

@@ -19,6 +19,12 @@ public class GameVariables {
     public ArrayList<OtherPlayer> impostorPlayers = new ArrayList<>();
 
     public enum KillDistance {
-        SHORT, NORMAL, LONG;
+        SHORT(500), NORMAL(1000), LONG(1500);
+
+        public int dist;
+
+        KillDistance(int d) {
+            dist=d;
+        }
     }
 }

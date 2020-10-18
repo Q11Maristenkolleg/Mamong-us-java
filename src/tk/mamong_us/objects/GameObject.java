@@ -2,10 +2,11 @@ package tk.mamong_us.objects;
 
 import com.siinus.simpleGrafix.gfx.ImageTile;
 import tk.mamong_us.Main;
+import tk.mamong_us.Program;
 import tk.mamong_us.core.ProgramObject;
 
 public abstract class GameObject implements ProgramObject {
-    protected Main program;
+    protected Program program;
     protected int id;
     protected float speedX,speedY;
     protected int width, height;
@@ -22,7 +23,7 @@ public abstract class GameObject implements ProgramObject {
      * @param ox The offset of the bounding box to the right
      * @param oy The offset of the bounding box to down
      */
-    public GameObject(Main program, ImageTile spriteSheet, int width, int height, int ox, int oy) {
+    public GameObject(Program program, ImageTile spriteSheet, int width, int height, int ox, int oy) {
         this.program = program;
         this.spriteSheet = spriteSheet;
         this.width = width;
@@ -30,7 +31,7 @@ public abstract class GameObject implements ProgramObject {
         this.ox = ox;
         this.oy = oy;
     }
-    public GameObject(Main program, int id, int width, int height, int ox, int oy) {
+    public GameObject(Program program, int id, int width, int height, int ox, int oy) {
         this.program = program;
         this.id = id;
         this.width = width;

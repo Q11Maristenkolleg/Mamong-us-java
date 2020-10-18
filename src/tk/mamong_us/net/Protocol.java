@@ -9,6 +9,7 @@ import tk.mamong_us.chat.OutputChat;
 import tk.mamong_us.game.GameVariables;
 import tk.mamong_us.game.MamongUsGame;
 import tk.mamong_us.game.Task;
+import tk.mamong_us.objects.Kill;
 import tk.mamong_us.objects.OtherPlayer;
 import tk.mamong_us.objects.Shhh;
 
@@ -35,11 +36,16 @@ public class Protocol implements ClientHandler {
             String task = msg[1];
 
             switch (task) {
+                //----- Connect and Disconnect -----
                 case "connect" -> {
                     if (msg.length >= 3) {
-                        OutputChat.add(msg[2] + " joined the game!");
+                        StringBuilder playerName = new StringBuilder();
+                        for (int i=2; i<msg.length; i++) {
+                            playerName.append(msg[i]).append(' ');
+                        }
+                        OutputChat.add(playerName.toString().trim() + " joined the game!");
                         if (!Multiplayer.names.containsKey(ip)) {
-                            Multiplayer.names.put(ip, msg[2]);
+                            Multiplayer.names.put(ip, playerName.toString().trim());
                             Multiplayer.spawnPlayer(ip);
                         }
                     }
@@ -52,6 +58,8 @@ public class Protocol implements ClientHandler {
                         Multiplayer.players.remove(ip);
                     }
                 }
+
+                //----- Gameplay -----
                 case "pos" -> {
                     if (Multiplayer.ip!=null && !Multiplayer.ip.equals(ip) && msg.length >= 4 && Multiplayer.players.containsKey(ip)) {
                         Multiplayer.players.get(ip).setX(Integer.parseInt(msg[2]));
@@ -73,6 +81,13 @@ public class Protocol implements ClientHandler {
                         Multiplayer.players.get(ip).setSprite(PlayerSprite.valueOf(msg[2]));
                     }
                 }
+                case "kill" -> {
+                    if (msg.length >= 3 && Multiplayer.ip.equals(msg[2])) {
+                        Kill.getKilled(ip);
+                    }
+                }
+
+                //----- Data -----
                 case "impostor" -> {
                     if (msg.length >= 3) {
                         MamongUsGame.impostor = Boolean.parseBoolean(msg[2]);
@@ -122,6 +137,8 @@ public class Protocol implements ClientHandler {
                         MamongUsGame.optionText = data.toString().replace('&', '\n');
                     }
                 }
+
+                //----- Start and Stop -----
                 case "start" -> {
                     Main.mpState = GameState.MultiplayerState.GAME;
                 }

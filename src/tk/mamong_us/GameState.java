@@ -7,7 +7,8 @@ public enum GameState {
     LOADING,
     ERROR,
     PAUSE,
-    SHHH;
+    SHHH,
+    KILL;
 
     public enum MultiplayerState {
         LOBBY,

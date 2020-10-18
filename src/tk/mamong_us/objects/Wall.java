@@ -1,7 +1,9 @@
 package tk.mamong_us.objects;
 
 
+import tk.mamong_us.Assets;
 import tk.mamong_us.Main;
+import tk.mamong_us.Program;
 
 import java.awt.*;
 
@@ -18,7 +20,7 @@ public class Wall extends GameObject implements Collideable {
      * @param ox      The offset of the bounding box to the right
      * @param oy      The offset of the bounding box to down
      */
-    public Wall(Main program, int id, int width, int height, int ox, int oy) {
+    public Wall(Program program, int id, int width, int height, int ox, int oy) {
         super(program, id, width, height, ox, oy);
     }
 
@@ -29,7 +31,7 @@ public class Wall extends GameObject implements Collideable {
 
     @Override
     public void render() {
-        program.getRenderer().drawImageTile(Main.objectSheet,x+offX(),y+offY(),id,0);
+        program.getRenderer().drawImageTile(Assets.objectSheet,x+offX(),y+offY(),id,0);
     }
 
     @Override

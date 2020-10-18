@@ -1,13 +1,11 @@
 package tk.mamong_us.objects;
 
+import com.siinus.simpleGrafix.gfx.Font;
 import com.siinus.simpleGrafix.gfx.Image;
 import com.siinus.simpleGrafix.gfx.ImageTile;
 
 import org.jetbrains.annotations.NotNull;
-import tk.mamong_us.GameState;
-import tk.mamong_us.InputUtils;
-import tk.mamong_us.Main;
-import tk.mamong_us.PlayerSprite;
+import tk.mamong_us.*;
 import tk.mamong_us.core.Handler;
 import tk.mamong_us.core.ProgramObject;
 import tk.mamong_us.game.MamongUsGame;
@@ -39,7 +37,7 @@ public class Player extends GameObject {
      * @param ox      The offset of the bounding box to the right
      * @param oy      The offset of the bounding box to down
      */
-    public Player(Main program, ImageTile spriteSheet, int width, int height, int ox, int oy) {
+    public Player(Program program, ImageTile spriteSheet, int width, int height, int ox, int oy) {
         super(program,spriteSheet,width,height,ox
         ,oy);
         dx = (int) SPEED;
@@ -63,6 +61,7 @@ public class Player extends GameObject {
 
     @Override
     public void render() {
+        program.getRenderer().drawText(Assets.nameField.getText(), x+offX()+150-(Font.getStandard().getPixelsOfText(Assets.nameField.getText())/2), y+offY(), 0xff000000, null);
         if(!isMoving) {
             program.getRenderer().drawImageTile(spriteSheet,x+offX(),y+offY(),left ? 1 : 0, 4);
             frame = (byte) 1;

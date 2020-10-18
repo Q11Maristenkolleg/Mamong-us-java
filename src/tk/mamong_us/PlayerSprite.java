@@ -28,13 +28,13 @@ public enum PlayerSprite {
     }
 
     @Contract("_ -> new")
-    public @NotNull Player getNewPlayer(Main program) {
+    public @NotNull Player getNewPlayer(Program program) {
         return new Player(program, image, WIDTH, HEIGHT, OX, OY);
     }
 
-    @Contract("_, _ -> new")
-    public @NotNull OtherPlayer getNewOtherPlayer(Main program, String name) {
-        return new OtherPlayer(program, name, image);
+    @Contract("_, _, _ -> new")
+    public @NotNull OtherPlayer getNewOtherPlayer(Program program, String ip, String name) {
+        return new OtherPlayer(program, ip, name, image);
     }
 
     public static @Nullable PlayerSprite fromCxCy(int x, int y) {

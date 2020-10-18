@@ -2,6 +2,7 @@ package tk.mamong_us.gui;
 
 import com.siinus.simpleGrafix.Renderer;
 import tk.mamong_us.Main;
+import tk.mamong_us.Program;
 
 import java.util.Random;
 
@@ -10,12 +11,12 @@ public class Stars {
     public static final int SPEED = 1;
     private static final int[] x = new int[NUM_STARS], y = new int[NUM_STARS], s = new int[NUM_STARS];
     private static final Random random = new Random();
-    private static final Renderer renderer = Main.getInstance().getRenderer();
+    private static final Renderer renderer = Main.getProgram().getRenderer();
 
     public static void init() {
         for (int i=0; i<NUM_STARS; i++) {
-            x[i] = random.nextInt(Main.width);
-            y[i] = random.nextInt(Main.height);
+            x[i] = random.nextInt(Program.width);
+            y[i] = random.nextInt(Program.height);
             s[i] = random.nextInt(5);
         }
     }
@@ -24,9 +25,9 @@ public class Stars {
     public static void update() {
         for (int i=0; i<NUM_STARS; i++) {
             x[i] += s[i] * SPEED;
-            if (x[i] > Main.width) {
+            if (x[i] > Program.width) {
                 x[i] = 0;
-                y[i] = random.nextInt(Main.height);
+                y[i] = random.nextInt(Program.height);
             }
         }
     }

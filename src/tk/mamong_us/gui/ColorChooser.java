@@ -2,9 +2,7 @@ package tk.mamong_us.gui;
 
 import com.siinus.simpleGrafix.gfx.Image;
 import org.jetbrains.annotations.NotNull;
-import tk.mamong_us.InputUtils;
-import tk.mamong_us.Main;
-import tk.mamong_us.PlayerSprite;
+import tk.mamong_us.*;
 import tk.mamong_us.core.Handler;
 import tk.mamong_us.net.Multiplayer;
 
@@ -19,7 +17,7 @@ public class ColorChooser extends GUIObject {
      *
      * @param program The associated program
      */
-    public ColorChooser(Main program, @NotNull PlayerSprite color) {
+    public ColorChooser(Program program, @NotNull PlayerSprite color) {
         super(program, sprite, (int) (program.getWindow().getWidth()/(program.getWindow().getScale()*2)-190), (int) (program.getWindow().getHeight()/(program.getWindow().getScale()*2)-250), 380, 500);
         cx = x + 17 + 120 * color.cx;
         cy = y + 17 + 120 * color.cy;
@@ -47,7 +45,7 @@ public class ColorChooser extends GUIObject {
             cy = y + 17 + my * 120;
         } else if (InputUtils.isButtonPressed(1)) {
             Handler.deleteObject(this);
-            program.colorChooser = null;
+            Assets.colorChooser = null;
         }
     }
 

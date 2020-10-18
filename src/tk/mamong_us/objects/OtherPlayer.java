@@ -4,9 +4,15 @@ import com.siinus.simpleGrafix.gfx.ImageTile;
 import org.jetbrains.annotations.NotNull;
 import tk.mamong_us.Main;
 import tk.mamong_us.PlayerSprite;
+import tk.mamong_us.Program;
 import tk.mamong_us.core.Handler;
 
+import java.util.ArrayList;
+
 public class OtherPlayer extends GameObject {
+    public static final ArrayList<OtherPlayer> onlinePlayers = new ArrayList<>();
+
+    private final String ip;
     private final String name;
     private boolean moving = false;
     private boolean left = false;
@@ -19,9 +25,11 @@ public class OtherPlayer extends GameObject {
      * @param program The associated program
      * @param name The name
      */
-    public OtherPlayer(Main program, String name, ImageTile spriteSheet) {
+    public OtherPlayer(Program program, String ip, String name, ImageTile spriteSheet) {
         super(program,spriteSheet, 0,0,0,0);
+        this.ip = ip;
         this.name = name;
+        onlinePlayers.add(this);
     }
 
     @Override
@@ -42,6 +50,7 @@ public class OtherPlayer extends GameObject {
 
     public void destroy() {
         Handler.deleteObject(this);
+        onlinePlayers.remove(this);
     }
 
     public void setMoving(boolean moving) {
@@ -67,5 +76,9 @@ public class OtherPlayer extends GameObject {
 
     public void setSprite(@NotNull PlayerSprite sprite) {
         this.spriteSheet = sprite.image;
+    }
+
+    public String getIp() {
+        return ip;
     }
 }

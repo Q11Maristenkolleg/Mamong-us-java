@@ -3,25 +3,29 @@ package tk.mamong_us.video;
 import com.siinus.simpleGrafix.Renderer;
 import com.siinus.simpleGrafix.gfx.Image;
 
-import java.util.Arrays;
-
 public class Video {
-    private final String folderPath;
-    private final int frames;
-    private final int fps;
+    protected final String folderPath;
+    protected final int frames;
+    protected final int fps;
 
-    private int cFrame;
-    private int bFrame;
-    private Image cImage;
+    protected int cFrame;
+    protected int bFrame;
+    protected Image cImage;
 
-    private Image[] bufferedFrames;
+    protected Image[] bufferedFrames;
 
     public Video(String folderPath, int fps, int frames) throws IllegalArgumentException {
+        this(folderPath, fps, frames, false);
+    }
+
+    public Video(String folderPath, int fps, int frames, boolean constructor) throws IllegalArgumentException {
         this.folderPath = folderPath;
         this.frames = frames;
         this.fps = fps;
         this.bufferedFrames = new Image[frames];
-        constructor(folderPath, fps, frames);
+        if (constructor) {
+            constructor(folderPath, fps, frames);
+        }
     }
 
     public void constructor(String folderPath, int fps, int frames) {

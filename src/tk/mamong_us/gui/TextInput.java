@@ -5,7 +5,7 @@ import com.siinus.simpleGrafix.gfx.ImageTile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tk.mamong_us.InputUtils;
-import tk.mamong_us.Main;
+import tk.mamong_us.Program;
 
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
@@ -27,8 +27,7 @@ public class TextInput extends GUIObject {
 
     /**
      * Creates a new GUI object.
-     *
-     * @param program   The associated program
+     *  @param program   The associated program
      * @param sprite    The texture
      * @param x         The offset x
      * @param y         The offset y
@@ -37,7 +36,7 @@ public class TextInput extends GUIObject {
      * @param textColor The color of the text
      * @param font      The font of the text
      */
-    public TextInput(Main program, ImageTile sprite, int x, int y, int width, int height, int textColor, @Nullable Font font) {
+    public TextInput(Program program, ImageTile sprite, int x, int y, int width, int height, int textColor, @Nullable Font font) {
         super(program, sprite, x, y, width, height);
         this.image = sprite;
         color = textColor;
