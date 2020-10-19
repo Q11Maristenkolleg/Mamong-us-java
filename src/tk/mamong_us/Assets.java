@@ -24,7 +24,7 @@ public class Assets {
     public static final ImageTile spriteText = new ImageTile("/text.png", 256, 64);
     public static final Image icon = new Image("/icon2.png");
 
-    public static ImageGif shhhGif = new ImageGif("/tonguekill.gif");
+    public static ImageGif shhhGif = new ImageGif("/shhh.gif");
     public static ImageGif emergencyGif = new ImageGif("/tenor.gif");
     public static ImageGif discussGif = new ImageGif("/tenor.gif");
     public static ImageGif deadBodyGif = new ImageGif("/tenor.gif");

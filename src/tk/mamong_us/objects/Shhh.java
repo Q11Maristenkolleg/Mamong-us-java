@@ -37,7 +37,7 @@ public class Shhh implements ProgramObject {
         if (shhhBuffer > 0) {
             Main.getProgram().getRenderer().setBgColor(0xff000000);
             if (shhhBuffer > 100) {
-                Main.getProgram().getRenderer().drawImage(Assets.shhhGif, 0, 0);
+                Main.getProgram().getRenderer().drawImage(Assets.shhhGif, 0, -50);
             } else {
                 Main.getProgram().getRenderer().drawText(shhhImp?"Impostor":"Crewmate", Main.getMidX()-Font.getStandard().getPixelsOfText(shhhImp?"Impostor":"Crewmate"), 220, shhhImp?0xffff0000:0xff00ffff, Assets.consolas72);
                 Main.getProgram().getRenderer().drawImageTile(Main.getProgram().player.spriteSheet,Main.getMidX()-150, Main.getMidY()-150, 0, 4);
