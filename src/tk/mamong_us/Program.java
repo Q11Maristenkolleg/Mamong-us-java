@@ -7,10 +7,12 @@ import tk.mamong_us.core.Handler;
 import tk.mamong_us.discord.DiscordRP;
 import tk.mamong_us.game.MamongUsGame;
 import tk.mamong_us.gui.*;
+import tk.mamong_us.gui.Button;
 import tk.mamong_us.net.Multiplayer;
 import tk.mamong_us.objects.OtherPlayer;
 import tk.mamong_us.objects.Player;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class Program  extends com.siinus.simpleGrafix.Program {
@@ -26,12 +28,6 @@ public class Program  extends com.siinus.simpleGrafix.Program {
     Camera camera;
 
     public Program() {
-        Font.setStandard(Assets.bahnschrift32);
-        setIconImage(Assets.icon);
-        player = sprite.getNewPlayer(this);
-        player.register(GameState.SINGLEPLAYER, GameState.MULTIPLAYER);
-
-        camera = new Camera(player);
     }
 
     public Camera getCamera() {
@@ -44,9 +40,17 @@ public class Program  extends com.siinus.simpleGrafix.Program {
 
     @Override
     public void start() {
+        Font.setStandard(Assets.bahnschrift32);
+        setIconImage(Assets.icon);
+        player = sprite.getNewPlayer(this);
+        player.register(GameState.SINGLEPLAYER, GameState.MULTIPLAYER);
+
+        camera = new Camera(player);
+
         discordRP.start();
 
         getWindow().setScaleOnResize(true);
+        getWindow().getFrame().setState(Frame.MAXIMIZED_BOTH);
         getWindow().getFrame().setTitle("Mamong us");
         getWindow().getFrame().setFocusTraversalKeysEnabled(false);
         setCapFps(false);
@@ -59,6 +63,8 @@ public class Program  extends com.siinus.simpleGrafix.Program {
         Stars.init();
 
         Assets.loadData();
+
+        startMainMenu();
     }
 
     @Override
@@ -186,6 +192,13 @@ public class Program  extends com.siinus.simpleGrafix.Program {
     }
 
     public void startMainMenu() {
+        Assets.singlePlayerButton.setX(Main.getMidX()-150);
+        Assets.multiPlayerButton.setX(Main.getMidX()-150);
+        Assets.btmm.setX(Main.getMidX()-150);
+        Assets.btmm.setY(Main.getMidY()-50);
+        Assets.nameField.setX(Main.getMidX()-128);
+        Assets.ipField.setX(Main.getMidX()-128);
+        Assets.portField.setX(Main.getMidX()-128);
         if (Main.lastState == GameState.MULTIPLAYER) {
             Multiplayer.disconnect();
             if (Assets.colorChooser != null) {
@@ -229,26 +242,6 @@ public class Program  extends com.siinus.simpleGrafix.Program {
         width = (int) (getWindow().getWidth() / getWindow().getScale());
         height = (int) (getWindow().getHeight() / getWindow().getScale());
         scale = getWindow().getScale();
-
-        Assets.singlePlayerButton = new Button(this, Assets.spButton, width/2-150, 275, 300, 100, this::startSingleplayer);
-        Assets.singlePlayerButton.register(GameState.MAIN_MENU);
-        Assets.multiPlayerButton = new Button(this, Assets.mpButton, width/2-150, 375, 300, 100, this::startMultiplayer);
-        Assets.multiPlayerButton.register(GameState.MAIN_MENU);
-        Assets.btmm = new Button(this, Assets.mainMenu, width/2-150, height/2-50, 256, 64, this::startMainMenu);
-        Assets.btmm.register(GameState.PAUSE, GameState.ERROR);
-        Assets.nameField = new TextInput(this, Assets.spriteText, width/2-128, 150, 256, 64, 0xff00ffff, null);
-        Assets.nameField.register(GameState.MAIN_MENU);
-        Assets.nameField.setDefaultText("Name");
-        Assets.ipField = new TextInput(this, Assets.spriteText, width/2-128, 550, 256, 64, 0xffffffff, null);
-        Assets.ipField.register(GameState.MAIN_MENU);
-        Assets.ipField.setDefaultText("IP");
-        Assets.portField = new TextInput(this, Assets.spriteText, width/2-128, 650, 256, 64, 0xffffffff, null);
-        Assets.portField.register(GameState.MAIN_MENU);
-        Assets.portField.setDefaultText("Port");
-        Assets.tq = new TextQueue();
-        Assets.tq.endAction = this::startMultiplayer;
-        Assets.ipField.register(Assets.tq);
-        Assets.portField.register(Assets.tq);
     }
 
 

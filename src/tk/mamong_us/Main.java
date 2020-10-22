@@ -8,7 +8,12 @@ public class Main {
     public static GameState.MultiplayerState mpState = null;
 
     public static void main(String[] args) {
+        SplashScreen splashScreen = new SplashScreen();
+        splashScreen.progressBar.setString("Initializing program...");
         program = new Program();
+        Assets.pBpp(splashScreen, "Loading assets...");
+        Assets.loadAssets(splashScreen);
+        splashScreen.setVisible(false);
         program.make();
     }
 
