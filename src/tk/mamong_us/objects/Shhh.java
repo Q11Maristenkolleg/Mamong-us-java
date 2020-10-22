@@ -19,11 +19,8 @@ public class Shhh implements ProgramObject {
     @Override
     public void update() {
         if (shhhBuffer > 0) {
-            if (shhhBuffer%3==0)
-            try {
+            if (shhhBuffer%3==0) {
                 Assets.shhhGif.nextImage();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
             shhhBuffer--;
         } else if (shhhBuffer == 0){

@@ -153,6 +153,7 @@ public class Program  extends com.siinus.simpleGrafix.Program {
         }
         Handler.render();
         if (Main.gameState == GameState.MULTIPLAYER) {
+            //getRenderer().drawImage(Assets.theSkeld, -5000, -5000);
             double ping = (Multiplayer.getPing() * 1000);
             getRenderer().drawText("Ping: " + ((int) ping) + " ms", 1700, 10, 0xff000000, null);
             getRenderer().drawText(OutputChat.text(), 1400, 200, 0xff007f3f, null);

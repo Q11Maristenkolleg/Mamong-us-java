@@ -31,7 +31,7 @@ public class Wall extends GameObject implements Collideable {
 
     @Override
     public void render() {
-        program.getRenderer().drawImageTile(Assets.objectSheet,x+offX(),y+offY(),id,0);
+        //program.getRenderer().drawImageTile(Assets.objectSheet,x+offX(),y+offY(),id,0);
     }
 
     @Override
