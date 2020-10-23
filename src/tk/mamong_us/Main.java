@@ -11,6 +11,7 @@ public class Main {
         SplashScreen splashScreen = new SplashScreen();
         splashScreen.progressBar.setString("Initializing program...");
         program = new Program();
+        program.icon(Assets.icon);
         Assets.pBpp(splashScreen, "Loading assets...");
         Assets.loadAssets(splashScreen);
         splashScreen.setVisible(false);

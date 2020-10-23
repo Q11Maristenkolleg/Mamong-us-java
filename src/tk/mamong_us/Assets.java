@@ -21,7 +21,7 @@ public class Assets {
     public static ImageTile mpButton;
     public static ImageTile spButton;
     public static ImageTile spriteText;
-    public static Image icon;
+    public static Image icon = new Image("/icon.png");
 
     public static ImageGif shhhGif;
     public static ImageGif emergencyGif;
@@ -52,8 +52,6 @@ public class Assets {
         spButton = new ImageTile("/spButton.png",300,100);
         pBpp(splashScreen);
         spriteText = new ImageTile("/text.png", 256, 64);
-        pBpp(splashScreen);
-        icon = new Image("/icon.png");
         pBpp(splashScreen, "Loading gifs...");
 
         shhhGif = new ImageGif("/shhh/shhh.gif");

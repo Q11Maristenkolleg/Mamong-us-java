@@ -20,7 +20,7 @@ public class SplashScreen extends JWindow {
         background = background1;
     }
 
-    public static final int MAX_PROGRESS = 28;
+    public static final int MAX_PROGRESS = 27;
 
     public JProgressBar progressBar = new JProgressBar();
 
@@ -42,8 +42,9 @@ public class SplashScreen extends JWindow {
         panel.add(label);
 
         progressBar.setMaximum(MAX_PROGRESS);
-        progressBar.setBounds(0, 435, 800, 15);
+        progressBar.setBounds(0, 435, 799, 14);
         progressBar.setStringPainted(true);
+        progressBar.setForeground(Color.BLACK);
         container.add(progressBar);
         setSize(799, 450);
         setLocationRelativeTo(null);

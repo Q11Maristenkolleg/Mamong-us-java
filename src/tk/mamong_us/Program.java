@@ -1,6 +1,7 @@
 package tk.mamong_us;
 
 import com.siinus.simpleGrafix.gfx.Font;
+import com.siinus.simpleGrafix.gfx.Image;
 import tk.mamong_us.chat.OutputChat;
 import tk.mamong_us.core.Camera;
 import tk.mamong_us.core.Handler;
@@ -41,7 +42,6 @@ public class Program  extends com.siinus.simpleGrafix.Program {
     @Override
     public void start() {
         Font.setStandard(Assets.bahnschrift32);
-        setIconImage(Assets.icon);
         player = sprite.getNewPlayer(this);
         player.register(GameState.SINGLEPLAYER, GameState.MULTIPLAYER);
 
@@ -249,5 +249,9 @@ public class Program  extends com.siinus.simpleGrafix.Program {
 
     public void make() {
         init();
+    }
+
+    public void icon(Image icon) {
+        setIconImage(icon);
     }
 }
