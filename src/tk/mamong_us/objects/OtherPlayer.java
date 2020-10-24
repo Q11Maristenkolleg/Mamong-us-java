@@ -2,6 +2,7 @@ package tk.mamong_us.objects;
 
 import com.siinus.simpleGrafix.gfx.ImageTile;
 import org.jetbrains.annotations.NotNull;
+import tk.mamong_us.Main;
 import tk.mamong_us.PlayerSprite;
 import tk.mamong_us.Program;
 import tk.mamong_us.core.Handler;
@@ -20,6 +21,8 @@ public class OtherPlayer extends GameObject {
     private byte frame = 1;
     private byte buffer = 0;
 
+    private int trans = 0xff;
+
     /**
      * Creates a new OtherPlayer object.
      *
@@ -35,6 +38,24 @@ public class OtherPlayer extends GameObject {
 
     @Override
     public void update() {
+        int dtp = (int) Math.hypot(x-Main.getProgram().player.x, y-Main.getProgram().player.y);
+        if (Player.light.getRadius() < dtp) {
+            if (trans != 0) {
+                trans = 0;
+                spriteSheet.setTransparency(0);
+            }
+        } else if ((Player.light.getRadius() * 0.8) < dtp) {
+            int t = (int) ((dtp - (Player.light.getRadius() * 0.8)) * (0xff / (Player.light.getRadius() * 0.2)));
+            if (trans != t) {
+                trans = t;
+                spriteSheet.setTransparency(t);
+            }
+        } else {
+            if (trans != 0xff) {
+                trans = 0xff;
+                spriteSheet.setTransparency(0xff);
+            }
+        }
         if (moving) {
             frameUp();
         } else {

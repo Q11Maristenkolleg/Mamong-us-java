@@ -22,15 +22,17 @@ public class Player extends GameObject {
     public static final byte FRAME_TIME = 5;
 
     private int nameColor = 0xff000000;
+    float vision;
 
     private static final Image shadow = new Image("/shadow.png");
-    private static final Light light = new Light(500, 0xffffffff);
+    static Light light = new Light(500, 0xffffffff);
 
     static float minusSpeed;
     public int dx, dy;
     static boolean isMoving, left, serverM = false;
     static byte buffer = 0;
     static byte frame = 1;
+
 
     /**
      * Creates a new Player object.
@@ -54,6 +56,10 @@ public class Player extends GameObject {
         if (Main.lastState==GameState.MULTIPLAYER && Main.mpState == GameState.MultiplayerState.GAME) {
             SPEED = MamongUsGame.vars.speed * 8;
             nameColor = MamongUsGame.impostor?0xffff0000:0xff000000;
+            if (vision != (MamongUsGame.impostor?MamongUsGame.vars.vision_imp:MamongUsGame.vars.vision_cm)) {
+                vision = (MamongUsGame.impostor?MamongUsGame.vars.vision_imp:MamongUsGame.vars.vision_cm);
+                light = new Light((int) (vision * 500), 0xffffffff);
+            }
         }
         if (isMoving) {
             if(buffer <= 0) {
