@@ -24,11 +24,8 @@ public class Kill implements ProgramObject {
             Handler.deleteObject(this);
         } else if (timer > 0) {
             timer--;
-            if (timer%2==0)
-            try {
+            if (timer%2==0) {
                 killGif.nextImage();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
     }

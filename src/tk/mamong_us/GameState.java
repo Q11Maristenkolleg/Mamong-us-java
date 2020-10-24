@@ -4,6 +4,7 @@ public enum GameState {
     MAIN_MENU,
     SINGLEPLAYER,
     MULTIPLAYER,
+    OPTIONS,
     LOADING,
     ERROR,
     PAUSE,

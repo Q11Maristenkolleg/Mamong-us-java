@@ -1,7 +1,9 @@
 package tk.mamong_us;
 
+import com.siinus.simpleGrafix.Renderer;
 import com.siinus.simpleGrafix.gfx.Font;
 import com.siinus.simpleGrafix.gfx.Image;
+import com.siinus.simpleGrafixShader.ShaderRenderer;
 import tk.mamong_us.chat.OutputChat;
 import tk.mamong_us.core.Camera;
 import tk.mamong_us.core.Handler;
@@ -17,6 +19,9 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class Program  extends com.siinus.simpleGrafix.Program {
+    private ShaderRenderer shaderRenderer;
+    private Renderer normalRenderer;
+
     boolean loadMP = false;
 
     private static final DiscordRP discordRP = new DiscordRP();
@@ -150,9 +155,20 @@ public class Program  extends com.siinus.simpleGrafix.Program {
 
     @Override
     public void render() {
+        if (Main.gameState == GameState.SINGLEPLAYER || Main.gameState == GameState.MULTIPLAYER) {
+            if (!(renderer instanceof ShaderRenderer)) {
+                renderer = shaderRenderer;
+                gameLoop.setRenderer(renderer);
+            }
+        } else {
+            if (renderer instanceof ShaderRenderer) {
+                renderer = normalRenderer;
+                gameLoop.setRenderer(renderer);
+            }
+        }
         getRenderer().drawText("Fps: "+gameLoop.getFps(), 10, 10, 0xffff0000, null);
         if (Main.gameState==GameState.MAIN_MENU) {
-            Stars.render();
+            Stars.render(getRenderer());
             getRenderer().setBgColor(0xff000000);
         } else {
             getRenderer().setBgColor(0xffffffff);
@@ -194,11 +210,11 @@ public class Program  extends com.siinus.simpleGrafix.Program {
     public void startMainMenu() {
         Assets.singlePlayerButton.setX(Main.getMidX()-150);
         Assets.multiPlayerButton.setX(Main.getMidX()-150);
+        Assets.optionsButton.setX(Main.getMidX()-150);
+        Assets.quitButton.setX(Main.getMidX()-150);
         Assets.btmm.setX(Main.getMidX()-150);
-        Assets.btmm.setY(Main.getMidY()-50);
         Assets.nameField.setX(Main.getMidX()-128);
         Assets.ipField.setX(Main.getMidX()-128);
-        Assets.portField.setX(Main.getMidX()-128);
         if (Main.lastState == GameState.MULTIPLAYER) {
             Multiplayer.disconnect();
             if (Assets.colorChooser != null) {
@@ -208,6 +224,15 @@ public class Program  extends com.siinus.simpleGrafix.Program {
         }
         Main.gameState = GameState.MAIN_MENU;
         Main.lastState = GameState.MAIN_MENU;
+    }
+
+    public void startOptions() {
+        Main.gameState = GameState.OPTIONS;
+        Main.lastState = GameState.OPTIONS;
+    }
+
+    public void quit() {
+        gameLoop.stop();
     }
 
     public void startPause() {
@@ -225,7 +250,8 @@ public class Program  extends com.siinus.simpleGrafix.Program {
     }
 
     private void connectMultiplayer() {
-        if (Multiplayer.connect(Assets.ipField.getText().toLowerCase(), Integer.parseInt(Assets.portField.getText()))) {
+        String[] ipText = Assets.ipField.getText().split(":");
+        if (Multiplayer.connect(ipText[0].toLowerCase(), Integer.parseInt(ipText[1]))) {
             if (Assets.nameField.getText().length()<=0) {
                 Assets.nameField.setText("Player"+((int) (Math.random()*100)));
             }
@@ -244,11 +270,17 @@ public class Program  extends com.siinus.simpleGrafix.Program {
         scale = getWindow().getScale();
     }
 
-
-
-
     public void make() {
         init();
+    }
+
+    @Override
+    protected void init() {
+        super.init();
+        normalRenderer = renderer;
+        shaderRenderer = new ShaderRenderer(window);
+        shaderRenderer.setBgColor(0xffffffff);
+        shaderRenderer.setAmbientLight(0xff7f7f7f);
     }
 
     public void icon(Image icon) {

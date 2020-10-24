@@ -20,6 +20,8 @@ public class Assets {
     public static ImageTile mainMenu;
     public static ImageTile mpButton;
     public static ImageTile spButton;
+    public static ImageTile optButton;
+    public static ImageTile qButton;
     public static ImageTile spriteText;
     public static Image icon = new Image("/icon.png");
 
@@ -32,9 +34,10 @@ public class Assets {
 
     public static Button singlePlayerButton;
     public static Button multiPlayerButton;
+    public static Button optionsButton;
+    public static Button quitButton;
     public static Button btmm;
     public static TextInput ipField;
-    public static TextInput portField;
     public static TextInput nameField;
     public static TextQueue tq;
 
@@ -50,6 +53,10 @@ public class Assets {
         mpButton = new ImageTile("/mpButton.png",300,100);
         pBpp(splashScreen);
         spButton = new ImageTile("/spButton.png",300,100);
+        pBpp(splashScreen);
+        optButton = new ImageTile("/options.png", 300, 100);
+        pBpp(splashScreen);
+        qButton = new ImageTile("/quit.png", 300, 100);
         pBpp(splashScreen);
         spriteText = new ImageTile("/text.png", 256, 64);
         pBpp(splashScreen, "Loading gifs...");
@@ -90,25 +97,26 @@ public class Assets {
         multiPlayerButton = new Button(Main.getProgram(), Assets.mpButton, 0, 375, 300, 100, Main.getProgram()::startMultiplayer);
         multiPlayerButton.register(GameState.MAIN_MENU);
         pBpp(splashScreen);
-        btmm = new Button(Main.getProgram(), Assets.mainMenu, 0, 0, 256, 64, Main.getProgram()::startMainMenu);
+        optionsButton = new Button(Main.getProgram(), Assets.optButton, 0, 475, 300, 100, Main.getProgram()::startOptions);
+        optionsButton.register(GameState.MAIN_MENU, GameState.PAUSE);
+        pBpp(splashScreen);
+        quitButton = new Button(Main.getProgram(), Assets.qButton, 0, 800, 300, 100, Main.getProgram()::quit);
+        pBpp(splashScreen);
+        quitButton.register(GameState.MAIN_MENU);
+        btmm = new Button(Main.getProgram(), Assets.mainMenu, 0, 650, 256, 64, Main.getProgram()::startMainMenu);
         btmm.register(GameState.PAUSE, GameState.ERROR);
         pBpp(splashScreen);
         nameField = new TextInput(Main.getProgram(), Assets.spriteText, 0, 150, 256, 64, 0xff00ffff, null);
         nameField.register(GameState.MAIN_MENU);
         nameField.setDefaultText("Name");
         pBpp(splashScreen);
-        ipField = new TextInput(Main.getProgram(), Assets.spriteText, 0, 550, 256, 64, 0xffffffff, null);
+        ipField = new TextInput(Main.getProgram(), Assets.spriteText, 0, 650, 256, 64, 0xffffffff, null);
         ipField.register(GameState.MAIN_MENU);
-        ipField.setDefaultText("IP");
-        pBpp(splashScreen);
-        portField = new TextInput(Main.getProgram(), Assets.spriteText, 0, 650, 256, 64, 0xffffffff, null);
-        portField.register(GameState.MAIN_MENU);
-        portField.setDefaultText("Port");
+        ipField.setDefaultText("IP:Port");
         pBpp(splashScreen);
         tq = new TextQueue();
         tq.endAction = Main.getProgram()::startMultiplayer;
         ipField.register(Assets.tq);
-        portField.register(Assets.tq);
         pBpp(splashScreen, "Loading fonts...");
 
         colorChooser = null;
@@ -131,9 +139,10 @@ public class Assets {
     @SuppressWarnings("unchecked")
     static void saveData() {
         JSONObject root = new JSONObject();
+        String[] ipText = ipField.getText().split(":");
         root.put("name", nameField.getText());
-        root.put("ip", ipField.getText());
-        root.put("port", portField.getText());
+        root.put("ip", ipText[0]);
+        root.put("port", ipText[1]);
         FileIO.saveJSON("./config.json", root);
     }
 
@@ -143,7 +152,6 @@ public class Assets {
             return;
         }
         nameField.setText((String) root.get("name"));
-        ipField.setText((String) root.get("ip"));
-        portField.setText((String) root.get("port"));
+        ipField.setText(root.get("ip") + ":" + root.get("port"));
     }
 }

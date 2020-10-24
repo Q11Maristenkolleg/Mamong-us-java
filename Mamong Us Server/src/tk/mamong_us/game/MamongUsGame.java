@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class MamongUsGame {
     private HashMap<String, PlayerData> players = new HashMap<>();
     private ArrayList<String> impostors = new ArrayList<>();
-    private GameVariables gameVariables = GameVariables.createDefault();
+    private static GameVariables gameVariables = GameVariables.createDefault();
 
     public PlayerData addPlayer(String name) {
         PlayerData data = new PlayerData();

@@ -4,6 +4,8 @@ import com.siinus.simpleGrafix.gfx.Font;
 import com.siinus.simpleGrafix.gfx.Image;
 import com.siinus.simpleGrafix.gfx.ImageTile;
 
+import com.siinus.simpleGrafixShader.Light;
+import com.siinus.simpleGrafixShader.ShaderRenderer;
 import org.jetbrains.annotations.NotNull;
 import tk.mamong_us.*;
 import tk.mamong_us.core.Handler;
@@ -22,6 +24,7 @@ public class Player extends GameObject {
     private int nameColor = 0xff000000;
 
     private static final Image shadow = new Image("/shadow.png");
+    private static final Light light = new Light(500, 0xffffffff);
 
     static float minusSpeed;
     public int dx, dy;
@@ -74,6 +77,12 @@ public class Player extends GameObject {
         }
         else {
             program.getRenderer().drawImageTile(spriteSheet, x + offX(), y + offY(), left ? 1 : 0, 4-frame);
+        }
+        if (program.getRenderer() instanceof ShaderRenderer) {
+            ((ShaderRenderer) program.getRenderer()).drawLight(light, x+offX()+150, y+offY()+150);
+            ((ShaderRenderer) program.getRenderer()).setAmbientLight(0xff7f7f7f);
+        } else {
+            System.out.println("FJG");
         }
     }
 
