@@ -39,21 +39,24 @@ public class OtherPlayer extends GameObject {
     @Override
     public void update() {
         int dtp = (int) Math.hypot(x-Main.getProgram().player.x, y-Main.getProgram().player.y);
-        if (Player.light.getRadius() < dtp) {
+        if ((Player.light.getRadius() * 0.6) < dtp) {
             if (trans != 0) {
                 trans = 0;
                 spriteSheet.setTransparency(0);
+                nameColor &= 0xffffff;
             }
-        } else if ((Player.light.getRadius() * 0.8) < dtp) {
-            int t = (int) ((dtp - (Player.light.getRadius() * 0.8)) * (0xff / (Player.light.getRadius() * 0.2)));
+        } else if ((Player.light.getRadius() * 0.4) < dtp) {
+            int t = (int) ((dtp - (Player.light.getRadius() * 0.4)) * (1 - 0xff / (Player.light.getRadius() * 0.2)));
             if (trans != t) {
                 trans = t;
                 spriteSheet.setTransparency(t);
+                nameColor = (nameColor & 0xffffff) | (t << 24);
             }
         } else {
             if (trans != 0xff) {
                 trans = 0xff;
                 spriteSheet.setTransparency(0xff);
+                nameColor |= 0xff000000;
             }
         }
         if (moving) {
