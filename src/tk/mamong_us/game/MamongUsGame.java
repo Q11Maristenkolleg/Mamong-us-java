@@ -51,8 +51,8 @@ public class MamongUsGame {
             if (task.getType().steps > 1) {
                 sb.append(" (").append(task.getCompleted()).append('/').append(task.getType().steps).append(')');
             }
-            sb.append('\n');
+            sb.append('\n')
         }
-        return sb.toString();
+        return sb.toString()
     }
 }
