@@ -61,34 +61,34 @@ public class Assets {
         spriteText = new ImageTile("/text.png", 256, 64);
         pBpp(splashScreen, "Loading gifs...");
 
-        shhhGif = new ImageGif("/shhh/shhh.gif");
+        shhhGif = new ImageGif("/videos/shhh/shhh.gif");
         pBpp(splashScreen);
-        emergencyGif = new ImageGif("/emergency/emergency.gif");
+        emergencyGif = new ImageGif("/videos/emergency/emergency.gif");
         pBpp(splashScreen);
-        discussGif = new ImageGif("/discuss/discuss.gif");
+        discussGif = new ImageGif("/videos/discuss/discuss.gif");
         pBpp(splashScreen);
-        deadBodyGif = new ImageGif("/deadbody/deadbody.gif");
+        deadBodyGif = new ImageGif("/videos/deadbody/deadbody.gif");
         pBpp(splashScreen);
         killGifs = new ArrayList<>();
         killSounds = new ArrayList<>();
         pBpp(splashScreen);
 
-        killGifs.add(new ImageGif("/tonguekill/tonguekill.gif"));
+        killGifs.add(new ImageGif("/videos/tonguekill/tonguekill.gif"));
         pBpp(splashScreen);
-        killGifs.add(new ImageGif("/knifekill/knifekill.gif"));
+        killGifs.add(new ImageGif("/videos/knifekill/knifekill.gif"));
         pBpp(splashScreen);
-        killGifs.add(new ImageGif("/neckkill/neckkill.gif"));
+        killGifs.add(new ImageGif("/videos/neckkill/neckkill.gif"));
         pBpp(splashScreen);
-        killGifs.add(new ImageGif("/gunkill/gunkill.gif"));
+        killGifs.add(new ImageGif("/videos/gunkill/gunkill.gif"));
         pBpp(splashScreen, "Loading sounds...");
 
-        killSounds.add(new SoundClip("/tonguekill/tonguekillsound.wav"));
+        killSounds.add(new SoundClip("/videos/tonguekill/tonguekillsound.wav"));
         pBpp(splashScreen);
-        killSounds.add(new SoundClip("/knifekill/knifekillsound.wav"));
+        killSounds.add(new SoundClip("/videos/knifekill/knifekillsound.wav"));
         pBpp(splashScreen);
-        killSounds.add(new SoundClip("/neckkill/neckkkillsound.wav"));
+        killSounds.add(new SoundClip("/videos/neckkill/neckkillsound.wav"));
         pBpp(splashScreen);
-        killSounds.add(new SoundClip("/gunkill/gunkillsound.wav"));
+        killSounds.add(new SoundClip("/videos/gunkill/gunkillsound.wav"));
         pBpp(splashScreen, "Loading UI assets...");
 
         singlePlayerButton = new Button(Main.getProgram(), Assets.spButton, 0, 275, 300, 100, Main.getProgram()::startSingleplayer);

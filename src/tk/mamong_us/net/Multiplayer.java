@@ -16,6 +16,7 @@ public class Multiplayer {
     static HashMap<String, OtherPlayer> players = new HashMap<>();
 
     public static boolean connect(String hostname, int port) {
+        JavaClient.setHandler(new Protocol());
         client = new JavaClient();
         try {
             client.connect(hostname, port);
@@ -23,7 +24,6 @@ public class Multiplayer {
             e.printStackTrace();
             return false;
         }
-        JavaClient.setHandler(new Protocol());
         return true;
     }
 
@@ -38,7 +38,7 @@ public class Multiplayer {
     }
 
     public static void disconnect() {
-        send("disconnect");
+        //send("disconnect");
         if (client != null) {
             client.disconnect();
             client.getThread().interrupt();
