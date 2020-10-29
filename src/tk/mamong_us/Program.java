@@ -4,6 +4,7 @@ import com.siinus.simpleGrafix.Renderer;
 import com.siinus.simpleGrafix.gfx.Font;
 import com.siinus.simpleGrafix.gfx.Image;
 import com.siinus.simpleGrafixShader.ShaderRenderer;
+import com.siinus.simpleGrafixShader.ShaderRendererLite;
 import tk.mamong_us.chat.OutputChat;
 import tk.mamong_us.core.Camera;
 import tk.mamong_us.core.Handler;
@@ -19,7 +20,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class Program  extends com.siinus.simpleGrafix.Program {
-    private ShaderRenderer shaderRenderer;
+    private ShaderRendererLite shaderRenderer;
     private Renderer normalRenderer;
 
     boolean loadMP = false;
@@ -156,12 +157,12 @@ public class Program  extends com.siinus.simpleGrafix.Program {
     @Override
     public void render() {
         if (Main.gameState == GameState.SINGLEPLAYER || Main.gameState == GameState.MULTIPLAYER) {
-            if (!(renderer instanceof ShaderRenderer)) {
+            if (!(renderer instanceof ShaderRendererLite)) {
                 renderer = shaderRenderer;
                 gameLoop.setRenderer(renderer);
             }
         } else {
-            if (renderer instanceof ShaderRenderer) {
+            if (renderer instanceof ShaderRendererLite) {
                 renderer = normalRenderer;
                 gameLoop.setRenderer(renderer);
             }
@@ -278,9 +279,9 @@ public class Program  extends com.siinus.simpleGrafix.Program {
     protected void init() {
         super.init();
         normalRenderer = renderer;
-        shaderRenderer = new ShaderRenderer(window);
+        shaderRenderer = new ShaderRendererLite(window);
         shaderRenderer.setBgColor(0xffffffff);
-        shaderRenderer.setAmbientLight(0xff7f7f7f);
+        shaderRenderer.setAmbientLight((byte) 0x3f);
     }
 
     public void icon(Image icon) {

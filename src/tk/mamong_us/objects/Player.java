@@ -5,7 +5,9 @@ import com.siinus.simpleGrafix.gfx.Image;
 import com.siinus.simpleGrafix.gfx.ImageTile;
 
 import com.siinus.simpleGrafixShader.Light;
+import com.siinus.simpleGrafixShader.LightLite;
 import com.siinus.simpleGrafixShader.ShaderRenderer;
+import com.siinus.simpleGrafixShader.ShaderRendererLite;
 import org.jetbrains.annotations.NotNull;
 import tk.mamong_us.*;
 import tk.mamong_us.core.Handler;
@@ -25,7 +27,7 @@ public class Player extends GameObject {
     float vision;
 
     private static final Image shadow = new Image("/shadow.png");
-    static Light light = new Light(500, 0xffffffff);
+    static LightLite light = new LightLite(500, 0xff);
 
     static float minusSpeed;
     public int dx, dy;
@@ -58,7 +60,7 @@ public class Player extends GameObject {
             nameColor = MamongUsGame.impostor?0xffff0000:0xff000000;
             if (vision != (MamongUsGame.impostor?MamongUsGame.vars.vision_imp:MamongUsGame.vars.vision_cm)) {
                 vision = (MamongUsGame.impostor?MamongUsGame.vars.vision_imp:MamongUsGame.vars.vision_cm);
-                light = new Light((int) (vision * 500), 0xffffffff);
+                light = new LightLite((int) (vision * 500), 0xff);
             }
         }
         if (isMoving) {
@@ -84,9 +86,9 @@ public class Player extends GameObject {
         else {
             program.getRenderer().drawImageTile(spriteSheet, x + offX(), y + offY(), left ? 1 : 0, 4-frame);
         }
-        if (program.getRenderer() instanceof ShaderRenderer) {
-            ((ShaderRenderer) program.getRenderer()).drawLight(light, x+offX()+150, y+offY()+150);
-            ((ShaderRenderer) program.getRenderer()).setAmbientLight(0xff7f7f7f);
+        if (program.getRenderer() instanceof ShaderRendererLite) {
+            ((ShaderRendererLite) program.getRenderer()).drawLight(light, x+offX()+150, y+offY()+150);
+            ((ShaderRendererLite) program.getRenderer()).setAmbientLight((byte) 0x3f);
         } else {
             System.out.println("FJG");
         }

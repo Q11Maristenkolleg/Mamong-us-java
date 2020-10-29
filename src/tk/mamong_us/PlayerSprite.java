@@ -11,7 +11,7 @@ public enum PlayerSprite {
     ORANGE(new ImageTile("/animation_orange.png",300, 300), 1, 0),
     RED(new ImageTile("/animation_red.png",300, 300), 0, 0),
     BLUE(new ImageTile("/animation_blue.png",300, 300), 0, 2),
-    BLACK(new ImageTile("/animation_black.png",300, 300), 0, 3);
+    BLACK(new ImageTile("/animation_red.png",300, 300), 0, 3);
 
     public static final int WIDTH = 130;
     public static final int HEIGHT = 180;
