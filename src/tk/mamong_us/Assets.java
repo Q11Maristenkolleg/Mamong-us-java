@@ -61,25 +61,25 @@ public class Assets {
         spriteText = new ImageTile("/text.png", 256, 64);
         pBpp(splashScreen, "Loading gifs...");
 
-        shhhGif = new ImageGif("/videos/shhh/shhh.gif");
+        shhhGif = new ImageGif("/videos/shhh.gif");
         pBpp(splashScreen);
-        emergencyGif = new ImageGif("/videos/emergency/emergency.gif");
+        emergencyGif = new ImageGif("/videos/emergency.gif");
         pBpp(splashScreen);
-        discussGif = new ImageGif("/videos/discuss/discuss.gif");
+        discussGif = new ImageGif("/videos/discuss.gif");
         pBpp(splashScreen);
-        deadBodyGif = new ImageGif("/videos/deadbody/deadbody.gif");
+        deadBodyGif = new ImageGif("/videos/deadbody.gif");
         pBpp(splashScreen);
         killGifs = new ArrayList<>();
         killSounds = new ArrayList<>();
         pBpp(splashScreen);
 
-        killGifs.add(new ImageGif("/videos/tonguekill/tonguekill.gif"));
+        killGifs.add(new ImageGif("/videos/tonguekill.gif"));
         pBpp(splashScreen);
-        killGifs.add(new ImageGif("/videos/knifekill/knifekill.gif"));
+        killGifs.add(new ImageGif("/videos/knifekill.gif"));
         pBpp(splashScreen);
-        killGifs.add(new ImageGif("/videos/neckkill/neckkill.gif"));
+        killGifs.add(new ImageGif("/videos/neckkill.gif"));
         pBpp(splashScreen);
-        killGifs.add(new ImageGif("/videos/gunkill/gunkill.gif"));
+        killGifs.add(new ImageGif("/videos/gunkill.gif"));
         pBpp(splashScreen, "Loading sounds...");
 
         killSounds.add(new SoundClip("/videos/tonguekill/tonguekillsound.wav"));
