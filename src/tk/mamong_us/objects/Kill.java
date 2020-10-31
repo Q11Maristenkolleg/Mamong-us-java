@@ -41,6 +41,7 @@ public class Kill implements ProgramObject {
         killGif.setFrame(0);
         killSound = Assets.killSounds.get(killType);
         killSound.play();
+        Assets.killSoundCm.play();
         timer = killGif.getCount()*2;
         new Kill().register(GameState.KILL);
         Main.gameState = GameState.KILL;

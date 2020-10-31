@@ -8,7 +8,6 @@ import tk.mamong_us.core.Handler;
 import tk.mamong_us.core.ProgramObject;
 import tk.mamong_us.game.MamongUsGame;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Shhh implements ProgramObject {
@@ -19,6 +18,9 @@ public class Shhh implements ProgramObject {
     @Override
     public void update() {
         if (shhhBuffer > 0) {
+            if (shhhBuffer == 150) {
+                Assets.shhhSound.play();
+            }
             if (shhhBuffer%3==0) {
                 Assets.shhhGif.nextImage();
             }

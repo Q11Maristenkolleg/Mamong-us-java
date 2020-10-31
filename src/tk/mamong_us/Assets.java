@@ -26,11 +26,17 @@ public class Assets {
     public static Image icon = new Image("/icon.png");
 
     public static ImageGif shhhGif;
+    public static SoundClip shhhSound;
     public static ImageGif emergencyGif;
+    public static SoundClip emergencySound;
     public static ImageGif discussGif;
     public static ImageGif deadBodyGif;
+    public static SoundClip deadBodySound;
     public static ArrayList<ImageGif> killGifs;
     public static ArrayList<SoundClip> killSounds;
+    public static SoundClip killSoundImp;
+    public static SoundClip killSoundCm;
+    public static SoundClip joinSound;
 
     public static Button singlePlayerButton;
     public static Button multiPlayerButton;
@@ -82,13 +88,25 @@ public class Assets {
         killGifs.add(new ImageGif("/videos/gunkill.gif"));
         pBpp(splashScreen, "Loading sounds...");
 
-        killSounds.add(new SoundClip("/videos/tonguekill/tonguekillsound.wav"));
+        killSounds.add(new SoundClip("/sounds/tonguekill.wav"));
         pBpp(splashScreen);
-        killSounds.add(new SoundClip("/videos/knifekill/knifekillsound.wav"));
+        killSounds.add(new SoundClip("/sounds/knifekill.wav"));
         pBpp(splashScreen);
-        killSounds.add(new SoundClip("/videos/neckkill/neckkillsound.wav"));
+        killSounds.add(new SoundClip("/sounds/neckkill.wav"));
         pBpp(splashScreen);
-        killSounds.add(new SoundClip("/videos/gunkill/gunkillsound.wav"));
+        killSounds.add(new SoundClip("/sounds/gunkill.wav"));
+        pBpp(splashScreen);
+        shhhSound = new SoundClip("/sounds/shhh.wav");
+        pBpp(splashScreen);
+        deadBodySound = new SoundClip("/sounds/deadbody.wav");
+        pBpp(splashScreen);
+        emergencySound = new SoundClip("/sounds/emergency.wav");
+        pBpp(splashScreen);
+        killSoundImp = new SoundClip("/sounds/killImp.wav");
+        pBpp(splashScreen);
+        killSoundCm = new SoundClip("/sounds/killCm.wav");
+        pBpp(splashScreen);
+        joinSound = new SoundClip("/sounds/join.wav");
         pBpp(splashScreen, "Loading UI assets...");
 
         singlePlayerButton = new Button(Main.getProgram(), Assets.spButton, 0, 275, 300, 100, Main.getProgram()::startSingleplayer);
