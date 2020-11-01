@@ -61,6 +61,13 @@ public class Program  extends com.siinus.simpleGrafix.Program {
         getWindow().getFrame().setFocusTraversalKeysEnabled(false);
         setCapFps(false);
 
+        Assets.singlePlayerButton.setX(Main.getMidX()-150);
+        Assets.multiPlayerButton.setX(Main.getMidX()-150);
+        Assets.optionsButton.setX(Main.getMidX()-150);
+        Assets.quitButton.setX(Main.getMidX()-150);
+        Assets.btmm.setX(Main.getMidX()-150);
+        Assets.nameField.setX(Main.getMidX()-128);
+        Assets.ipField.setX(Main.getMidX()-128);
 
         InputUtils.setInput(getInput());
 
@@ -70,7 +77,7 @@ public class Program  extends com.siinus.simpleGrafix.Program {
 
         Assets.loadData();
 
-        startMainMenu();
+        GameState.MAIN_MENU.enter();
     }
 
     @Override
@@ -84,10 +91,10 @@ public class Program  extends com.siinus.simpleGrafix.Program {
                 Main.gameState = Main.lastState;
             } else {
                 System.out.println("pause");
-                startPause();
+                GameState.PAUSE.enter();
             }
         }
-        if (Main.gameState == GameState.MULTIPLAYER) {
+        //if (Main.gameState == GameState.MULTIPLAYER) {
             if (Main.mpState == GameState.MultiplayerState.GAME) {
                 if (MamongUsGame.impostor) {
                     if (MamongUsGame.killCd > 0) {
@@ -104,16 +111,22 @@ public class Program  extends com.siinus.simpleGrafix.Program {
                 if (InputUtils.isKeyDown(0x46) && MamongUsGame.impostor && MamongUsGame.killCd == 0) {
                     boolean canKill = false;
                     String toKill = null;
+                    int tpx = 0, tpy = 0;
                     int distanceToTarget = MamongUsGame.vars.kill_dst.dist;
                     for (OtherPlayer o : OtherPlayer.onlinePlayers) {
                         if (Math.hypot(o.getX() - player.getX(), o.getY() - player.getY()) < distanceToTarget && !MamongUsGame.mates.contains(o)) {
                             canKill = true;
                             toKill = o.getIp();
+                            tpx = o.getX();
+                            tpy = o.getY();
                             distanceToTarget = (int) Math.hypot(o.getX() - player.getX(), o.getY() - player.getY());
                         }
                     }
                     if (canKill) {
                         Multiplayer.send("kill " + toKill);
+                        Assets.killSoundImp.play();
+                        player.setX(tpx);
+                        player.setY(tpy);
                         MamongUsGame.killCd = (int) MamongUsGame.vars.kill_cd;
                         MamongUsGame.killCdB = ((int) (MamongUsGame.vars.kill_cd*100))%100;
                     }
@@ -142,7 +155,7 @@ public class Program  extends com.siinus.simpleGrafix.Program {
                     button.update();
                 }
             }
-        }
+        //}
         if (loadMP) {
             loadMP = false;
             connectMultiplayer();
@@ -176,7 +189,6 @@ public class Program  extends com.siinus.simpleGrafix.Program {
         }
         Handler.render();
         if (Main.gameState == GameState.MULTIPLAYER) {
-            //getRenderer().drawImage(Assets.theSkeld, -5000, -5000);
             double ping = (Multiplayer.getPing() * 1000);
             getRenderer().drawText("Ping: " + ((int) ping) + " ms", 1700, 10, 0xff000000, null);
             getRenderer().drawText(OutputChat.text(), 1400, 200, 0xff007f3f, null);
@@ -196,10 +208,10 @@ public class Program  extends com.siinus.simpleGrafix.Program {
             }
         }
         if (Main.gameState == GameState.LOADING) {
-            getRenderer().drawText("Loading...",10, 10,0xff000000, null);
+            getRenderer().drawText("Loading...",100, 100,0xff000000, null);
         }
         if (Main.gameState == GameState.ERROR) {
-            getRenderer().drawText("Connection refused!",10, 10,0xffff0000, null);
+            getRenderer().drawText("Connection refused!",100, 100,0xffff0000, null);
         }
     }
 
@@ -208,46 +220,8 @@ public class Program  extends com.siinus.simpleGrafix.Program {
         discordRP.shutdown();
     }
 
-    public void startMainMenu() {
-        Assets.singlePlayerButton.setX(Main.getMidX()-150);
-        Assets.multiPlayerButton.setX(Main.getMidX()-150);
-        Assets.optionsButton.setX(Main.getMidX()-150);
-        Assets.quitButton.setX(Main.getMidX()-150);
-        Assets.btmm.setX(Main.getMidX()-150);
-        Assets.nameField.setX(Main.getMidX()-128);
-        Assets.ipField.setX(Main.getMidX()-128);
-        if (Main.lastState == GameState.MULTIPLAYER) {
-            Multiplayer.disconnect();
-            if (Assets.colorChooser != null) {
-                Handler.deleteObject(Assets.colorChooser);
-                Assets.colorChooser = null;
-            }
-        }
-        Main.gameState = GameState.MAIN_MENU;
-        Main.lastState = GameState.MAIN_MENU;
-    }
-
-    public void startOptions() {
-        Main.gameState = GameState.OPTIONS;
-        Main.lastState = GameState.OPTIONS;
-    }
-
     public void quit() {
         gameLoop.stop();
-    }
-
-    public void startPause() {
-        Main.gameState = GameState.PAUSE;
-    }
-
-    public void startSingleplayer() {
-        Main.gameState = GameState.SINGLEPLAYER;
-        Main.lastState = GameState.SINGLEPLAYER;
-    }
-
-    public void startMultiplayer() {
-        Main.gameState = GameState.LOADING;
-        loadMP = true;
     }
 
     private void connectMultiplayer() {

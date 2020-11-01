@@ -1,6 +1,7 @@
 package tk.mamong_us.gui;
 
 import com.siinus.simpleGrafix.gfx.Image;
+import com.siinus.simpleGrafixShader.ShaderRendererLite;
 import org.jetbrains.annotations.NotNull;
 import tk.mamong_us.*;
 import tk.mamong_us.core.Handler;
@@ -54,5 +55,8 @@ public class ColorChooser extends GUIObject {
         program.getRenderer().drawText("Choose a color!", x+20, y-40, 0xff000000, null);
         program.getRenderer().drawImage(sprite, x, y);
         program.getRenderer().drawImage(outline, cx, cy);
+        if (program.getRenderer() instanceof ShaderRendererLite) {
+            ((ShaderRendererLite) program.getRenderer()).makeLightImage(sprite, x, y);
+        }
     }
 }

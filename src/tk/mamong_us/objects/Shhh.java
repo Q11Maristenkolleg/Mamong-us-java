@@ -1,6 +1,7 @@
 package tk.mamong_us.objects;
 
 import com.siinus.simpleGrafix.gfx.Font;
+import com.siinus.simpleGrafix.gfx.geom.Rectangle;
 import tk.mamong_us.Assets;
 import tk.mamong_us.GameState;
 import tk.mamong_us.Main;
@@ -18,7 +19,7 @@ public class Shhh implements ProgramObject {
     @Override
     public void update() {
         if (shhhBuffer > 0) {
-            if (shhhBuffer == 150) {
+            if (shhhBuffer == 300) {
                 Assets.shhhSound.play();
             }
             if (shhhBuffer%3==0) {
@@ -35,9 +36,11 @@ public class Shhh implements ProgramObject {
     public void render() {
         if (shhhBuffer > 0) {
             Main.getProgram().getRenderer().setBgColor(0xff000000);
-            if (shhhBuffer > 100) {
+            if (shhhBuffer > 300) {
                 Main.getProgram().getRenderer().drawImage(Assets.shhhGif, 0, 0);
             } else {
+                int bw = Math.min((int) (Main.getMidX()*0.75),(300-shhhBuffer)*(Main.getMidX()/100));
+                new Rectangle(Main.getMidX()-bw, Main.getMidY()-150, bw*2, 275, shhhImp?0x7fff0000:0x7f00ffff).renderFill(Main.getProgram().getRenderer());
                 Main.getProgram().getRenderer().drawText(shhhImp?"Impostor":"Crewmate", Main.getMidX()-Font.getStandard().getPixelsOfText(shhhImp?"Impostor":"Crewmate"), 220, shhhImp?0xffff0000:0xff00ffff, Assets.consolas72);
                 Main.getProgram().getRenderer().drawImageTile(Main.getProgram().player.spriteSheet,Main.getMidX()-150, Main.getMidY()-150, 0, 4);
                 int mox = 1;
@@ -63,7 +66,7 @@ public class Shhh implements ProgramObject {
         Main.gameState = GameState.SHHH;
         shhhImp = imp;
         shhhMates = mates;
-        shhhBuffer = Assets.shhhGif.getCount()*3+100;
+        shhhBuffer = Assets.shhhGif.getCount()*3+300;
         new Shhh().register(GameState.SHHH);
     }
 

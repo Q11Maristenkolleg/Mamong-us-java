@@ -76,7 +76,7 @@ public class Player extends GameObject {
     @Override
     public void render() {
         if (Main.lastState == GameState.MULTIPLAYER) {
-            //program.getRenderer().drawImage(Assets.theSkeld, -5000, -5000);
+            program.getRenderer().drawImage(Assets.theSkeld, -x, -y);
         }
         program.getRenderer().drawText(Assets.nameField.getText(), x+offX()+150-(Font.getStandard().getPixelsOfText(Assets.nameField.getText())/2), y+offY(), nameColor, null);
         if(!isMoving) {

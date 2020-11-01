@@ -5,16 +5,17 @@ import tk.mamong_us.Assets;
 import tk.mamong_us.GameState;
 import tk.mamong_us.Main;
 import tk.mamong_us.PlayerSprite;
+import tk.mamong_us.net.server.IntegratedServer;
 import tk.mamong_us.objects.OtherPlayer;
 
 import java.io.IOException;
 import java.util.HashMap;
 
 public class Multiplayer {
-    static JavaClient client;
-    static String ip = null;
-    static HashMap<String, String> names = new HashMap<>();
-    static HashMap<String, OtherPlayer> players = new HashMap<>();
+    public static JavaClient client;
+    public static String ip = null;
+    public static HashMap<String, String> names = new HashMap<>();
+    public static HashMap<String, OtherPlayer> players = new HashMap<>();
 
     public static boolean connect(String hostname, int port) {
         JavaClient.setHandler(new Protocol());
@@ -31,11 +32,13 @@ public class Multiplayer {
     public static void send(String message) {
         if (client != null) {
             client.send(message);
+        } else {
+            IntegratedServer.client.send(message);
         }
     }
 
     public static double getPing() {
-        return client.getPing();
+        return client != null ? client.getPing() : 0;
     }
 
     public static void disconnect() {
