@@ -6,7 +6,7 @@
 
     <groupId>tk.mamong_us</groupId>
     <artifactId>Mamong-us</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.6.3-alpha</version>
 
     <dependencies>
         <dependency>
