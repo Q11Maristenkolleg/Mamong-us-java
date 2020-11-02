@@ -114,4 +114,4 @@ run/
 
 
 config.json
-/rsc/sounds/exclude/
+/src/main/resources/sounds/exclude/
