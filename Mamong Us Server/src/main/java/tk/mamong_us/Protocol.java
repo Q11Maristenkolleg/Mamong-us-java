@@ -74,7 +74,7 @@ public class Protocol implements ServerHandler {
         }
 
         Main.server.broadcast(serverChannel.getName() + " " + s);
-        Logger.log(serverChannel.getName() + " " + s);
+        Logger.log(Logger.DEBUG, serverChannel.getName() + " " + s);
         return r;
     }
 

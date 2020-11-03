@@ -16,6 +16,8 @@ public class Logger {
     public static final int ONLY_FILE = -1;
 
     private static PrintStream out;
+    
+    public static boolean debug = false;
 
     public static void log(int kind, String message, int loc, boolean timestamp) {
         StringBuilder msg = new StringBuilder().append('[');
