@@ -8,7 +8,10 @@ public class Main {
     public static GameState.MultiplayerState mpState = null;
 
     public static void main(String[] args) {
-        System.out.println("Using manifold");
+        #if MANIFOLD
+        String usingManifold = "Using Manifold";
+        usingManifold.toString().echo();
+        #endif
         SplashScreen splashScreen = new SplashScreen();
         splashScreen.progressBar.setString("Initializing program...");
         program = new Program();
