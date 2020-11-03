@@ -226,12 +226,19 @@ public class Program  extends com.siinus.simpleGrafix.Program {
 
     private void connectMultiplayer() {
         String[] ipText = Assets.ipField.getText().split(":");
-        if (ipText.length < 2) {
+        String ip = null;
+        int port = 2119;
+        if (ipText.length < 1) {
             Main.gameState = GameState.MAIN_MENU;
             Main.lastState = GameState.MAIN_MENU;
             return;
+        } else if (ipText.length < 2) {
+            ip = ipText[0].toLowerCase();
+        } else {
+            ip = ipText[0].toLowerCase();
+            port = Integer.parseInt(ipText[1]);
         }
-        if (Multiplayer.connect(ipText[0].toLowerCase(), Integer.parseInt(ipText[1]))) {
+        if (Multiplayer.connect(ip, port)) {
             if (Assets.nameField.getText().length()<=0) {
                 Assets.nameField.setText("Player"+((int) (Math.random()*100)));
             }

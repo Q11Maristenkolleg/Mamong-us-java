@@ -134,7 +134,7 @@ public class Assets {
         pBpp(splashScreen);
         ipField = new TextInput(Main.getProgram(), Assets.spriteText, 0, 650, 256, 64, 0xffffffff, null);
         ipField.register(GameState.MAIN_MENU);
-        ipField.setDefaultText("IP:Port");
+        ipField.setDefaultText("IP[:Port]");
         pBpp(splashScreen);
         tq = new TextQueue();
         tq.endAction = GameState.MULTIPLAYER::enter;
@@ -164,7 +164,9 @@ public class Assets {
         String[] ipText = ipField.getText().split(":");
         root.put("name", nameField.getText());
         root.put("ip", ipText[0]);
-        root.put("port", ipText[1]);
+        if (ipText.length > 1) {
+            root.put("port", ipText[1]);
+        }
         FileIO.saveJSON("./config.json", root);
     }
 
@@ -173,7 +175,6 @@ public class Assets {
         if (root == null) {
             return;
         }
-        nameField.setText((String) root.get("name"));
-        ipField.setText(root.get("ip") + ":" + root.get("port"));
+        ipField.setText(root.get("port")!=null?(root.get("ip")+":"+root.get("port")):(String)root.get("ip"));
     }
 }

@@ -18,6 +18,9 @@ public class Multiplayer {
     public static HashMap<String, OtherPlayer> players = new HashMap<>();
 
     public static boolean connect(String hostname, int port) {
+        if (hostname == null) {
+            return false;
+        }
         JavaClient.setHandler(new Protocol());
         client = new JavaClient();
         try {

@@ -31,6 +31,7 @@ public class Main {
         List<String> argsList = Arrays.asList(args);
         if (argsList.contains("--debug")) {
             Logger.debug = true;
+            Logger.log(Logger.DEBUG, "You are now in debug mode. All incoming messages will be logged.");
         }
         PrintStream log = new PrintStream("./latest.log");
         Logger.setStream(log);
@@ -40,6 +41,8 @@ public class Main {
             try {
                 if (!Logger.debug || args.length > 1) {
                     port = Integer.parseInt(args[0]);
+                } else {
+                    Logger.log("You didn't define a port. Defaulting to 2119.");
                 }
             } catch (NumberFormatException e) {
                 Logger.log(Logger.WARN, "The first argument (port) was not a number! Defaulting port to 2119.");
