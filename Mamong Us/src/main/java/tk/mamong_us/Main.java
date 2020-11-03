@@ -9,8 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
         #if MANIFOLD
-        String usingManifold = "Using Manifold";
-        usingManifold.toString().echo();
+        System.out.println("Using Manifold");
         #endif
         SplashScreen splashScreen = new SplashScreen();
         splashScreen.progressBar.setString("Initializing program...");
