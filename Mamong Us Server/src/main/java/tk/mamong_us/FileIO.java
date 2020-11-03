@@ -25,19 +25,25 @@ public class FileIO {
 
     public static @Nullable JSONObject loadJSON(String path) {
         File file = new File(path);
-        StringBuilder sb = new StringBuilder();
-        try (Scanner scanner = new Scanner(file)) {
-            while (scanner.hasNextLine()) {
-                sb.append(scanner.nextLine());
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        JSONParser parser = new JSONParser();
         try {
-            return (JSONObject) parser.parse(sb.toString());
-        } catch (ParseException e) {
-            e.printStackTrace();
+            if (!file.createNewFile()) {
+                StringBuilder sb = new StringBuilder();
+                try (Scanner scanner = new Scanner(file)) {
+                    while (scanner.hasNextLine()) {
+                        sb.append(scanner.nextLine());
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                JSONParser parser = new JSONParser();
+                try {
+                    return (JSONObject) parser.parse(sb.toString());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            } else return null;
+        } catch (IOException e) {
             return null;
         }
     }

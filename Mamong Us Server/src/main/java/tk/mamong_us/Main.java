@@ -8,6 +8,7 @@ import org.json.simple.JSONObject;
 import tk.mamong_us.game.MamongUsGame;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +27,9 @@ public class Main {
     @Nullable public static MamongUsGame game = null;
 
     public static void main(String @NotNull [] args) throws IOException {
+        PrintStream log = new PrintStream("./latest.log");
+        Logger.setStream(log);
+        System.setErr(Logger.getStream());
         server = new JavaServer();
         server.start(Integer.parseInt(args[0]));
         JavaServer.setHandler(new Protocol());

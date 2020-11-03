@@ -11,6 +11,7 @@ public class Protocol implements ServerHandler {
 
     @Override
     public void onConnect(@NotNull ServerChannel serverChannel) {
+        Logger.log(Logger.INFO, serverChannel.getName()+" connect to the server.", Logger.ONLY_FILE, true);
         if (Main.game != null && !Main.allowJoin) {
             Main.server.send(serverChannel, "disconnect");
         }
@@ -82,8 +83,9 @@ public class Protocol implements ServerHandler {
             disconnect(serverChannel);
             return;
         }
-        System.out.println("--- " + serverChannel.getName() + ": EXCEPTION ---");
+        Logger.log(Logger.ERROR, serverChannel.getName() + ": EXCEPTION");
         throwable.printStackTrace();
+        throwable.printStackTrace(Logger.getStream());
     }
 
     @Override
@@ -92,8 +94,8 @@ public class Protocol implements ServerHandler {
     }
 
     public static void disconnect(@NotNull ServerChannel serverChannel) {
-        System.out.println(serverChannel.getName()+" has disconnected!");
-        Main.server.broadcast(serverChannel.getName()+" disconnect");
+        Logger.log(serverChannel.getName() + " has disconnected!");
+        Main.server.broadcast(serverChannel.getName() + " disconnect");
         Main.names.remove(serverChannel.getName());
         if (Main.names.size() <= 0) {
             Main.game = null;

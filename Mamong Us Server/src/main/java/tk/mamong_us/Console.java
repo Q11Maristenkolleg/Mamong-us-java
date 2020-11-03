@@ -20,7 +20,7 @@ public class Console extends Thread {
             if (input.startsWith("/")) {
                 if (input.equals("/names")) {
                     for (Map.Entry<String, String> entry : Main.names.entrySet()) {
-                        System.out.println("|| " + entry.getKey() + " : " + entry.getValue());
+                        Logger.log("|| " + entry.getKey() + " : " + entry.getValue());
                     }
                     continue;
                 }
@@ -29,6 +29,7 @@ public class Console extends Thread {
                         Main.server.stop();
                     } catch (IOException e) {
                         e.printStackTrace();
+                        e.printStackTrace(Logger.getStream());
                     }
                     continue;
                 }
@@ -42,7 +43,7 @@ public class Console extends Thread {
                             JSONObject root = new JSONObject();
                             root.put("operators", Main.operators);
                             FileIO.saveJSON("./operators.json", root);
-                            System.out.println("Made " + channel.getName() + " an operator.");
+                            Logger.log("Made " + channel.getName() + " an operator.");
                         }
                     }
                 }
@@ -54,7 +55,7 @@ public class Console extends Thread {
                                 JSONObject root = new JSONObject();
                                 root.put("operators", Main.operators);
                                 FileIO.saveJSON("./operators.json", root);
-                                System.out.println("Made " + channel.getName() + " not an operator.");
+                                Logger.log("Made " + channel.getName() + " not an operator.");
                             }
                         }
                 }
