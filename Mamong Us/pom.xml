@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>tk.mamong_us</groupId>
-    <artifactId>Mamong-us</artifactId>
+    <artifactId>Mamong-Us</artifactId>
     <version>1.6.3-alpha</version>
 
     <dependencies>
@@ -39,6 +39,18 @@
             <artifactId>json-simple</artifactId>
             <version>1.1.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <version>3.1.2</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>3.2.0</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -54,7 +66,8 @@
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <excludeScope>provided</excludeScope>
+                            <outputDirectory>target/lib</outputDirectory>
                             <overWriteReleases>false</overWriteReleases>
                             <overWriteSnapshots>false</overWriteSnapshots>
                             <overWriteIfNewer>true</overWriteIfNewer>
@@ -82,5 +95,6 @@
         <maven.compiler.release>15</maven.compiler.release>
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 </project>
