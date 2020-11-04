@@ -6,7 +6,15 @@
 
     <groupId>tk.mamong_us</groupId>
     <artifactId>Mamong-Us-Server</artifactId>
-    <version>1.6.4-alpha</version>
+    <version>1.6.5-alpha</version>
+
+    <repositories>
+        <repository>
+            <id>mamongUsRepos</id>
+            <name>Mamong Us Repositories</name>
+            <url>https://loens2.spdns.de/mamong_us/repos/</url>
+        </repository>
+    </repositories>
 
     <dependencies>
         <dependency>
