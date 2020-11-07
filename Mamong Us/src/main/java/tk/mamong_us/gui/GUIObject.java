@@ -1,16 +1,13 @@
 package tk.mamong_us.gui;
 
-import com.siinus.simpleGrafix.gfx.Image;
-import org.jetbrains.annotations.Nullable;
-import tk.mamong_us.GameState;
-import tk.mamong_us.Main;
+import com.siinus.Input;
+import com.siinus.Texture;
 import tk.mamong_us.Program;
-import tk.mamong_us.core.Handler;
 import tk.mamong_us.core.ProgramObject;
 
 public abstract class GUIObject implements ProgramObject {
     protected Program program;
-    protected Image sprite;
+    protected Texture sprite;
     protected int x, y;
     protected int width, height;
 
@@ -24,7 +21,7 @@ public abstract class GUIObject implements ProgramObject {
      * @param width The width of the bounding box
      * @param height The width of the bounding box
      */
-    public GUIObject(Program program, Image sprite, int x, int y, int width, int height) {
+    public GUIObject(Program program, Texture sprite, int x, int y, int width, int height) {
         this.program = program;
         this.sprite = sprite;
         this.x = x;
@@ -50,8 +47,8 @@ public abstract class GUIObject implements ProgramObject {
     }
 
     public boolean isMouseOver() {
-        int mx = program.getInput().getMouseX();
-        int my = program.getInput().getMouseY();
+        int mx = (int) Input.getMouseX();
+        int my = (int) Input.getMouseY();
         return mx >= x && mx <= (x + width) && my >= y && my <= (y + height);
     }
 }

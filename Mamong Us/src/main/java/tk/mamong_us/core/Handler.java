@@ -1,4 +1,4 @@
-package tk.mamong_us.core;
+/*package tk.mamong_us.core;
 
 import tk.mamong_us.GameState;
 import tk.mamong_us.Main;
@@ -34,3 +34,4 @@ public class Handler {
         }
     }
 }
+*/

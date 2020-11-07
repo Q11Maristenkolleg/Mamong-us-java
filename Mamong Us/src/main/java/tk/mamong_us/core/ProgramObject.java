@@ -12,7 +12,7 @@ public interface ProgramObject {
     void render();
 
     default void register(GameState @NotNull ... states) {
-        for (GameState state : states) {
+        /*for (GameState state : states) {
             if (Handler.objects.containsKey(state)) {
                 Handler.objects.get(state).add(this);
             } else {
@@ -20,6 +20,6 @@ public interface ProgramObject {
                 obj.add(this);
                 Handler.objects.put(state, obj);
             }
-        }
+        }*/
     }
 }

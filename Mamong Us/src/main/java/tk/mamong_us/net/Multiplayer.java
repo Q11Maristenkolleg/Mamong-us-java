@@ -1,5 +1,6 @@
 package tk.mamong_us.net;
 
+import com.siinus.Texture;
 import com.siinus.client.JavaClient;
 import tk.mamong_us.Assets;
 import tk.mamong_us.GameState;
@@ -55,8 +56,8 @@ public class Multiplayer {
 
     public static void spawnPlayer(String ip) {
         if (!Multiplayer.ip.equals(ip) && names.containsKey(ip) && !players.containsKey(ip)) {
-            OtherPlayer p = PlayerSprite.ORANGE.getNewOtherPlayer(Main.getProgram(), ip, names.get(ip));
-            Assets.joinSound.play();
+            OtherPlayer p = /*PlayerSprite.ORANGE.getNewOtherPlayer(Main.getProgram(), ip, names.get(ip));*/new OtherPlayer(Main.getProgram(), ip, names.get(ip), new Texture("/animation_orange.png"));
+            //Assets.joinSound.play();
             p.register(GameState.MULTIPLAYER);
             players.put(ip, p);
         }

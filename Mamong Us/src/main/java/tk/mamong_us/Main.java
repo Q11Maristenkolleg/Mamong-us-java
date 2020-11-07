@@ -8,16 +8,8 @@ public class Main {
     public static GameState.MultiplayerState mpState = null;
 
     public static void main(String[] args) {
-        #if MANIFOLD
-        System.out.println("Using Manifold");
-        #endif
-        SplashScreen splashScreen = new SplashScreen();
-        splashScreen.progressBar.setString("Initializing program...");
         program = new Program();
-        program.icon(Assets.icon);
-        Assets.pBpp(splashScreen, "Loading assets...");
-        Assets.loadAssets(splashScreen);
-        splashScreen.setVisible(false);
+        //program.icon(Assets.icon);
         program.make();
     }
 
@@ -25,11 +17,12 @@ public class Main {
         return program;
     }
 
+    /*
     public static int getMidX() {
         return (int) (program.getWindow().getWidth()/(program.getWindow().getScale()*2));
     }
 
     public static int getMidY() {
         return (int) (program.getWindow().getHeight()/(program.getWindow().getScale()*2));
-    }
+    }*/
 }

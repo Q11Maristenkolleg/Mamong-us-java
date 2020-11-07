@@ -1,6 +1,5 @@
 package tk.mamong_us;
 
-import tk.mamong_us.core.Handler;
 import tk.mamong_us.net.Multiplayer;
 import tk.mamong_us.net.server.IntegratedServer;
 
@@ -41,7 +40,7 @@ public enum GameState {
         public void exit() {
             Multiplayer.disconnect();
             if (Assets.colorChooser != null) {
-                Handler.deleteObject(Assets.colorChooser);
+                //Handler.deleteObject(Assets.colorChooser);
                 Assets.colorChooser = null;
             }
         }

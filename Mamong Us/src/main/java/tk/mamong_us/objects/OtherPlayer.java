@@ -1,11 +1,13 @@
 package tk.mamong_us.objects;
 
-import com.siinus.simpleGrafix.gfx.ImageTile;
+import com.siinus.Model;
+import com.siinus.Renderer;
+import com.siinus.Texture;
 import org.jetbrains.annotations.NotNull;
+import tk.mamong_us.Assets;
 import tk.mamong_us.Main;
 import tk.mamong_us.PlayerSprite;
 import tk.mamong_us.Program;
-import tk.mamong_us.core.Handler;
 
 import java.util.ArrayList;
 
@@ -23,23 +25,39 @@ public class OtherPlayer extends GameObject {
 
     private int trans = 0xff;
 
+    private Model model;
+
     /**
      * Creates a new OtherPlayer object.
      *
      * @param program The associated program
      * @param name The name
      */
-    public OtherPlayer(Program program, String ip, String name, ImageTile spriteSheet) {
+    public OtherPlayer(Program program, String ip, String name, Texture spriteSheet) {
         super(program,spriteSheet, 0,0,0,0);
         this.ip = ip;
         this.name = name;
         onlinePlayers.add(this);
+        this.model = new Model(new float[] {
+                0, 1, 0,
+                1, 1, 0,
+                1, 0, 0,
+                0, 0, 0
+        }, new float[] {
+                0, 1, 0,
+                1, 1, 0,
+                1, 0, 0,
+                0, 0, 0
+        }, new int[] {
+                0, 1, 2,
+                2, 0, 3
+        });
     }
 
     @Override
     public void update() {
         int dtp = (int) Math.hypot(x-Main.getProgram().player.x, y-Main.getProgram().player.y);
-        if ((Player.light.getRadius() * 0.6) < dtp) {
+        /*if ((Player.light.getRadius() * 0.6) < dtp) {
             if (trans != 0) {
                 trans = 0;
                 spriteSheet.setTransparency(0);
@@ -58,7 +76,7 @@ public class OtherPlayer extends GameObject {
                 spriteSheet.setTransparency(0xff);
                 nameColor |= 0xff000000;
             }
-        }
+        }*/
         if (moving) {
             frameUp();
         } else {
@@ -69,12 +87,13 @@ public class OtherPlayer extends GameObject {
 
     @Override
     public void render() {
-        program.getRenderer().drawImageTile(spriteSheet, x+offX(), y+offY(),left?1:0,moving?(4-frame):4);
-        program.getRenderer().drawText(name, x+offX()+100, y+offY(), nameColor, null);
+        /*program.getRenderer().drawImageTile(spriteSheet, x+offX(), y+offY(),left?1:0,moving?(4-frame):4);
+        program.getRenderer().drawText(name, x+offX()+100, y+offY(), nameColor, null);*/
+        Renderer.render(model, Assets.shader, spriteSheet);
     }
 
     public void destroy() {
-        Handler.deleteObject(this);
+        //Handler.deleteObject(this);
         onlinePlayers.remove(this);
     }
 

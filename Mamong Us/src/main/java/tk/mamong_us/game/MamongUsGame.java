@@ -1,6 +1,6 @@
 package tk.mamong_us.game;
 
-import com.siinus.simpleGrafix.gfx.ImageTile;
+import com.siinus.Texture;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tk.mamong_us.Main;
@@ -11,8 +11,8 @@ import tk.mamong_us.objects.OtherPlayer;
 import java.util.ArrayList;
 
 public class MamongUsGame {
-    private static final ImageTile arrowLeft = new ImageTile("/arrow_left.png", 24, 24);
-    private static final ImageTile arrowRight = new ImageTile("/arrow_right.png", 24, 24);
+    private static final Texture arrowLeft = new Texture("/arrow_left.png");
+    private static final Texture arrowRight = new Texture("/arrow_right.png");
 
     public static String optionText = null;
     public static GameVariables vars = null;

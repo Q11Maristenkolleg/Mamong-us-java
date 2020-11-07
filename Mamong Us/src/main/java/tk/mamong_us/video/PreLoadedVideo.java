@@ -1,4 +1,4 @@
-package tk.mamong_us.video;
+/*package tk.mamong_us.video;
 
 import com.siinus.simpleGrafix.Renderer;
 import com.siinus.simpleGrafix.gfx.Image;
@@ -35,3 +35,4 @@ public class PreLoadedVideo extends Video {
         cFrame = 0;
     }
 }
+*/

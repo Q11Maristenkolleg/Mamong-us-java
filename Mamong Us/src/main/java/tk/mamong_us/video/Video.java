@@ -1,4 +1,4 @@
-package tk.mamong_us.video;
+/*package tk.mamong_us.video;
 
 import com.siinus.simpleGrafix.Renderer;
 import com.siinus.simpleGrafix.gfx.Image;
@@ -43,7 +43,7 @@ public class Video {
 
     /*public ArrayList<Image> getImages() {
         return images;
-    }*/
+    }
 
     public boolean loadFrame() {
         if (bFrame >= frames/2-1) {
@@ -97,9 +97,10 @@ public class Video {
 
     /*public Queue<Image> getBufferedFrames() {
         return bufferedFrames;
-    }*/
+    }
 
     public Image[] getBufferedFrames() {
         return bufferedFrames;
     }
 }
+*/

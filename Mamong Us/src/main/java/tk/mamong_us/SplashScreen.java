@@ -1,4 +1,4 @@
-package tk.mamong_us;
+/*package tk.mamong_us;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -51,3 +51,4 @@ public class SplashScreen extends JWindow {
         setVisible(true);
     }
 }
+*/

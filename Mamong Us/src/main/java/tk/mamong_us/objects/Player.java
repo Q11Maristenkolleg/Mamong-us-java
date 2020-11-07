@@ -1,22 +1,16 @@
 package tk.mamong_us.objects;
 
-import com.siinus.simpleGrafix.gfx.Font;
-import com.siinus.simpleGrafix.gfx.Image;
-import com.siinus.simpleGrafix.gfx.ImageTile;
-
-import com.siinus.simpleGrafixShader.Light;
-import com.siinus.simpleGrafixShader.LightLite;
-import com.siinus.simpleGrafixShader.ShaderRenderer;
-import com.siinus.simpleGrafixShader.ShaderRendererLite;
+import com.siinus.Input;
+import com.siinus.Renderer;
+import com.siinus.Texture;
 import org.jetbrains.annotations.NotNull;
-import tk.mamong_us.*;
-import tk.mamong_us.core.Handler;
-import tk.mamong_us.core.ProgramObject;
+import org.lwjgl.glfw.GLFW;
+import tk.mamong_us.GameState;
+import tk.mamong_us.Main;
+import tk.mamong_us.PlayerSprite;
+import tk.mamong_us.Program;
 import tk.mamong_us.game.MamongUsGame;
 import tk.mamong_us.net.Multiplayer;
-
-import java.awt.*;
-import java.awt.event.KeyEvent;
 
 
 public class Player extends GameObject {
@@ -26,11 +20,9 @@ public class Player extends GameObject {
     private int nameColor = 0xff000000;
     float vision;
 
-    private static final Image shadow = new Image("/shadow.png");
-    static LightLite light = new LightLite(500, 0xff);
+    private static final Texture shadow = new Texture("/shadow.png");
 
     static float minusSpeed;
-    public int dx, dy;
     static boolean isMoving, left, serverM = false;
     static byte buffer = 0;
     static byte frame = 1;
@@ -46,11 +38,9 @@ public class Player extends GameObject {
      * @param ox      The offset of the bounding box to the right
      * @param oy      The offset of the bounding box to down
      */
-    public Player(Program program, ImageTile spriteSheet, int width, int height, int ox, int oy) {
+    public Player(Program program, Texture spriteSheet, int width, int height, int ox, int oy) {
         super(program,spriteSheet,width,height,ox
         ,oy);
-        dx = (int) SPEED;
-        dy = (int) SPEED;
     }
 
     @Override
@@ -60,7 +50,6 @@ public class Player extends GameObject {
             nameColor = MamongUsGame.impostor?0xffff0000:0xff000000;
             if (vision != (MamongUsGame.impostor?MamongUsGame.vars.vision_imp:MamongUsGame.vars.vision_cm)) {
                 vision = (MamongUsGame.impostor?MamongUsGame.vars.vision_imp:MamongUsGame.vars.vision_cm);
-                light = new LightLite((int) (vision * 500), 0xff);
             }
         }
         if (isMoving) {
@@ -75,30 +64,32 @@ public class Player extends GameObject {
 
     @Override
     public void render() {
-        if (Main.lastState == GameState.MULTIPLAYER) {
+        /*if (Main.lastState == GameState.MULTIPLAYER) {
             program.getRenderer().drawImage(Assets.theSkeld, -x, -y);
         }
-        program.getRenderer().drawText(Assets.nameField.getText(), x+offX()+150-(Font.getStandard().getPixelsOfText(Assets.nameField.getText())/2), y+offY(), nameColor, null);
+        program.getRenderer().drawText(Assets.nameField.getText(), x+offX()+150-(Font.getStandard().getPixelsOfText(Assets.nameField.getText())/2), y+offY(), nameColor, null);*/
         if(!isMoving) {
-            program.getRenderer().drawImageTile(spriteSheet,x+offX(),y+offY(),left ? 1 : 0, 4);
+            //program.getRenderer().drawImageTile(spriteSheet,x+offX(),y+offY(),left ? 1 : 0, 4);
+            Renderer.render(spriteSheet);
             frame = (byte) 1;
         }
         else {
-            program.getRenderer().drawImageTile(spriteSheet, x + offX(), y + offY(), left ? 1 : 0, 4-frame);
+            //program.getRenderer().drawImageTile(spriteSheet, x + offX(), y + offY(), left ? 1 : 0, 4-frame);
+            Renderer.render(spriteSheet);
         }
-        if (program.getRenderer() instanceof ShaderRendererLite) {
+        /*if (program.getRenderer() instanceof ShaderRendererLite) {
             ((ShaderRendererLite) program.getRenderer()).drawLight(light, x+offX()+150, y+offY()+150);
             ((ShaderRendererLite) program.getRenderer()).setAmbientLight((byte) 0x3f);
         } else {
             System.out.println("FJG");
-        }
+        }*/
     }
 
     public void controls() {
 
         minusSpeed = -1 * SPEED;
 
-        if (InputUtils.isKeyPressed(KeyEvent.VK_D) && !collisionright()) {
+        if (Input.isKey(GLFW.GLFW_KEY_D) /*&& !collisionright()*/) {
             x+= SPEED;
             isMoving = true;
             if (Main.gameState == GameState.MULTIPLAYER && left) {
@@ -109,7 +100,7 @@ public class Player extends GameObject {
                 Multiplayer.send("pos "+x+" "+y);
             }
         }
-        if (InputUtils.isKeyPressed(KeyEvent.VK_S) && !collisiondown()) {
+        if (Input.isKey(GLFW.GLFW_KEY_S) /*&& !collisiondown()*/) {
             y+= SPEED;
 
             isMoving = true;
@@ -117,7 +108,7 @@ public class Player extends GameObject {
                 Multiplayer.send("pos "+x+" "+y);
             }
         }
-        if (InputUtils.isKeyPressed(KeyEvent.VK_A) && !collisionleft()) {
+        if (Input.isKey(GLFW.GLFW_KEY_A) /*&& !collisionleft()*/) {
             x-= SPEED;
 
             isMoving = true;
@@ -129,7 +120,7 @@ public class Player extends GameObject {
                 Multiplayer.send("pos "+x+" "+y);
             }
         }
-        if (InputUtils.isKeyPressed(KeyEvent.VK_W) && !collisionup()) {
+        if (Input.isKey(GLFW.GLFW_KEY_W) /*&& !collisionup()*/) {
             y-= SPEED;
 
             isMoving = true;
@@ -148,7 +139,7 @@ public class Player extends GameObject {
             }
         }
     }
-    public boolean collisionup() {
+    /*public boolean collisionup() {
         for(ProgramObject other : Handler.objects.get(Main.gameState) ) {
             if(other instanceof Collideable && ((Collideable) other).intersects(new Rectangle(x+ox, (int) (y-SPEED+oy),width
                     ,height))) {
@@ -183,11 +174,12 @@ public class Player extends GameObject {
             }
         }
         return false;
-    }
+    }*/
 
 
     public void renderShadow() {
-        program.getRenderer().drawImage(shadow, x + offX() + (left?127:67), y + offY() + 250);
+        //program.getRenderer().drawImage(shadow, x + offX() + (left?127:67), y + offY() + 250);
+        Renderer.render(shadow);
     }
 
     public void setSprite(@NotNull PlayerSprite sprite) {

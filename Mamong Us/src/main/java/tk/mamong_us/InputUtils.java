@@ -1,4 +1,4 @@
-package tk.mamong_us;
+/*package tk.mamong_us;
 
 import com.siinus.simpleGrafix.input.Input;
 import org.jetbrains.annotations.NotNull;
@@ -105,3 +105,4 @@ public class InputUtils {
         return input.getLastKey();
     }
 }
+*/

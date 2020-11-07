@@ -1,7 +1,6 @@
 package tk.mamong_us.objects;
 
-import com.siinus.simpleGrafix.gfx.ImageTile;
-import tk.mamong_us.Main;
+import com.siinus.Texture;
 import tk.mamong_us.Program;
 import tk.mamong_us.core.ProgramObject;
 
@@ -12,7 +11,7 @@ public abstract class GameObject implements ProgramObject {
     protected int width, height;
     protected int ox, oy;
     protected int x=0, y=0;
-    protected ImageTile spriteSheet;
+    protected Texture spriteSheet;
 
     /**
      * Creates a new Game object.
@@ -23,7 +22,7 @@ public abstract class GameObject implements ProgramObject {
      * @param ox The offset of the bounding box to the right
      * @param oy The offset of the bounding box to down
      */
-    public GameObject(Program program, ImageTile spriteSheet, int width, int height, int ox, int oy) {
+    public GameObject(Program program, Texture spriteSheet, int width, int height, int ox, int oy) {
         this.program = program;
         this.spriteSheet = spriteSheet;
         this.width = width;
@@ -77,15 +76,17 @@ public abstract class GameObject implements ProgramObject {
         return speedX;
     }
 
-    public ImageTile getSpriteSheet() {
+    public Texture getSpriteSheet() {
         return spriteSheet;
     }
 
     public int offX() {
-        return (int) ((program.getWindow().getWidth()/(program.getWindow().getScale()*2))-program.getCamera().getX());
+        //return (int) ((program.getWindow().getWidth()/(program.getWindow().getScale()*2))-program.getCamera().getX());
+        return 0;
     }
 
     public int offY() {
-        return (int) ((program.getWindow().getHeight()/(program.getWindow().getScale()*2))-program.getCamera().getY());
+        //return (int) ((program.getWindow().getHeight()/(program.getWindow().getScale()*2))-program.getCamera().getY());
+        return 0;
     }
 }
