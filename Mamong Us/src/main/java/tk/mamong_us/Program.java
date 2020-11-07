@@ -13,6 +13,9 @@ import tk.mamong_us.gui.Stars;
 import tk.mamong_us.net.Multiplayer;
 import tk.mamong_us.objects.Player;
 
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.glClear;
+
 public class Program  extends com.siinus.Program {
     /*private ShaderRendererLite shaderRenderer;
     private Renderer normalRenderer;*/
@@ -98,8 +101,8 @@ public class Program  extends com.siinus.Program {
 
     @Override
     public void render() {
-        Renderer.render(Assets.bahnschrift32, "Fps: "+String.valueOf(com.siinus.Main.getFps()));
-        System.out.println(com.siinus.Main.getFps());
+        glClear(GL_COLOR_BUFFER_BIT);
+        Renderer.render(Assets.bahnschrift32, "Fps: "+com.siinus.Main.getFps());
         if (Main.gameState==GameState.MAIN_MENU) {
             Stars.render();
             com.siinus.Main.setBgColor(0xff000000);
