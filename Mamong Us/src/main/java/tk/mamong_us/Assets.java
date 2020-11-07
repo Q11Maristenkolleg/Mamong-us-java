@@ -37,7 +37,7 @@ public class Assets {
     static {
         Shader.setShaderRoot("../src/main/resources/shaders/");
     }
-    public static Shader shader = new Shader("basic");
+    //public static Shader shader = new Shader("basic");
 
     public static Button singlePlayerButton;
     public static Button multiPlayerButton;

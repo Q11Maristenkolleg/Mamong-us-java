@@ -89,7 +89,7 @@ public class OtherPlayer extends GameObject {
     public void render() {
         /*program.getRenderer().drawImageTile(spriteSheet, x+offX(), y+offY(),left?1:0,moving?(4-frame):4);
         program.getRenderer().drawText(name, x+offX()+100, y+offY(), nameColor, null);*/
-        Renderer.render(model, Assets.shader, spriteSheet);
+        Renderer.render(spriteSheet);
     }
 
     public void destroy() {

@@ -4,6 +4,7 @@ import com.siinus.Input;
 import com.siinus.Renderer;
 import com.siinus.Shader;
 import com.siinus.Texture;
+import org.joml.Matrix4f;
 import org.lwjgl.glfw.GLFW;
 import tk.mamong_us.chat.OutputChat;
 import tk.mamong_us.core.Scene;
@@ -40,7 +41,7 @@ public class Program  extends com.siinus.Program {
         //splashScreen.progressBar.setString("Initializing program...");
         //Assets.pBpp(splashScreen, "Loading assets...");
         Assets.loadAssets(/*splashScreen*/);
-        Shader.setStandard(Assets.shader);
+        //Shader.setStandard(Assets.shader);
         //splashScreen.setVisible(false);
 
         player = /*sprite.getNewPlayer(this);*/new Player(this, new Texture("/animation_red.png"), 300, 300, 0 , 0);
@@ -102,7 +103,7 @@ public class Program  extends com.siinus.Program {
     @Override
     public void render() {
         glClear(GL_COLOR_BUFFER_BIT);
-        Renderer.render(Assets.bahnschrift32, "Fps: "+com.siinus.Main.getFps());
+        Renderer.render(Assets.bahnschrift32, "Fps: "+com.siinus.Main.getFps(), 0xff00ffff, new Matrix4f().translate(-1.7f, 0.95f, 0));
         if (Main.gameState==GameState.MAIN_MENU) {
             Stars.render();
             com.siinus.Main.setBgColor(0xff000000);
@@ -164,6 +165,7 @@ public class Program  extends com.siinus.Program {
 
     public void make() {
         init("Mamong Us", 1280, 720, false);
+        //init("Mamong Us", 1920, 1080, true);
     }
 
     /*@Override
