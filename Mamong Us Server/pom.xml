@@ -12,7 +12,7 @@
         <repository>
             <id>mamongUsRepos</id>
             <name>Mamong Us Repositories</name>
-            <url>https://loens2.spdns.de/mamong_us/repos/</url>
+            <url>https://loens2.com/mamong_us/repos/</url>
         </repository>
     </repositories>
 

@@ -16,7 +16,7 @@
         <repository>
             <id>mamong-us-repository</id>
             <name>Mamong Us Repository</name>
-            <url>https://loens2.spdns.de/mamong_us/repos/</url>
+            <url>https://loens2.com/mamong_us/repos/</url>
             <layout>default</layout>
         </repository>
     </repositories>
